@@ -1,0 +1,25 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use App\User;
+use Carbon\Carbon;
+
+class UsersTableSeeder extends Seeder
+{
+  /**
+   * Run the database seeds.
+   *
+   * @return void
+   */
+  public function run()
+  {
+    DB::table('users')->delete();
+
+    User::create([
+      'name' => 'KatWO メンバー',
+      'email' => 'a@sample.com',
+      'password' => bcrypt('abc'),
+      'created_at' => Carbon::now()
+    ]);
+  }
+}
