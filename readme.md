@@ -52,7 +52,21 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 # Github
 
+- push
 ~~~
 git remote set-url origin https://rinsaka@github.com/rinsaka/katwo-attendance.git
 git push -u origin master
+~~~
+
+- clone
+~~~
+git clone git@github.com:rinsaka/katwo-attendance.git
+~~~
+
+- after clone
+
+~~~
+php ../composer.phar install
+touch database/database.sqlite
+cp .env.example .env
 ~~~
