@@ -18,6 +18,7 @@ class UsersTableSeeder extends Seeder
     User::create([
       'name' => 'KatWO メンバー',
       'email' => 'a@sample.com',
+      'login_id' => 'katwo',
       'password' => bcrypt('abc'),
       'created_at' => Carbon::now()
     ]);
