@@ -26,10 +26,11 @@ class HomeController extends Controller
   {
     $activities = Activity::get();
 
-    foreach ($activities as $activity) {
-      var_dump($activity->place->place);
-    }
+    // foreach ($activities as $activity) {
+    //   var_dump($activity->place->place);
+    // }
 
-    return view('home');
+    return view('home')
+            ->with('activities', $activities);
   }
 }
