@@ -15,6 +15,8 @@ class CreateTimesTable extends Migration
     {
         Schema::create('times', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('jikan');
+            $table->boolean('default_jikan');
             $table->timestamps();
         });
     }
