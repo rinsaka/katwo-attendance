@@ -16,6 +16,55 @@ class ActivitiesTableSeeder extends Seeder
       DB::table('activities')->delete();
 
       DB::table('activities')->insert([
+        'act_at' => '2018-08-04',
+        'place_id' => 2,
+        'time_id' => 3,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now()
+      ]);
+
+      DB::table('activities')->insert([
+        'act_at' => '2018-08-18',
+        'place_id' => 2,
+        'time_id' => 3,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now()
+      ]);
+
+      DB::table('activities')->insert([
+        'act_at' => '2018-08-25',
+        'place_id' => 2,
+        'time_id' => 3,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now()
+      ]);
+
+      DB::table('activities')->insert([
+        'act_at' => '2018-09-01',
+        'place_id' => 2,
+        'time_id' => 3,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now()
+      ]);
+
+      DB::table('activities')->insert([
+        'act_at' => '2018-09-08',
+        'place_id' => 2,
+        'time_id' => 3,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now()
+      ]);
+
+
+      DB::table('activities')->insert([
+        'act_at' => '2018-09-15',
+        'place_id' => 2,
+        'time_id' => 3,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now()
+      ]);
+
+      DB::table('activities')->insert([
         'act_at' => '2018-09-29',
         'place_id' => 2,
         'time_id' => 3,

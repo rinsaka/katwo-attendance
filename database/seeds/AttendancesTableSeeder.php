@@ -18,7 +18,7 @@ class AttendancesTableSeeder extends Seeder
       DB::table('attendances')->insert([
         'name' => 'たろー',
         'part_id' => 2,
-        'activity_id' => 1,
+        'activity_id' => 7,
         'attendance' => 3,
         'created_at' => '2018-08-10 17:00:00',
         'updated_at' => '2018-08-10 17:00:00'
@@ -27,7 +27,7 @@ class AttendancesTableSeeder extends Seeder
       DB::table('attendances')->insert([
         'name' => 'たろー',
         'part_id' => 2,
-        'activity_id' => 2,
+        'activity_id' => 8,
         'attendance' => 2,
         'created_at' => '2018-08-10 17:00:00',
         'updated_at' => '2018-08-10 17:00:00'
@@ -36,7 +36,7 @@ class AttendancesTableSeeder extends Seeder
       DB::table('attendances')->insert([
         'name' => 'たろー',
         'part_id' => 2,
-        'activity_id' => 3,
+        'activity_id' => 9,
         'attendance' => 1,
         'created_at' => '2018-08-10 17:00:00',
         'updated_at' => '2018-08-10 17:00:00'
@@ -45,7 +45,7 @@ class AttendancesTableSeeder extends Seeder
       DB::table('attendances')->insert([
         'name' => 'たろー',
         'part_id' => 2,
-        'activity_id' => 4,
+        'activity_id' => 10,
         'attendance' => 3,
         'comment' => "コメント",
         'created_at' => '2018-08-10 17:00:00',
@@ -55,7 +55,7 @@ class AttendancesTableSeeder extends Seeder
       DB::table('attendances')->insert([
         'name' => 'ジロー',
         'part_id' => 3,
-        'activity_id' => 1,
+        'activity_id' => 7,
         'attendance' => 3,
         'created_at' => '2018-08-11 17:00:00',
         'updated_at' => '2018-08-11 17:00:00'
@@ -64,7 +64,7 @@ class AttendancesTableSeeder extends Seeder
       DB::table('attendances')->insert([
         'name' => 'ジロー',
         'part_id' => 3,
-        'activity_id' => 2,
+        'activity_id' => 8,
         'attendance' => 3,
         'created_at' => '2018-08-11 17:00:00',
         'updated_at' => '2018-08-11 17:00:00'
@@ -73,9 +73,9 @@ class AttendancesTableSeeder extends Seeder
       DB::table('attendances')->insert([
         'name' => 'ジロー',
         'part_id' => 3,
-        'activity_id' => 3,
+        'activity_id' => 9,
         'attendance' => 3,
-        'comment' => "これもコメント", 
+        'comment' => "これもコメント",
         'created_at' => '2018-08-11 17:00:00',
         'updated_at' => '2018-08-11 17:00:00'
       ]);
@@ -83,7 +83,7 @@ class AttendancesTableSeeder extends Seeder
       DB::table('attendances')->insert([
         'name' => 'ジロー',
         'part_id' => 3,
-        'activity_id' => 4,
+        'activity_id' => 10,
         'attendance' => 3,
         'created_at' => '2018-08-11 17:00:00',
         'updated_at' => '2018-08-11 17:00:00'

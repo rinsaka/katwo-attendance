@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Activity;
 
+
 class HomeController extends Controller
 {
   /**
@@ -24,12 +25,14 @@ class HomeController extends Controller
    */
   public function index()
   {
-    $activities = Activity::get();
 
-    // foreach ($activities as $activity) {
-    //   var_dump($activity->place->place);
-    // }
+    $thismonth_head = date('Y-m-01',time());
+    $thismonth_tail = date('Y-m-t',time());
+    // dd($thismonth_head, $thismonth_tail);
 
+    $activities = Activity::where('act_at', '>=', $thismonth_head)
+                            ->where('act_at', '<=', $thismonth_tail)
+                            ->get();
     return view('home')
             ->with('activities', $activities);
   }
