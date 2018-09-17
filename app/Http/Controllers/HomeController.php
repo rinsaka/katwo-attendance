@@ -104,6 +104,11 @@ class HomeController extends Controller
                             ->where('act_at', '<=', $thismonth_tail)
                             ->get();
     $n_act = count($activities);
+
+    if ($n_act == 0) {
+        return redirect('/home/'.$year.'/'.$month)->with('status', "まだ練習予定が登録されていません");
+    }
+
     $parts = Part::orderBy('id')->get();
     // dd('create', $year, $month, $activities, $parts, $n_act);
     return view('create')
