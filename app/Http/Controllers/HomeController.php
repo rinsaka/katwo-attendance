@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Activity;
+use App\Part;
+use App\Attendance;
+
 
 
 class HomeController extends Controller
@@ -28,6 +31,8 @@ class HomeController extends Controller
     // 今月
     $thismonth_head = date('Y-m-01',time());
     $thismonth_tail = date('Y-m-t',time());
+    $this_year = date('Y',time());
+    $this_month = date('m',time());
     // 先月
     $prev_year = date('Y', strtotime('-1 month'));
     $prev_month = date('m', strtotime('-1 month'));
@@ -44,13 +49,17 @@ class HomeController extends Controller
             ->with('prev_year', $prev_year)
             ->with('prev_month', $prev_month)
             ->with('next_year', $next_year)
-            ->with('next_month', $next_month);
+            ->with('next_month', $next_month)
+            ->with('this_year', $this_year)
+            ->with('this_month', $this_month);
   }
 
   public function show($year, $month)
   {
     $thismonth_head = date("Y-m-01", mktime(0,0,0,$month,1,$year));
     $thismonth_tail = date("Y-m-t", mktime(0,0,0,$month,1,$year));
+    $this_year = $year;
+    $this_month = $month;
 
     $year = (int) $year;
     $month = (int) $month;
@@ -81,6 +90,63 @@ class HomeController extends Controller
             ->with('prev_year', $prev_year)
             ->with('prev_month', $prev_month)
             ->with('next_year', $next_year)
-            ->with('next_month', $next_month);
+            ->with('next_month', $next_month)
+            ->with('this_year', $this_year)
+            ->with('this_month', $this_month);
+  }
+
+  public function create($year, $month)
+  {
+    $thismonth_head = date("Y-m-01", mktime(0,0,0,$month,1,$year));
+    $thismonth_tail = date("Y-m-t", mktime(0,0,0,$month,1,$year));
+
+    $activities = Activity::where('act_at', '>=', $thismonth_head)
+                            ->where('act_at', '<=', $thismonth_tail)
+                            ->get();
+    $n_act = count($activities);
+    $parts = Part::orderBy('id')->get();
+    // dd('create', $year, $month, $activities, $parts, $n_act);
+    return view('create')
+            ->with('activities', $activities)
+            ->with('n_act', $n_act)
+            ->with('parts', $parts)
+            ->with('year', $year)
+            ->with('month', $month);
+  }
+
+  public function store(Request $request)
+  {
+    $this->validate($request, [
+      'name' => 'required|max:100'  // 入力が必須で，最大100文字
+    ]);
+
+    $name = $request->name;
+    $part = $request->part;
+    $n_act = $request->n_act;
+    $year = $request->year;
+    $month = $request->month;
+
+    $thismonth_head = date("Y-m-01", mktime(0,0,0,$month,1,$year));
+    $thismonth_tail = date("Y-m-t", mktime(0,0,0,$month,1,$year));
+
+    $activities = Activity::where('act_at', '>=', $thismonth_head)
+                            ->where('act_at', '<=', $thismonth_tail)
+                            ->get();
+
+    foreach ($activities as $activity) {
+      $obj_name = "act" . $activity->id;
+      // var_dump($obj_name, $request->$obj_name);
+
+      $attendance = new Attendance;
+      $attendance->name = $name;
+      $attendance->activity_id = $activity->id;
+      $attendance->attendance = $request->$obj_name;
+      $attendance->part_id = $part;
+      $attendance->save();
+    }
+
+    return redirect('/home/'.$year.'/'.$month)->with('status', "登録しました");
+
+    // dd($request, $name, $part, $n_act, $year, $month, $activities);
   }
 }

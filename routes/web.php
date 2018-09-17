@@ -25,6 +25,8 @@ $this->post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth:user'], function() {
   Route::get('/home', 'HomeController@index')->name('home');
   Route::get('/home/{year}/{month}', 'HomeController@show');
+  Route::get('/home/create/{year}/{month}', 'HomeController@create');
+  Route::post('/home/', 'HomeController@store')->name('store');
 });
 
 

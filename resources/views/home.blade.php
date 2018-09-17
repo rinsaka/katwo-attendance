@@ -15,6 +15,16 @@
                     @endif
 
                     <div>
+                      <span class="center">
+                        <p>
+                          <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
+                            {{ $this_year }}年{{ $this_month }}月の自分の予定を登録
+                          </a>
+                        </p>
+                      </span>
+                    </div>
+
+                    <div>
                       @forelse ($activities as $activity)
                         <h3>{{ $activity->act_at }}</h3>
                           @foreach ($activity->attendances as $attendance)
@@ -34,6 +44,17 @@
                       @empty
                       <p>No Activity Yet!</p>
                       @endforelse
+                    </div>
+
+
+                    <div>
+                      <span class="center">
+                        <p>
+                          <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
+                            {{ $this_year }}年{{ $this_month }}月の自分の予定を登録
+                          </a>
+                        </p>
+                      </span>
                     </div>
                 </div>
                 <div  class="panel-footer">
