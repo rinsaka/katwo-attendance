@@ -174,6 +174,9 @@ class HomeController extends Controller
   public function edit($year, $month, $aid)
   {
     $arg_attendance = Attendance::where('id', '=', $aid)->first();
+    if (count($arg_attendance)==0) {
+      return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
+    }
     $name = $arg_attendance->name;
     $part = $arg_attendance->part_id;
 
@@ -186,6 +189,10 @@ class HomeController extends Controller
                                 ->where('activities.act_at', '>=', $thismonth_head)
                                 ->where('activities.act_at', '<=', $thismonth_tail)
                                 ->get();
+
+    if (count($attendances) == 0) {
+        return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
+    }
     foreach ($attendances as $attendance) {
       $attendance->id = $attendance->attendance_id;
     }
