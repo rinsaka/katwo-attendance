@@ -149,4 +149,79 @@ class HomeController extends Controller
 
     // dd($request, $name, $part, $n_act, $year, $month, $activities);
   }
+
+  public function edit($year, $month, $aid)
+  {
+    $arg_attendance = Attendance::where('id', '=', $aid)->first();
+    $name = $arg_attendance->name;
+    $part = $arg_attendance->part_id;
+
+    $thismonth_head = date("Y-m-01", mktime(0,0,0,$month,1,$year));
+    $thismonth_tail = date("Y-m-t", mktime(0,0,0,$month,1,$year));
+
+    $attendances = Attendance::select('attendances.*', 'activities.*', 'attendances.id as attendance_id')
+                                ->join('activities', 'attendances.activity_id', '=', 'activities.id')
+                                ->where('attendances.name', '=', $name)
+                                ->where('activities.act_at', '>=', $thismonth_head)
+                                ->where('activities.act_at', '<=', $thismonth_tail)
+                                ->get();
+    foreach ($attendances as $attendance) {
+      $attendance->id = $attendance->attendance_id;
+    }
+    // dd($attendances);
+    $activities = Activity::where('activities.act_at', '>=', $thismonth_head)
+                                ->where('activities.act_at', '<=', $thismonth_tail)
+                                ->get();
+    $n_act = count($activities);
+    $parts = Part::orderBy('id')->get();
+
+    // dd("edit", $year, $month, $aid, $arg_attendance, $name, $part, $attendances);
+
+    return view('edit')
+            ->with('activities', $activities)
+            ->with('n_act', $n_act)
+            ->with('parts', $parts)
+            ->with('year', $year)
+            ->with('month', $month)
+            ->with('name', $name)
+            ->with('part_id', $part)
+            ->with('aid', $aid)
+            ->with('attendances', $attendances);
+  }
+
+  public function update(Request $request)
+  {
+
+    $part = $request->part;
+    $n_act = $request->n_act;
+    $year = $request->year;
+    $month = $request->month;
+    $aid = $request->aid;
+    $name = $request->name;
+
+    $thismonth_head = date("Y-m-01", mktime(0,0,0,$month,1,$year));
+    $thismonth_tail = date("Y-m-t", mktime(0,0,0,$month,1,$year));
+
+    $attendances = Attendance::select('attendances.*', 'activities.*', 'attendances.id as attendance_id')
+                                ->join('activities', 'attendances.activity_id', '=', 'activities.id')
+                                ->where('attendances.name', '=', $name)
+                                ->where('activities.act_at', '>=', $thismonth_head)
+                                ->where('activities.act_at', '<=', $thismonth_tail)
+                                ->get();
+    foreach ($attendances as $attendance) {
+      $attendance->id = $attendance->attendance_id;
+    }
+
+    foreach ($attendances as $attendance) {
+      $obj_name = "atten" . $attendance->id;
+      // var_dump($obj_name, $request->$obj_name);
+      $atten = Attendance::where('id', '=', $attendance->id)
+                            ->first();
+      $atten->attendance = $request->$obj_name;
+      $atten->part_id = $part;
+      $atten->save();
+
+    }
+    return redirect('/home/'.$year.'/'.$month)->with('status', "予定を修正しました");
+  }
 }

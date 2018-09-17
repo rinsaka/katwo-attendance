@@ -29,6 +29,7 @@
                         <h3>{{ $activity->act_at }}</h3>
                           @foreach ($activity->attendances as $attendance)
                             <p>
+                              <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}">
                               {{ $attendance->part->part }}  {{ $attendance->name }}
                               @if ($attendance->attendance == 3)
                                 ○
@@ -39,6 +40,7 @@
                               @else
                                 -
                               @endif
+                              </a>
                             </p>
                           @endforeach
                       @empty
