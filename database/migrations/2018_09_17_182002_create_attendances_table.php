@@ -19,7 +19,7 @@ class CreateAttendancesTable extends Migration
             $table->integer('part_id')->unsigned();
             $table->string('name', 100);
             $table->integer('attendance')->nullable();
-            $table->string('comment', 250);
+            $table->string('comment', 250)->nullable();
             $table->timestamps();
 
             $table->foreign('activity_id')
