@@ -49,22 +49,22 @@
                                 @if ($attendance->attendance == 0)
                                   selected
                                 @endif
-                              >-</option>
+                              >- （未定）</option>
                               <option value="3"
                                 @if ($attendance->attendance == 3)
                                   selected
                                 @endif
-                              >○</option>
+                              >○ （参加）</option>
                               <option value="2"
                                 @if ($attendance->attendance == 2)
                                   selected
                                 @endif
-                              >△</option>
+                              >△ （行けないかも）</option>
                               <option value="1"
                                 @if ($attendance->attendance == 1)
                                   selected
                                 @endif
-                              >×</option>
+                              >× （欠席）</option>
                           </select>
                           {{ $attendance->activity->time->jikan }}
                           {{ $attendance->activity->place->place }}

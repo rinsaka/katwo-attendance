@@ -43,10 +43,10 @@
 
                           <label for="act{{$activity->id}}">{{ $activity->act_at }}: </label>
                           <select name="act{{$activity->id}}">
-                              <option value="0">-</option>
-                              <option value="3">○</option>
-                              <option value="2">△</option>
-                              <option value="1">×</option>
+                              <option value="0">- （未定）</option>
+                              <option value="3">○ （参加）</option>
+                              <option value="2">△ （行けないかも）</option>
+                              <option value="1">× （欠席）</option>
                           </select>
                           {{ $activity->time->jikan }}
                           {{ $activity->place->place }}
