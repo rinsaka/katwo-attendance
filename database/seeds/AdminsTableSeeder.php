@@ -17,10 +17,10 @@ class AdminsTableSeeder extends Seeder
       DB::table('admins')->delete();
 
       Admin::create([
-        'name' => 'Taro Admin',
-        'email' => 'taro@sample.com',
-        'login_id' => 'taro',
-        'password' => bcrypt('admin'),
+        'name' => 'KatWO 役員',
+        'email' => 'y@sample.com',
+        'login_id' => 'yakuin',
+        'password' => bcrypt('katyakuin'),
         'created_at' => Carbon::now()
       ]);
 
