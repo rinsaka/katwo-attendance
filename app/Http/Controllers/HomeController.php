@@ -116,6 +116,7 @@ class HomeController extends Controller
 
   public function store(Request $request)
   {
+    $request->name = trim(mb_convert_kana($request->name, 's', 'UTF-8')); // 全角スペースを半角スペースに置換したあと，トリム
     $this->validate($request, [
       'name' => 'required|max:100'  // 入力が必須で，最大100文字
     ]);
@@ -126,12 +127,27 @@ class HomeController extends Controller
     $year = $request->year;
     $month = $request->month;
 
+    if (strlen($name)==0) {
+      return redirect('/home/'.$year.'/'.$month .'/create')->with('status', "名前が入力されていません");
+    }
+
     $thismonth_head = date("Y-m-01", mktime(0,0,0,$month,1,$year));
     $thismonth_tail = date("Y-m-t", mktime(0,0,0,$month,1,$year));
 
     $activities = Activity::where('act_at', '>=', $thismonth_head)
                             ->where('act_at', '<=', $thismonth_tail)
                             ->get();
+    // 名前の重複チェック
+    foreach ($activities as $activity) {
+      $act_id = $activity->id;
+      $attens = Attendance::where('activity_id', '=', $act_id)->get();
+      foreach ($attens as $atten) {
+        if ($atten->name == $name) {
+          return redirect('/home/'.$year.'/'.$month .'/create')->with('status', "登録できませんでした！予定は登録済みです");
+        }
+      }
+    }
+
 
     foreach ($activities as $activity) {
       $obj_name = "act" . $activity->id;
