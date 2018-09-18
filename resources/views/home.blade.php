@@ -58,34 +58,36 @@
 
                     <div>
                       @forelse ($activities as $activity)
-                        <h3>{{ $activity->act_at }}</h3>
-                          <p>
-                            {{ $activity->time->jikan }}
-                            {{ $activity->place->place }}
-                          </p>
-                          <p>
-                            参加： <span class="n_attendance">{{ $activity->n_atten3 }}</span>/{{ $activity->n_atten }}, &nbsp;
-                            △： <span class="n_attendance">{{ $activity->n_atten2 }}</span>/{{ $activity->n_atten }}, &nbsp;
-                            欠席： <span class="n_attendance">{{ $activity->n_atten1 }}</span>/{{ $activity->n_atten }}, &nbsp;
-                            未定： <span class="n_attendance">{{ $activity->n_atten0 }}</span>/{{ $activity->n_atten }} &nbsp;
-                          </p>
-                          <p class="attendance vertical">
-                            <span class="expansion_link">回答者リストの表示／非表示を切り替える</span><br>
-                          @foreach ($activity->attendances as $attendance)
-                            <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
-                              {{ $attendance->part->part }}  {{ $attendance->name }}
-                              @if ($attendance->attendance == 3)
-                                ○
-                              @elseif ($attendance->attendance == 2)
-                                △
-                              @elseif ($attendance->attendance == 1)
-                                ×
-                              @else
-                                -
-                              @endif
-                            </a><br>
-                          @endforeach
-                          </p>
+                        <h3 class="act_at">{{ $activity->act_at }}</h3>
+                          <div class="detail">
+                            <p class="time_place">
+                              {{ $activity->time->jikan }}
+                              {{ $activity->place->place }}
+                            </p>
+                            <p class="results">
+                              参加： <span class="n_attendance">{{ $activity->n_atten3 }}</span>/{{ $activity->n_atten }}, &nbsp;
+                              △： <span class="n_attendance">{{ $activity->n_atten2 }}</span>/{{ $activity->n_atten }}, &nbsp;
+                              欠席： <span class="n_attendance">{{ $activity->n_atten1 }}</span>/{{ $activity->n_atten }}, &nbsp;
+                              未定： <span class="n_attendance">{{ $activity->n_atten0 }}</span>/{{ $activity->n_atten }} &nbsp;
+                            </p>
+                            <p class="attendance vertical" ontouchstart="">
+                              <span class="expansion_link">回答者リストの表示／非表示を切り替える</span><br>
+                            @foreach ($activity->attendances as $attendance)
+                              <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
+                                {{ $attendance->part->part }}  {{ $attendance->name }}
+                                @if ($attendance->attendance == 3)
+                                  ○
+                                @elseif ($attendance->attendance == 2)
+                                  △
+                                @elseif ($attendance->attendance == 1)
+                                  ×
+                                @else
+                                  -
+                                @endif
+                              </a><br>
+                            @endforeach
+                            </p>
+                        </div>
                       @empty
                       <p>活動予定がまだ登録されていません!</p>
                       @endforelse

@@ -128,3 +128,17 @@ p.vertical {
   font-weight: bold;
   cursor: pointer;
 }
+
+
+
+h3.act_at {
+  font-size: 150%;
+  border-left: 20px solid #0070FA;
+  padding: 3px 0 3px 10px;
+}
+
+div.detail {
+  /* background-color: #C0C0C0; */
+  margin-left: 20px;
+  margin-right: 20px;
+}
