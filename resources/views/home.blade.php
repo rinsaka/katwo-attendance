@@ -26,7 +26,7 @@
                             </span>
                           </td>
                           <td align="center">
-                            <span class="next_prev link_center">
+                            <span class="next_prev link_center" ontouchstart="">
                               <a href="{{ action('HomeController@index') }}">
                                 <i class="fas fa-home fa-2x my-white"></i> &nbsp;
                                 今月
@@ -34,7 +34,7 @@
                             </span>
                           </td>
                           <td width="30%" align="center">
-                            <span class="next_prev link_right">
+                            <span class="next_prev link_right" ontouchstart="">
                               <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
                                 <i class="fas fa-angle-double-right fa-2x my-white"></i> &nbsp;
                                 {{ $next_month }}月
@@ -46,7 +46,7 @@
                     </div>
 
                     @if (count($activities) > 0)
-                      <div class="create_link">
+                      <div class="create_link" ontouchstart="">
                         <p>
                           <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
                             <i class="fas fa-plus-circle fa-2x"></i>
@@ -71,7 +71,7 @@
                           </p>
                           @foreach ($activity->attendances as $attendance)
                             <p>
-                              <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}">
+                              <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
                               {{ $attendance->part->part }}  {{ $attendance->name }}
                               @if ($attendance->attendance == 3)
                                 ○
@@ -92,7 +92,7 @@
 
 
                     @if (count($activities) > 0)
-                      <div class="create_link">
+                      <div class="create_link" ontouchstart="">
                         <p>
                           <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
                             <i class="fas fa-plus-circle fa-2x"></i>
@@ -107,7 +107,7 @@
                       <table border="0" width="100%" cellspacing="0" cellpadding="5" bordercolor="#333333">
                         <tr>
                           <td width="30%" align="center">
-                            <span class="next_prev link_left">
+                            <span class="next_prev link_left" ontouchstart="">
                               <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}">
                                 <i class="fas fa-angle-double-left fa-2x my-white"></i> &nbsp;
                                 {{ $prev_month }}月
@@ -115,7 +115,7 @@
                             </span>
                           </td>
                           <td align="center">
-                            <span class="next_prev link_center">
+                            <span class="next_prev link_center" ontouchstart="">
                               <a href="{{ action('HomeController@index') }}">
                                 <i class="fas fa-home fa-2x my-white"></i> &nbsp;
                                 今月
@@ -123,7 +123,7 @@
                             </span>
                           </td>
                           <td width="30%" align="center">
-                            <span class="next_prev link_right">
+                            <span class="next_prev link_right" ontouchstart="">
                               <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
                                 <i class="fas fa-angle-double-right fa-2x my-white"></i> &nbsp;
                                 {{ $next_month }}月
