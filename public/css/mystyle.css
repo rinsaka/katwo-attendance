@@ -106,3 +106,25 @@ a:hover {
 a:active {
   background-color: lightgray;
 }
+
+
+/* 要素の拡張 (jQuery) */
+
+p.vertical {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.expansion_link {
+  color: blue;
+  text-decoration: underline dotted red;
+
+}
+
+.expansion_link:hover {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}

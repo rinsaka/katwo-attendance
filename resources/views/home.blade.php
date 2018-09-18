@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-jquery')
 
 @section('content')
 <div class="container">
@@ -69,9 +69,10 @@
                             欠席： <span class="n_attendance">{{ $activity->n_atten1 }}</span>/{{ $activity->n_atten }}, &nbsp;
                             未定： <span class="n_attendance">{{ $activity->n_atten0 }}</span>/{{ $activity->n_atten }} &nbsp;
                           </p>
+                          <p class="attendance vertical">
+                            <span class="expansion_link">回答者リストの表示／非表示を切り替える</span><br>
                           @foreach ($activity->attendances as $attendance)
-                            <p>
-                              <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
+                            <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
                               {{ $attendance->part->part }}  {{ $attendance->name }}
                               @if ($attendance->attendance == 3)
                                 ○
@@ -82,9 +83,9 @@
                               @else
                                 -
                               @endif
-                              </a>
-                            </p>
+                            </a><br>
                           @endforeach
+                          </p>
                       @empty
                       <p>活動予定がまだ登録されていません!</p>
                       @endforelse
