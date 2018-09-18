@@ -1,3 +1,51 @@
 .center{
   text-align: center;
 }
+
+.link_container {
+  height: 50px;
+}
+
+.next_prev {
+  text-align: center;
+  border-radius: 7px 7px;
+  padding: 0px 0px;
+  background-color: #0070FA;
+  height:40px;
+}
+
+.next_prev a{
+  display: block;
+  height: 40px;
+  color: white;
+  text-decoration: none;
+}
+
+
+.next_prev:hover {
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #0060D0;
+}
+
+.link_left {
+  float: left;
+  width: 30%;
+}
+
+.link_center {
+  float: left;
+  margin-left: 5px;
+  width: 30%;
+}
+
+.link_right {
+  float: left;
+  margin-left: 5px;
+  width: 30%;
+}
+
+.my-white {
+  color: white;
+}

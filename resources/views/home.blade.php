@@ -48,7 +48,7 @@
                             </p>
                           @endforeach
                       @empty
-                      <p>No Activity Yet!</p>
+                      <p>活動予定がまだ登録されていません!</p>
                       @endforelse
                     </div>
 
@@ -62,29 +62,28 @@
                         </p>
                       </span>
                     </div>
+
+                    <div class="link_container">
+                      <div class="next_prev link_left">
+                        <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}">
+                          {{ $prev_year }}年{{ $prev_month }}月
+                        </a>
+                      </div>
+                      <div class="next_prev link_center">
+                        <a href="{{ action('HomeController@index') }}">
+                          今月
+                        </a>
+                      </div>
+                      <div class="next_prev link_right">
+                        <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
+                          {{ $next_year }}年{{ $next_month }}月
+                        </a>
+                      </div>
+                    </div>
+
                 </div>
                 <div  class="panel-footer">
-                  <span class="pull-left">
-                    <p>
-                      <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}">
-                        {{ $prev_year }}年{{ $prev_month }}月の予定
-                      </a>
-                    </p>
-                  </span>
-                  <span class="pull-right">
-                    <p>
-                      <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
-                        {{ $next_year }}年{{ $next_month }}月の予定
-                      </a>
-                    </p>
-                  </span>
-                  <span class="center">
-                    <p>
-                      <a href="{{ action('HomeController@index') }}">
-                        今月の予定
-                      </a>
-                    </p>
-                  </span>
+                  &nbsp;
                 </div>
             </div>
         </div>
