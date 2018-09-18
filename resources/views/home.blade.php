@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">{{ $this_year }}年{{ $this_month }}月の予定</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -14,35 +14,44 @@
                         </div>
                     @endif
 
-                    <div>
-                      <div class="link_container">
-                        <div class="next_prev link_left">
-                          <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}">
-                            <i class="fas fa-angle-double-left fa-2x my-white"></i> &nbsp;
-                            {{ $prev_month }}月
-                          </a>
-                        </div>
-                        <div class="next_prev link_center">
-                          <a href="{{ action('HomeController@index') }}">
-                            <i class="fas fa-home fa-2x my-white"></i> &nbsp;
-                            今月
-                          </a>
-                        </div>
-                        <div class="next_prev link_right">
-                          <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
-                            <i class="fas fa-angle-double-right fa-2x my-white"></i> &nbsp;
-                            {{ $next_month }}月
-                          </a>
-                        </div>
-                      </div>
+                    <div class="link_container">
+                      <table border="0" width="100%" cellspacing="0" cellpadding="5" bordercolor="#333333">
+                        <tr>
+                          <td width="30%" align="center">
+                            <span class="next_prev link_left">
+                              <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}">
+                                <i class="fas fa-angle-double-left fa-2x my-white"></i> &nbsp;
+                                {{ $prev_month }}月
+                              </a>
+                            </span>
+                          </td>
+                          <td align="center">
+                            <span class="next_prev link_center">
+                              <a href="{{ action('HomeController@index') }}">
+                                <i class="fas fa-home fa-2x my-white"></i> &nbsp;
+                                今月
+                              </a>
+                            </span>
+                          </td>
+                          <td width="30%" align="center">
+                            <span class="next_prev link_right">
+                              <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
+                                <i class="fas fa-angle-double-right fa-2x my-white"></i> &nbsp;
+                                {{ $next_month }}月
+                              </a>
+                            </span>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
 
-                      <span class="center">
-                        <p>
-                          <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
-                            {{ $this_year }}年{{ $this_month }}月の自分の予定を登録
-                          </a>
-                        </p>
-                      </span>
+                    <div class="create_link">
+                      <p>
+                        <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
+                          <i class="fas fa-plus-circle fa-2x"></i>
+                          {{ $this_year }}年{{ $this_month }}月の<br>自分の予定を登録
+                        </a>
+                      </p>
                     </div>
 
                     <div>
@@ -74,35 +83,44 @@
                     </div>
 
 
-                    <div>
-                      <span class="center">
-                        <p>
-                          <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
-                            {{ $this_year }}年{{ $this_month }}月の自分の予定を登録
-                          </a>
-                        </p>
-                      </span>
+                    <div class="create_link">
+                      <p>
+                        <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
+                          <i class="fas fa-plus-circle fa-2x"></i>
+                          {{ $this_year }}年{{ $this_month }}月の<br>自分の予定を登録
+                        </a>
+                      </p>
                     </div>
 
                     <div class="link_container">
-                      <div class="next_prev link_left">
-                        <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}">
-                          <i class="fas fa-angle-double-left fa-2x my-white"></i> &nbsp;
-                          {{ $prev_month }}月
-                        </a>
-                      </div>
-                      <div class="next_prev link_center">
-                        <a href="{{ action('HomeController@index') }}">
-                          <i class="fas fa-home fa-2x my-white"></i> &nbsp;
-                          今月
-                        </a>
-                      </div>
-                      <div class="next_prev link_right">
-                        <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
-                          <i class="fas fa-angle-double-right fa-2x my-white"></i> &nbsp;
-                          {{ $next_month }}月
-                        </a>
-                      </div>
+                      <table border="0" width="100%" cellspacing="0" cellpadding="5" bordercolor="#333333">
+                        <tr>
+                          <td width="30%" align="center">
+                            <span class="next_prev link_left">
+                              <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}">
+                                <i class="fas fa-angle-double-left fa-2x my-white"></i> &nbsp;
+                                {{ $prev_month }}月
+                              </a>
+                            </span>
+                          </td>
+                          <td align="center">
+                            <span class="next_prev link_center">
+                              <a href="{{ action('HomeController@index') }}">
+                                <i class="fas fa-home fa-2x my-white"></i> &nbsp;
+                                今月
+                              </a>
+                            </span>
+                          </td>
+                          <td width="30%" align="center">
+                            <span class="next_prev link_right">
+                              <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
+                                <i class="fas fa-angle-double-right fa-2x my-white"></i> &nbsp;
+                                {{ $next_month }}月
+                              </a>
+                            </span>
+                          </td>
+                        </tr>
+                      </table>
                     </div>
 
                 </div>
