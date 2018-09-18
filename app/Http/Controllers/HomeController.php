@@ -264,6 +264,7 @@ class HomeController extends Controller
   private function get_Attendances_detail($acts)
   {
     foreach ($acts as $act) {
+      // 人数の集計情報
       $atten0  = Attendance::where('activity_id', '=', $act->id)
                               ->where('attendance', '=', 0)->count();
       $atten1  = Attendance::where('activity_id', '=', $act->id)
@@ -277,6 +278,11 @@ class HomeController extends Controller
       $act->n_atten2 = $atten2;
       $act->n_atten3 = $atten3;
       $act->n_atten = $atten0 + $atten1 + $atten2 + $atten3;
+
+      // パートごと
+      $parts = Part::orderBy('id')->get();
+
+      $act->parts = $parts;
     }
 
     return $acts;

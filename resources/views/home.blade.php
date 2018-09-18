@@ -86,6 +86,10 @@
                                 @endif
                               </a><br>
                             @endforeach
+                            パートごとに並べ替えて，パートごとの集計情報も表示する予定です。<br>
+                            @foreach ($activity->parts as $part)
+                              {{ $part->part }}<br>
+                            @endforeach
                             </p>
                         </div>
                       @empty
