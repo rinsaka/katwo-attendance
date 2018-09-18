@@ -30,6 +30,14 @@
   background-color: #0060D0;
 }
 
+.next_prev:active {
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #0050B0;
+}
+
+
 .link_left {
   float: left;
   width: 100%;
@@ -76,6 +84,13 @@
   font-weight: bold;
   cursor: pointer;
   background-color: #FF5050;
+}
+
+.create_link:active {
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #FF9090;
 }
 
 .n_attendance {
