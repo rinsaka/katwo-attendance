@@ -15,6 +15,27 @@
                     @endif
 
                     <div>
+                      <div class="link_container">
+                        <div class="next_prev link_left">
+                          <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}">
+                            <i class="fas fa-angle-double-left fa-2x my-white"></i> &nbsp;
+                            {{ $prev_month }}月
+                          </a>
+                        </div>
+                        <div class="next_prev link_center">
+                          <a href="{{ action('HomeController@index') }}">
+                            <i class="fas fa-home fa-2x my-white"></i> &nbsp;
+                            今月
+                          </a>
+                        </div>
+                        <div class="next_prev link_right">
+                          <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
+                            <i class="fas fa-angle-double-right fa-2x my-white"></i> &nbsp;
+                            {{ $next_month }}月
+                          </a>
+                        </div>
+                      </div>
+
                       <span class="center">
                         <p>
                           <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
@@ -66,17 +87,20 @@
                     <div class="link_container">
                       <div class="next_prev link_left">
                         <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}">
-                          {{ $prev_year }}年{{ $prev_month }}月
+                          <i class="fas fa-angle-double-left fa-2x my-white"></i> &nbsp;
+                          {{ $prev_month }}月
                         </a>
                       </div>
                       <div class="next_prev link_center">
                         <a href="{{ action('HomeController@index') }}">
+                          <i class="fas fa-home fa-2x my-white"></i> &nbsp;
                           今月
                         </a>
                       </div>
                       <div class="next_prev link_right">
                         <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
-                          {{ $next_year }}年{{ $next_month }}月
+                          <i class="fas fa-angle-double-right fa-2x my-white"></i> &nbsp;
+                          {{ $next_month }}月
                         </a>
                       </div>
                     </div>
