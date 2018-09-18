@@ -65,10 +65,10 @@
                               {{ $activity->place->place }}
                             </p>
                             <p class="results">
-                              参加： <span class="n_attendance">{{ $activity->n_atten3 }}</span>/{{ $activity->n_atten }}, &nbsp;
-                              △： <span class="n_attendance">{{ $activity->n_atten2 }}</span>/{{ $activity->n_atten }}, &nbsp;
-                              欠席： <span class="n_attendance">{{ $activity->n_atten1 }}</span>/{{ $activity->n_atten }}, &nbsp;
-                              未定： <span class="n_attendance">{{ $activity->n_atten0 }}</span>/{{ $activity->n_atten }} &nbsp;
+                              参加： <span class="n_attendance">{{ $activity->n_atten3 }}</span><span class="total_attendance">/{{ $activity->n_atten }}</span>, &nbsp;
+                              △： <span class="n_attendance">{{ $activity->n_atten2 }}</span><span class="total_attendance">/{{ $activity->n_atten }}</span>, &nbsp;
+                              欠席： <span class="n_attendance">{{ $activity->n_atten1 }}</span><span class="total_attendance">/{{ $activity->n_atten }}</span>, &nbsp;
+                              未定： <span class="n_attendance">{{ $activity->n_atten0 }}</span><span class="total_attendance">/{{ $activity->n_atten }} </span>&nbsp;
                             </p>
                             <p class="attendance vertical" ontouchstart="">
                               <span class="expansion_link">回答者リストの表示／非表示を切り替える</span><br>

@@ -94,9 +94,15 @@
 }
 
 .n_attendance {
-  font-size: 120%;
+  font-size: 130%;
   font-weight: bold;
   color: red;
+}
+
+.total_attendance {
+  font-size: 60%;
+  /* font-weight: bold; */
+  /* color: red; */
 }
 
 a:hover {
@@ -133,12 +139,12 @@ p.vertical {
 
 h3.act_at {
   font-size: 150%;
-  border-left: 20px solid #0070FA;
-  padding: 3px 0 3px 10px;
+  border-left: 10px solid #0070FA;
+  padding: 3px 0 3px 3px;
 }
 
 div.detail {
   /* background-color: #C0C0C0; */
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 13px;
+  margin-right: 0px;
 }
