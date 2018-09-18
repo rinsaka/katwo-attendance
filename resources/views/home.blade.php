@@ -18,7 +18,7 @@
                       <table border="0" width="100%" cellspacing="0" cellpadding="5" bordercolor="#333333">
                         <tr>
                           <td width="30%" align="center">
-                            <span class="next_prev link_left">
+                            <span class="next_prev link_left" ontouchstart="">
                               <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}">
                                 <i class="fas fa-angle-double-left fa-2x my-white"></i> &nbsp;
                                 {{ $prev_month }}月
