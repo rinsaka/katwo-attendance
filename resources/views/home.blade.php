@@ -63,6 +63,12 @@
                             {{ $activity->time->jikan }}
                             {{ $activity->place->place }}
                           </p>
+                          <p>
+                            参加： <span class="n_attendance">{{ $activity->n_atten3 }}</span>/{{ $activity->n_atten }}, &nbsp;
+                            △： <span class="n_attendance">{{ $activity->n_atten2 }}</span>/{{ $activity->n_atten }}, &nbsp;
+                            欠席： <span class="n_attendance">{{ $activity->n_atten1 }}</span>/{{ $activity->n_atten }}, &nbsp;
+                            未定： <span class="n_attendance">{{ $activity->n_atten0 }}</span>/{{ $activity->n_atten }} &nbsp;
+                          </p>
                           @foreach ($activity->attendances as $attendance)
                             <p>
                               <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}">

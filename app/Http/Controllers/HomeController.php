@@ -41,9 +41,14 @@ class HomeController extends Controller
     $next_month = date('m', strtotime('+1 month'));
     // dd($thismonth_head, $thismonth_tail, $prev_year, $prev_month, $next_year, $next_month);
 
+    // Activity を取得
     $activities = Activity::where('act_at', '>=', $thismonth_head)
                             ->where('act_at', '<=', $thismonth_tail)
                             ->get();
+    // 各アクティビティについていろいろと取得する
+    $activities = $this->get_Attendances_detail($activities);
+    // dd($activities);
+
     return view('home')
             ->with('activities', $activities)
             ->with('prev_year', $prev_year)
@@ -85,6 +90,9 @@ class HomeController extends Controller
     $activities = Activity::where('act_at', '>=', $thismonth_head)
                             ->where('act_at', '<=', $thismonth_tail)
                             ->get();
+    // 各アクティビティについていろいろと取得する
+    $activities = $this->get_Attendances_detail($activities);
+    // dd($activities);
     return view('home')
             ->with('activities', $activities)
             ->with('prev_year', $prev_year)
@@ -251,5 +259,26 @@ class HomeController extends Controller
 
     }
     return redirect('/home/'.$year.'/'.$month)->with('status', "予定を修正しました");
+  }
+
+  private function get_Attendances_detail($acts)
+  {
+    foreach ($acts as $act) {
+      $atten0  = Attendance::where('activity_id', '=', $act->id)
+                              ->where('attendance', '=', 0)->count();
+      $atten1  = Attendance::where('activity_id', '=', $act->id)
+                              ->where('attendance', '=', 1)->count();
+      $atten2  = Attendance::where('activity_id', '=', $act->id)
+                              ->where('attendance', '=', 2)->count();
+      $atten3  = Attendance::where('activity_id', '=', $act->id)
+                              ->where('attendance', '=', 3)->count();
+      $act->n_atten0 = $atten0;
+      $act->n_atten1 = $atten1;
+      $act->n_atten2 = $atten2;
+      $act->n_atten3 = $atten3;
+      $act->n_atten = $atten0 + $atten1 + $atten2 + $atten3;
+    }
+
+    return $acts;
   }
 }

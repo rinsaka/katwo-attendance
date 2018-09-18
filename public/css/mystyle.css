@@ -77,3 +77,9 @@
   cursor: pointer;
   background-color: #FF5050;
 }
+
+.n_attendance {
+  font-size: 120%;
+  font-weight: bold;
+  color: red;
+}
