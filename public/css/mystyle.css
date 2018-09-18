@@ -98,3 +98,11 @@
   font-weight: bold;
   color: red;
 }
+
+a:hover {
+  background-color: lightgray;
+}
+
+a:active {
+  background-color: lightgray;
+}
