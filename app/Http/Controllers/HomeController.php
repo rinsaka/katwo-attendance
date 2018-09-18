@@ -280,9 +280,33 @@ class HomeController extends Controller
       $act->n_atten = $atten0 + $atten1 + $atten2 + $atten3;
 
       // パートごと
-      $parts = Part::orderBy('id')->get();
+      // $parts = Part::orderBy('id')->get();
+      // $act->parts = $parts;
 
-      $act->parts = $parts;
+      foreach ($acts as $act) {
+        $parts = Part::orderBy('id')->get();
+        foreach ($parts as $part) {
+          // パートごとに人数を集計
+          $atten0  = Attendance::where('activity_id', '=', $act->id)
+                                ->where('part_id', '=', $part->id)
+                                ->where('attendance', '=', 0)->count();
+          $atten1  = Attendance::where('activity_id', '=', $act->id)
+                                ->where('part_id', '=', $part->id)
+                                ->where('attendance', '=', 1)->count();
+          $atten2  = Attendance::where('activity_id', '=', $act->id)
+                                ->where('part_id', '=', $part->id)
+                                ->where('attendance', '=', 2)->count();
+          $atten3  = Attendance::where('activity_id', '=', $act->id)
+                                ->where('part_id', '=', $part->id)
+                                ->where('attendance', '=', 3)->count();
+          $part->n_atten0 = $atten0;
+          $part->n_atten1 = $atten1;
+          $part->n_atten2 = $atten2;
+          $part->n_atten3 = $atten3;
+        }
+        $act->parts = $parts;
+      }
+
     }
 
     return $acts;

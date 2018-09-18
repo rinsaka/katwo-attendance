@@ -86,9 +86,9 @@
                                 @endif
                               </a><br>
                             @endforeach
-                            パートごとに並べ替えて，パートごとの集計情報も表示する予定です。<br>
+                            ======上のリンクをこの下のパートの中に移動する予定です。====<br>
                             @foreach ($activity->parts as $part)
-                              {{ $part->part }}<br>
+                              {{ $part->part }}： ○ {{ $part->n_atten3 }}，&nbsp; △ {{ $part->n_atten2 }}，&nbsp; × {{ $part->n_atten1 }}，&nbsp; − {{ $part->n_atten0 }}<br>
                             @endforeach
                             </p>
                         </div>
