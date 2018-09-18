@@ -45,14 +45,16 @@
                       </table>
                     </div>
 
-                    <div class="create_link">
-                      <p>
-                        <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
-                          <i class="fas fa-plus-circle fa-2x"></i>
-                          {{ $this_year }}年{{ $this_month }}月の<br>自分の予定を登録
-                        </a>
-                      </p>
-                    </div>
+                    @if (count($activities) > 0)
+                      <div class="create_link">
+                        <p>
+                          <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
+                            <i class="fas fa-plus-circle fa-2x"></i>
+                            {{ $this_year }}年{{ $this_month }}月の<br>自分の予定を登録
+                          </a>
+                        </p>
+                      </div>
+                    @endif
 
                     <div>
                       @forelse ($activities as $activity)
@@ -83,15 +85,18 @@
                     </div>
 
 
-                    <div class="create_link">
-                      <p>
-                        <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
-                          <i class="fas fa-plus-circle fa-2x"></i>
-                          {{ $this_year }}年{{ $this_month }}月の<br>自分の予定を登録
-                        </a>
-                      </p>
-                    </div>
+                    @if (count($activities) > 0)
+                      <div class="create_link">
+                        <p>
+                          <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
+                            <i class="fas fa-plus-circle fa-2x"></i>
+                            {{ $this_year }}年{{ $this_month }}月の<br>自分の予定を登録
+                          </a>
+                        </p>
+                      </div>
+                    @endif
 
+                    @if (count($activities) > 0)
                     <div class="link_container">
                       <table border="0" width="100%" cellspacing="0" cellpadding="5" bordercolor="#333333">
                         <tr>
@@ -122,6 +127,7 @@
                         </tr>
                       </table>
                     </div>
+                    @endif
 
                 </div>
                 <div  class="panel-footer">
