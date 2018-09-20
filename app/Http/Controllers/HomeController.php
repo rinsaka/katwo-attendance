@@ -261,12 +261,30 @@ class HomeController extends Controller
       $attendance->id = $attendance->attendance_id;
     }
 
+    // ここで validation
     foreach ($attendances as $attendance) {
-      $obj_name = "atten" . $attendance->id;
+      $obj_name_comment = "comment" . $attendance->id;
+      $this->validate($request, [
+        $obj_name_comment => "max:10"
+      ]);
+    }
+
+    dd($request);
+
+    // $this->validate($request, [
+    //   'part' => 'required|min:1',
+    //   'name' => 'required|max:100'  // 入力が必須で，最大100文字
+    // ]);
+    //
+
+    foreach ($attendances as $attendance) {
+      $obj_name_atten = "atten" . $attendance->id;
+      $obj_name_comment = "comment" . $attendance->id;
       // var_dump($obj_name, $request->$obj_name);
       $atten = Attendance::where('id', '=', $attendance->id)
                             ->first();
-      $atten->attendance = $request->$obj_name;
+      $atten->attendance = $request->$obj_name_atten;
+      $atten->comment = $request->$obj_name_comment;
       $atten->part_id = $part;
       $atten->save();
 

@@ -69,6 +69,22 @@
 
                         </p>
 
+
+                        <p>
+                          <label for="comment{{$attendance->attendance_id}}">コメント: </label>
+                          <input type="text" name="comment{{$attendance->attendance_id}}"
+                          value=
+                            @if ($errors->any())
+                              "{{ old("comment$attendance->attendance_id") }}"
+                            @else
+                              "{{ $attendance->comment }}"
+                            @endif
+                           class="form-control">
+                          @if ($errors->has("comment$attendance->attendance_id"))
+                            <span class="error">{{ $errors->first("comment$attendance->attendance_id") }}</span>
+                          @endif
+                        </p>
+
                       @endforeach
 
                       <hr>
