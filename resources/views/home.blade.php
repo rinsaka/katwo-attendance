@@ -74,7 +74,7 @@
                               <span class="{{ $activity->class_expansion_link }}">回答者リストの表示／非表示を切り替える</span><br>
                               @foreach ($activity->parts as $part)
                                 <span class="atten_part">
-                                {{ $part->part }}： ○ {{ $part->n_atten[3] }}，&nbsp; △ {{ $part->n_atten[2] }}，&nbsp; × {{ $part->n_atten[1] }}，&nbsp; − {{ $part->n_atten[0] }}</span><br>
+                                {{ $part->part }}： ○ <span class="n_attendance">{{ $part->n_atten[3] }}</span>，&nbsp; △ <span class="n_attendance">{{ $part->n_atten[2] }}</span>，&nbsp; × <span class="n_attendance">{{ $part->n_atten[1] }}</span>，&nbsp; − <span class="n_attendance">{{ $part->n_atten[0] }}</span></span><br>
                                 @foreach ($part->attendances as $attendance)
                                   <span class="atten_detail">
                                   <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
