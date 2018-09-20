@@ -120,7 +120,11 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    // 'log' => env('APP_LOG', 'single'),
+    // dailyにする
+    'log' => env('APP_LOG', 'daily'),
+    // dailyなので10日分まで保存
+    'log_max_files' => '10',
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
