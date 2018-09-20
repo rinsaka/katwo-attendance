@@ -46,24 +46,40 @@
                           <label for="atten{{$attendance->attendance_id}}">{{ $attendance->activity->act_at }} &nbsp; </label>{{ $attendance->activity->time->jikan }} {{ $attendance->activity->place->place }}
                           <select name="atten{{$attendance->attendance_id}}" class="form-control">
                               <option value="0"
-                                @if ($attendance->attendance == 0)
-                                  selected
+                                @if ($errors->any())
+                                  @if(old("atten$attendance->attendance_id") == "0") selected @endif
+                                @else
+                                  @if ($attendance->attendance == 0)
+                                    selected
+                                  @endif
                                 @endif
                               >- （未定）</option>
                               <option value="3"
+                              @if ($errors->any())
+                                @if(old("atten$attendance->attendance_id") == "3") selected @endif
+                              @else
                                 @if ($attendance->attendance == 3)
                                   selected
                                 @endif
+                              @endif
                               >○ （参加）</option>
                               <option value="2"
+                              @if ($errors->any())
+                                @if(old("atten$attendance->attendance_id") == "2") selected @endif
+                              @else
                                 @if ($attendance->attendance == 2)
                                   selected
                                 @endif
+                              @endif
                               >△ （行けないかも）</option>
                               <option value="1"
+                              @if ($errors->any())
+                                @if(old("atten$attendance->attendance_id") == "1") selected @endif
+                              @else
                                 @if ($attendance->attendance == 1)
                                   selected
                                 @endif
+                              @endif
                               >× （欠席）</option>
                           </select>
 

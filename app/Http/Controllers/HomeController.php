@@ -265,11 +265,11 @@ class HomeController extends Controller
     foreach ($attendances as $attendance) {
       $obj_name_comment = "comment" . $attendance->id;
       $this->validate($request, [
-        $obj_name_comment => "max:10"
+        $obj_name_comment => "max:140"
       ]);
     }
 
-    dd($request);
+    // dd($request);
 
     // $this->validate($request, [
     //   'part' => 'required|min:1',
