@@ -258,7 +258,7 @@ class HomeController extends Controller
       $atten->save();
 
     }
-    return redirect('/home/'.$year.'/'.$month)->with('status', "予定を修正しました");
+    return redirect('/home/'.$year.'/'.$month)->with('status', $atten->name . " さんの予定を変更しました");
   }
 
   private function get_Attendances_detail($acts)

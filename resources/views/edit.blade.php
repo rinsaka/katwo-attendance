@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">{{ $name }}&nbsp;さんの{{ $year }}年{{ $month }}月の予定を編集します</div>
+                <div class="panel-heading">{{ $name }}&nbsp;さんの{{ $year }}年{{ $month }}月の予定を変更します</div>
 
                 <div class="panel-body">
                     @if (session('status'))
