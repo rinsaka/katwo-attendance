@@ -275,25 +275,30 @@ class HomeController extends Controller
       for ($i = 0 ; $i <= 3; $i++) {
         $atten[4]  += $atten[$i];
       }
-      $act->atten = $atten;
+      $act->n_atten = $atten;
 
       // パートごと
       foreach ($acts as $act) {
         $parts = Part::orderBy('id')->get();
         foreach ($parts as $part) {
+          // 人数を集計する
           $part_atten = array();
           for ($i = 0 ; $i <= 3; $i++) {
             $part_atten[]  = Attendance::where('activity_id', '=', $act->id)
                                     ->where('part_id', '=', $part->id)
                                     ->where('attendance', '=', $i)->count();
           }
-          $part->atten = $part_atten;
+          $part->n_atten = $part_atten;
+          // 回答のリストを取得
+          $part->attendances = Attendance::where('activity_id', '=', $act->id)
+                                  ->where('part_id', '=', $part->id)
+                                  ->orderBy('updated_at')
+                                  ->get();
       }
         $act->parts = $parts;
       }
 
     }
-
     return $acts;
   }
 }
