@@ -23,15 +23,19 @@
                       <p>
                         <label for="part">パート: </label>
                         <select name="part">
+                          <option value=""> パートを選択してください </option>
                           @foreach ($parts as $part)
                             <option value="{{ $part->id }}">{{ $part->part }}</option>
                           @endforeach
                         </select>
+                        @if ($errors->has('part'))
+                          <span class="error">{{ $errors->first('part') }}</span>
+                        @endif
                       </p>
 
                       <p>
                         <label for="name">名前: </label>
-                        <input type="text" name="name">
+                        <input type="text" name="name" value="{{ old('name') }}">
                         @if ($errors->has('name'))
                           <span class="error">{{ $errors->first('name') }}</span>
                         @endif
@@ -43,10 +47,10 @@
 
                           <label for="act{{$activity->id}}">{{ $activity->act_at }}: </label>
                           <select name="act{{$activity->id}}">
-                              <option value="0">- （未定）</option>
-                              <option value="3">○ （参加）</option>
-                              <option value="2">△ （行けないかも）</option>
-                              <option value="1">× （欠席）</option>
+                              <option value="0" @if(old("act$activity->id") == "0") selected @endif>- （未定）</option>
+                              <option value="3" @if(old("act$activity->id") == "3") selected @endif>○ （参加）</option>
+                              <option value="2" @if(old("act$activity->id") == "2") selected @endif>△ （行けないかも）</option>
+                              <option value="1" @if(old("act$activity->id") == "1") selected @endif>× （欠席）</option>
                           </select>
                           {{ $activity->time->jikan }}
                           {{ $activity->place->place }}
@@ -65,7 +69,7 @@
 
                 </div>
                 <div  class="panel-footer">
-                  &nbsp;
+                  <a href="{{ action('HomeController@show', [$year, $month]) }}">戻る</a>
 
                 </div>
             </div>

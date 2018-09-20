@@ -236,3 +236,7 @@ span.atten_part {
 span.atten_detail {
   margin-left: 30px;
 }
+
+span.error {
+  color: red;
+}

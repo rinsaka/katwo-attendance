@@ -143,6 +143,7 @@ class HomeController extends Controller
   {
     $request->name = trim(mb_convert_kana($request->name, 's', 'UTF-8')); // 全角スペースを半角スペースに置換したあと，トリム
     $this->validate($request, [
+      'part' => 'required|min:1',
       'name' => 'required|max:100'  // 入力が必須で，最大100文字
     ]);
 
