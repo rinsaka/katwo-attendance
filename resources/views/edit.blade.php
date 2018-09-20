@@ -82,7 +82,7 @@
 
                 </div>
                 <div  class="panel-footer">
-                  &nbsp;
+                  <a href="{{ action('HomeController@show', [$year, $month]) }}">戻る</a>
 
                 </div>
             </div>
