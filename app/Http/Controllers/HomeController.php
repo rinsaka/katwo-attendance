@@ -47,6 +47,12 @@ class HomeController extends Controller
                             ->get();
     // 各アクティビティについていろいろと取得する
     $activities = $this->get_Attendances_detail($activities);
+    $iter = 0;
+    foreach ($activities as $activity) {
+      $activity->class_expansion_link = "expansion_link" . $iter;
+      $activity->class_attendance = "attendance" . $iter;
+      $iter++;
+    }
     // dd($activities);
 
     return view('home')
@@ -92,6 +98,12 @@ class HomeController extends Controller
                             ->get();
     // 各アクティビティについていろいろと取得する
     $activities = $this->get_Attendances_detail($activities);
+    $iter = 0;
+    foreach ($activities as $activity) {
+      $activity->class_expansion_link = "expansion_link" . $iter;
+      $activity->class_attendance = "attendance" . $iter;
+      $iter++;
+    }
     // dd($activities);
     return view('home')
             ->with('activities', $activities)
@@ -297,7 +309,6 @@ class HomeController extends Controller
       }
         $act->parts = $parts;
       }
-
     }
     return $acts;
   }

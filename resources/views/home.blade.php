@@ -70,8 +70,8 @@
                               欠席： <span class="n_attendance">{{ $activity->n_atten[1] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }}</span>, &nbsp;
                               未定： <span class="n_attendance">{{ $activity->n_atten[0] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }} </span>&nbsp;
                             </p>
-                            <p class="attendance vertical" ontouchstart="">
-                              <span class="expansion_link">回答者リストの表示／非表示を切り替える</span><br>
+                            <p class="{{ $activity->class_attendance }} vertical" ontouchstart="">
+                              <span class="{{ $activity->class_expansion_link }}">回答者リストの表示／非表示を切り替える</span><br>
                               @foreach ($activity->parts as $part)
                                 <span class="atten_part">
                                 {{ $part->part }}： ○ {{ $part->n_atten[3] }}，&nbsp; △ {{ $part->n_atten[2] }}，&nbsp; × {{ $part->n_atten[1] }}，&nbsp; − {{ $part->n_atten[0] }}</span><br>

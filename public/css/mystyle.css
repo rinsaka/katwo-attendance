@@ -123,13 +123,93 @@ p.vertical {
   overflow: hidden;
 }
 
-.expansion_link {
+.expansion_link0 {
   color: blue;
   text-decoration: underline dotted red;
-
+}
+.expansion_link1 {
+  color: blue;
+  text-decoration: underline dotted red;
+}
+.expansion_link2 {
+  color: blue;
+  text-decoration: underline dotted red;
+}
+.expansion_link3 {
+  color: blue;
+  text-decoration: underline dotted red;
+}
+.expansion_link4 {
+  color: blue;
+  text-decoration: underline dotted red;
+}
+.expansion_link5 {
+  color: blue;
+  text-decoration: underline dotted red;
+}
+.expansion_link6 {
+  color: blue;
+  text-decoration: underline dotted red;
+}
+.expansion_link7 {
+  color: blue;
+  text-decoration: underline dotted red;
+}
+.expansion_link8 {
+  color: blue;
+  text-decoration: underline dotted red;
+}
+.expansion_link9 {
+  color: blue;
+  text-decoration: underline dotted red;
 }
 
-.expansion_link:hover {
+.expansion_link0:hover {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+.expansion_link1:hover {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+.expansion_link2:hover {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+.expansion_link3:hover {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+.expansion_link4:hover {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+.expansion_link5:hover {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+.expansion_link6:hover {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+.expansion_link7:hover {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+.expansion_link8:hover {
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+.expansion_link9:hover {
   color: red;
   font-weight: bold;
   cursor: pointer;

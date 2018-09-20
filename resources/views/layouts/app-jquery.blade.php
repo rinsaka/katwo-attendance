@@ -19,8 +19,71 @@
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
       <script>
       $(document).ready(function(){
-        $('.expansion_link').click(function () {
-          $('.attendance').toggleClass('vertical');
+        $('.expansion_link0').click(function () {
+          $('.attendance0').toggleClass('vertical');
+        });
+      });
+      </script>
+      <script>
+      $(document).ready(function(){
+        $('.expansion_link1').click(function () {
+          $('.attendance1').toggleClass('vertical');
+        });
+      });
+      </script>
+      <script>
+      $(document).ready(function(){
+        $('.expansion_link2').click(function () {
+          $('.attendance2').toggleClass('vertical');
+        });
+      });
+      </script>
+      <script>
+      $(document).ready(function(){
+        $('.expansion_link3').click(function () {
+          $('.attendance3').toggleClass('vertical');
+        });
+      });
+      </script>
+      <script>
+      $(document).ready(function(){
+        $('.expansion_link4').click(function () {
+          $('.attendance4').toggleClass('vertical');
+        });
+      });
+      </script>
+      <script>
+      $(document).ready(function(){
+        $('.expansion_link5').click(function () {
+          $('.attendance5').toggleClass('vertical');
+        });
+      });
+      </script>
+      <script>
+      $(document).ready(function(){
+        $('.expansion_link6').click(function () {
+          $('.attendance6').toggleClass('vertical');
+        });
+      });
+      </script>
+      <script>
+      $(document).ready(function(){
+        $('.expansion_link7').click(function () {
+          $('.attendance7').toggleClass('vertical');
+        });
+      });
+      </script>
+      <script>
+      $(document).ready(function(){
+        $('.expansion_link8').click(function () {
+          $('.attendance8').toggleClass('vertical');
+        });
+      });
+      </script>
+      <script>
+      $(document).ready(function(){
+        $('.expansion_link9').click(function () {
+          $('.attendance9').toggleClass('vertical');
         });
       });
       </script>
