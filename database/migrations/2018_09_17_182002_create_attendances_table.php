@@ -17,9 +17,9 @@ class CreateAttendancesTable extends Migration
             $table->increments('id');
             $table->integer('activity_id')->unsigned();
             $table->integer('part_id')->unsigned();
-            $table->string('name', 100);
+            $table->string('name', 100);  // sqlite では文字列の長さは指定しても意味がない
             $table->integer('attendance')->nullable();
-            $table->string('comment', 250)->nullable();
+            $table->string('comment', 140)->nullable();  // sqlite では文字列の長さは指定しても意味がない
             $table->timestamps();
 
             $table->foreign('activity_id')

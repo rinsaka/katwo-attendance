@@ -20,6 +20,7 @@ class AttendancesTableSeeder extends Seeder
         'part_id' => 2,
         'activity_id' => 7,
         'attendance' => 3,
+        'comment' => "短いコメント",
         'created_at' => '2018-09-10 18:00:00',
         'updated_at' => '2018-09-10 18:10:00'
       ]);
@@ -29,6 +30,7 @@ class AttendancesTableSeeder extends Seeder
         'part_id' => 2,
         'activity_id' => 8,
         'attendance' => 2,
+        'comment' => "長いコメントは途中まで表示されます．長いコメントは途中まで表示されます．",
         'created_at' => '2018-09-20 18:00:00',
         'updated_at' => '2018-09-20 18:10:00'
       ]);
@@ -38,6 +40,7 @@ class AttendancesTableSeeder extends Seeder
         'part_id' => 2,
         'activity_id' => 9,
         'attendance' => 1,
+        'comment' => "あいうえお",
         'created_at' => '2018-09-20 18:00:00',
         'updated_at' => '2018-09-20 18:00:00'
       ]);
@@ -48,6 +51,7 @@ class AttendancesTableSeeder extends Seeder
         'activity_id' => 10,
         'attendance' => 3,
         'comment' => "コメント",
+        'comment' => "あいうえおか",
         'created_at' => '2018-09-20 18:00:00',
         'updated_at' => '2018-09-20 18:00:00'
       ]);
@@ -57,6 +61,7 @@ class AttendancesTableSeeder extends Seeder
         'part_id' => 3,
         'activity_id' => 7,
         'attendance' => 3,
+        'comment' => "あいうえおかき",
         'created_at' => '2018-08-11 18:00:00',
         'updated_at' => '2018-08-11 18:00:03'
       ]);
@@ -66,6 +71,7 @@ class AttendancesTableSeeder extends Seeder
         'part_id' => 3,
         'activity_id' => 8,
         'attendance' => 3,
+        'comment' => "あいうえおかきく",
         'created_at' => '2018-08-11 18:00:00',
         'updated_at' => '2018-08-11 18:00:00'
       ]);

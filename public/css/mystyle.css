@@ -250,3 +250,7 @@ span.update {
   color: red;
   background-color: yellow;
 }
+
+span.comment {
+  font-size: 80%;
+}

@@ -90,11 +90,8 @@
                                     @else
                                       -
                                     @endif
+                                    @if ($attendance->comment) &emsp;<span class="comment">{{  $attendance->comment }}</span> @endif
                                   </a>
-                                  &nbsp; {{ $attendance->created_at }}
-                                  &nbsp; {{ $attendance->updated_at }}
-
-
                                   </span>
                                   <br>
 
