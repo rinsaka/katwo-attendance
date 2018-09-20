@@ -76,7 +76,7 @@
 
                       <hr>
                       <p>
-                        <input type="submit" value="　　　予定を登録　　　" class="form-control">
+                        <input type="submit" value="　　　予定を登録　　　" class="form-control submit_button">
                       </p>
                     </form>
 

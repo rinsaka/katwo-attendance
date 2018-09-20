@@ -59,6 +59,27 @@
   color: white;
 }
 
+.submit_button {
+  background-color: #0070FA;
+  color: white;
+}
+
+.submit_button:hover {
+  font-weight: bold;
+  background-color: #0060D0;
+  cursor: pointer;
+  color: white;
+}
+
+.submit_button:active {
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #0040A0;
+}
+
+
+
 .create_link {
   margin : 0 auto;
   text-align: center;
