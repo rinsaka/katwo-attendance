@@ -187,7 +187,7 @@ class HomeController extends Controller
       $attendance->save();
     }
 
-    return redirect('/home/'.$year.'/'.$month)->with('status', "登録しました");
+    return redirect('/home/'.$year.'/'.$month)->with('status', $name . " さんの予定を登録しました");
 
     // dd($request, $name, $part, $n_act, $year, $month, $activities);
   }

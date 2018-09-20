@@ -16,6 +16,7 @@ class CreatePartsTable extends Migration
         Schema::create('parts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('part');
+            $table->string('s_part');
             $table->timestamps();
         });
     }
