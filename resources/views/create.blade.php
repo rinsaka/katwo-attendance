@@ -22,7 +22,7 @@
                       <input type="hidden" name="n_act" value="{{ $n_act }}">
                       <p>
                         <label for="part">パート: </label>
-                        <select name="part">
+                        <select name="part" class="form-control">
                           <option value=""> パートを選択してください </option>
                           @foreach ($parts as $part)
                             <option value="{{ $part->id }}">{{ $part->part }}</option>
@@ -35,7 +35,7 @@
 
                       <p>
                         <label for="name">名前: </label>
-                        <input type="text" name="name" value="{{ old('name') }}">
+                        <input type="text" name="name" value="{{ old('name') }}" class="form-control">
                         @if ($errors->has('name'))
                           <span class="error">{{ $errors->first('name') }}</span>
                         @endif
@@ -45,22 +45,23 @@
                       @foreach ($activities as $activity)
                         <p>
 
-                          <label for="act{{$activity->id}}">{{ $activity->act_at }}: </label>
-                          <select name="act{{$activity->id}}">
+                          <label for="act{{$activity->id}}">{{ $activity->act_at }}</label> &nbsp;
+                          {{ $activity->time->jikan }}
+                          {{ $activity->place->place }}
+                          <select name="act{{$activity->id}}" class="form-control">
                               <option value="0" @if(old("act$activity->id") == "0") selected @endif>- （未定）</option>
                               <option value="3" @if(old("act$activity->id") == "3") selected @endif>○ （参加）</option>
                               <option value="2" @if(old("act$activity->id") == "2") selected @endif>△ （行けないかも）</option>
                               <option value="1" @if(old("act$activity->id") == "1") selected @endif>× （欠席）</option>
                           </select>
-                          {{ $activity->time->jikan }}
-                          {{ $activity->place->place }}
+
                         </p>
 
                       @endforeach
 
-
+                      <hr>
                       <p>
-                        <input type="submit" value="　　　予定を登録　　　">
+                        <input type="submit" value="　　　予定を登録　　　" class="form-control">
                       </p>
                     </form>
 
@@ -68,7 +69,7 @@
 
 
                 </div>
-                <div  class="panel-footer">
+                <div  class="panel-footer" >
                   <a href="{{ action('HomeController@show', [$year, $month]) }}">戻る</a>
 
                 </div>

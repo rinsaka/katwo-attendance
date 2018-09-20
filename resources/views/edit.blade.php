@@ -25,7 +25,7 @@
                       <input type="hidden" name="name" value="{{ $name }}">
                       <p>
                         <label for="part">パート: </label>
-                        <select name="part">
+                        <select name="part" class="form-control">
                           @foreach ($parts as $part)
                             <option value="{{ $part->id }}"
                               @if ($part_id == $part->id)
@@ -43,8 +43,8 @@
                       @foreach ($attendances as $attendance)
                         <p>
 
-                          <label for="atten{{$attendance->attendance_id}}">{{ $attendance->activity->act_at }}: </label>
-                          <select name="atten{{$attendance->attendance_id}}">
+                          <label for="atten{{$attendance->attendance_id}}">{{ $attendance->activity->act_at }} &nbsp; </label>{{ $attendance->activity->time->jikan }} {{ $attendance->activity->place->place }}
+                          <select name="atten{{$attendance->attendance_id}}" class="form-control">
                               <option value="0"
                                 @if ($attendance->attendance == 0)
                                   selected
@@ -66,15 +66,14 @@
                                 @endif
                               >× （欠席）</option>
                           </select>
-                          {{ $attendance->activity->time->jikan }}
-                          {{ $attendance->activity->place->place }}
+
                         </p>
 
                       @endforeach
 
-
+                      <hr>
                       <p>
-                        <input type="submit" value="　　　予定を変更　　　">
+                        <input type="submit" value="　　　予定を変更　　　" class="form-control">
                       </p>
                     </form>
 
