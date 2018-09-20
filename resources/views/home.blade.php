@@ -77,6 +77,7 @@
                                 {{ $part->part }}： ○ <span class="n_attendance">{{ $part->n_atten[3] }}</span>，&nbsp; △ <span class="n_attendance">{{ $part->n_atten[2] }}</span>，&nbsp; × <span class="n_attendance">{{ $part->n_atten[1] }}</span>，&nbsp; − <span class="n_attendance">{{ $part->n_atten[0] }}</span></span><br>
                                 @foreach ($part->attendances as $attendance)
                                   <span class="atten_detail">
+                                  @if ($attendance->update) <span class="update">更新</span> @endif
                                   <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
                                     {{ $attendance->name }} &nbsp;
                                     @if ($attendance->attendance == 3)
@@ -89,6 +90,10 @@
                                       -
                                     @endif
                                   </a>
+                                  &nbsp; {{ $attendance->created_at }}
+                                  &nbsp; {{ $attendance->updated_at }}
+
+
                                   </span>
                                   <br>
 

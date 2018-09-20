@@ -20,8 +20,8 @@ class AttendancesTableSeeder extends Seeder
         'part_id' => 2,
         'activity_id' => 7,
         'attendance' => 3,
-        'created_at' => '2018-08-10 17:00:00',
-        'updated_at' => '2018-08-10 17:00:00'
+        'created_at' => '2018-09-10 18:00:00',
+        'updated_at' => '2018-09-10 18:10:00'
       ]);
 
       DB::table('attendances')->insert([
@@ -29,8 +29,8 @@ class AttendancesTableSeeder extends Seeder
         'part_id' => 2,
         'activity_id' => 8,
         'attendance' => 2,
-        'created_at' => '2018-08-10 17:00:00',
-        'updated_at' => '2018-08-10 17:00:00'
+        'created_at' => '2018-09-20 18:00:00',
+        'updated_at' => '2018-09-20 18:10:00'
       ]);
 
       DB::table('attendances')->insert([
@@ -38,8 +38,8 @@ class AttendancesTableSeeder extends Seeder
         'part_id' => 2,
         'activity_id' => 9,
         'attendance' => 1,
-        'created_at' => '2018-08-10 17:00:00',
-        'updated_at' => '2018-08-10 17:00:00'
+        'created_at' => '2018-09-20 18:00:00',
+        'updated_at' => '2018-09-20 18:00:00'
       ]);
 
       DB::table('attendances')->insert([
@@ -48,8 +48,8 @@ class AttendancesTableSeeder extends Seeder
         'activity_id' => 10,
         'attendance' => 3,
         'comment' => "コメント",
-        'created_at' => '2018-08-10 17:00:00',
-        'updated_at' => '2018-08-10 17:00:00'
+        'created_at' => '2018-09-20 18:00:00',
+        'updated_at' => '2018-09-20 18:00:00'
       ]);
 
       DB::table('attendances')->insert([
@@ -57,8 +57,8 @@ class AttendancesTableSeeder extends Seeder
         'part_id' => 3,
         'activity_id' => 7,
         'attendance' => 3,
-        'created_at' => '2018-08-11 17:00:00',
-        'updated_at' => '2018-08-11 17:00:00'
+        'created_at' => '2018-08-11 18:00:00',
+        'updated_at' => '2018-08-11 18:00:03'
       ]);
 
       DB::table('attendances')->insert([
@@ -66,8 +66,8 @@ class AttendancesTableSeeder extends Seeder
         'part_id' => 3,
         'activity_id' => 8,
         'attendance' => 3,
-        'created_at' => '2018-08-11 17:00:00',
-        'updated_at' => '2018-08-11 17:00:00'
+        'created_at' => '2018-08-11 18:00:00',
+        'updated_at' => '2018-08-11 18:00:00'
       ]);
 
       DB::table('attendances')->insert([
@@ -76,8 +76,8 @@ class AttendancesTableSeeder extends Seeder
         'activity_id' => 9,
         'attendance' => 3,
         'comment' => "これもコメント",
-        'created_at' => '2018-08-11 17:00:00',
-        'updated_at' => '2018-08-11 17:00:00'
+        'created_at' => '2018-08-11 18:00:00',
+        'updated_at' => '2018-08-11 18:00:00'
       ]);
 
       DB::table('attendances')->insert([
@@ -85,8 +85,8 @@ class AttendancesTableSeeder extends Seeder
         'part_id' => 3,
         'activity_id' => 10,
         'attendance' => 3,
-        'created_at' => '2018-08-11 17:00:00',
-        'updated_at' => '2018-08-11 17:00:00'
+        'created_at' => '2018-08-11 18:00:00',
+        'updated_at' => '2018-08-11 18:00:00'
       ]);
 
     }

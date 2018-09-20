@@ -307,6 +307,16 @@ class HomeController extends Controller
                                   ->where('part_id', '=', $part->id)
                                   ->orderBy('updated_at')
                                   ->get();
+          // 新規登録と更新情報を設定
+          foreach ($part->attendances as $attendance) {
+            $diff = strtotime($attendance->updated_at) - strtotime($attendance->created_at);
+            if ($diff > 0){
+              $attendance->update = true;  // 初期投稿から更新されたことを示す
+            } else {
+              $attendance->update = false;
+            }
+
+          }
       }
         $act->parts = $parts;
       }
