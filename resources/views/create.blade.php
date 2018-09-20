@@ -34,7 +34,7 @@
                       </p>
 
                       <p>
-                        <label for="name">名前: </label>
+                        <label for="name">ニックネーム: </label>
                         <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="【必須】ニックネームを30文字以内で入力してください">
                         @if ($errors->has('name'))
                           <span class="error">{{ $errors->first('name') }}</span>
