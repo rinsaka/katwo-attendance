@@ -254,3 +254,7 @@ span.update {
 span.comment {
   font-size: 80%;
 }
+
+.form_atten + .form_atten { /* ２個連続するとき，つまり２個目以降だけに適用 */
+  margin-top: 40px;
+}

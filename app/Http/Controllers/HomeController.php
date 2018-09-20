@@ -144,7 +144,7 @@ class HomeController extends Controller
     $request->name = trim(mb_convert_kana($request->name, 's', 'UTF-8')); // 全角スペースを半角スペースに置換したあと，トリム
     $this->validate($request, [
       'part' => 'required|min:1',
-      'name' => 'required|max:100'  // 入力が必須で，最大100文字
+      'name' => 'required|max:30'  // 入力が必須で，最大30文字
     ]);
 
     $name = $request->name;
@@ -169,27 +169,34 @@ class HomeController extends Controller
       $attens = Attendance::where('activity_id', '=', $act_id)->get();
       foreach ($attens as $atten) {
         if ($atten->name == $name) {
-          return redirect('/home/'.$year.'/'.$month .'/create')->with('status', "登録できませんでした！予定は登録済みです");
+          return redirect('/home/'.$year.'/'.$month .'/create')->with('status', "登録できませんでした！同じ名前の予定が登録済みです");
         }
       }
     }
 
+    // ここで validation
+    foreach ($activities as $activity) {
+      $obj_name_comment = "comment" . $activity->id;
+      $this->validate($request, [
+        $obj_name_comment => "max:140"
+      ]);
+    }
 
     foreach ($activities as $activity) {
-      $obj_name = "act" . $activity->id;
+      $obj_name_act = "act" . $activity->id;
+      $obj_name_comment = "comment" . $activity->id;
       // var_dump($obj_name, $request->$obj_name);
 
       $attendance = new Attendance;
       $attendance->name = $name;
       $attendance->activity_id = $activity->id;
-      $attendance->attendance = $request->$obj_name;
+      $attendance->attendance = $request->$obj_name_act;
+      $attendance->comment = $request->$obj_name_comment;
       $attendance->part_id = $part;
+
       $attendance->save();
     }
-
     return redirect('/home/'.$year.'/'.$month)->with('status', $name . " さんの予定を登録しました");
-
-    // dd($request, $name, $part, $n_act, $year, $month, $activities);
   }
 
   public function edit($year, $month, $aid)

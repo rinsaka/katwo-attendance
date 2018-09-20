@@ -41,6 +41,7 @@
 
                       <hr>
                       @foreach ($attendances as $attendance)
+                        <div class="form_atten">
                         <p>
 
                           <label for="atten{{$attendance->attendance_id}}">{{ $attendance->activity->act_at }} &nbsp; </label>{{ $attendance->activity->time->jikan }} {{ $attendance->activity->place->place }}
@@ -100,7 +101,7 @@
                             <span class="error">{{ $errors->first("comment$attendance->attendance_id") }}</span>
                           @endif
                         </p>
-
+                        </div>
                       @endforeach
 
                       <hr>
