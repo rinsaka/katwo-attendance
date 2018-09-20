@@ -65,10 +65,10 @@
                               {{ $activity->place->place }}
                             </p>
                             <p class="results">
-                              参加： <span class="n_attendance">{{ $activity->n_atten3 }}</span><span class="total_attendance">/{{ $activity->n_atten }}</span>, &nbsp;
-                              △： <span class="n_attendance">{{ $activity->n_atten2 }}</span><span class="total_attendance">/{{ $activity->n_atten }}</span>, &nbsp;
-                              欠席： <span class="n_attendance">{{ $activity->n_atten1 }}</span><span class="total_attendance">/{{ $activity->n_atten }}</span>, &nbsp;
-                              未定： <span class="n_attendance">{{ $activity->n_atten0 }}</span><span class="total_attendance">/{{ $activity->n_atten }} </span>&nbsp;
+                              参加： <span class="n_attendance">{{ $activity->atten[3] }}</span><span class="total_attendance">/{{ $activity->atten[4] }}</span>, &nbsp;
+                              △： <span class="n_attendance">{{ $activity->atten[2] }}</span><span class="total_attendance">/{{ $activity->atten[4] }}</span>, &nbsp;
+                              欠席： <span class="n_attendance">{{ $activity->atten[1] }}</span><span class="total_attendance">/{{ $activity->atten[4] }}</span>, &nbsp;
+                              未定： <span class="n_attendance">{{ $activity->atten[0] }}</span><span class="total_attendance">/{{ $activity->atten[4] }} </span>&nbsp;
                             </p>
                             <p class="attendance vertical" ontouchstart="">
                               <span class="expansion_link">回答者リストの表示／非表示を切り替える</span><br>
@@ -88,7 +88,7 @@
                             @endforeach
                             ======上のリンクをこの下のパートの中に移動する予定です。====<br>
                             @foreach ($activity->parts as $part)
-                              {{ $part->part }}： ○ {{ $part->n_atten3 }}，&nbsp; △ {{ $part->n_atten2 }}，&nbsp; × {{ $part->n_atten1 }}，&nbsp; − {{ $part->n_atten0 }}<br>
+                              {{ $part->part }}： ○ {{ $part->atten[3] }}，&nbsp; △ {{ $part->atten[2] }}，&nbsp; × {{ $part->atten[1] }}，&nbsp; − {{ $part->atten[0] }}<br>
                             @endforeach
                             </p>
                         </div>

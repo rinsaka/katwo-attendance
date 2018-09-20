@@ -264,46 +264,31 @@ class HomeController extends Controller
   private function get_Attendances_detail($acts)
   {
     foreach ($acts as $act) {
-      // 人数の集計情報
-      $atten0  = Attendance::where('activity_id', '=', $act->id)
-                              ->where('attendance', '=', 0)->count();
-      $atten1  = Attendance::where('activity_id', '=', $act->id)
-                              ->where('attendance', '=', 1)->count();
-      $atten2  = Attendance::where('activity_id', '=', $act->id)
-                              ->where('attendance', '=', 2)->count();
-      $atten3  = Attendance::where('activity_id', '=', $act->id)
-                              ->where('attendance', '=', 3)->count();
-      $act->n_atten0 = $atten0;
-      $act->n_atten1 = $atten1;
-      $act->n_atten2 = $atten2;
-      $act->n_atten3 = $atten3;
-      $act->n_atten = $atten0 + $atten1 + $atten2 + $atten3;
+      // attendance ごとの合計を取得
+      $atten = array();
+      for ($i = 0 ; $i <= 3; $i++) {
+        $atten[]  = Attendance::where('activity_id', '=', $act->id)
+                                ->where('attendance', '=', $i)->count();
+      }
+      // 登録者数の合計
+      $atten[] = 0;
+      for ($i = 0 ; $i <= 3; $i++) {
+        $atten[4]  += $atten[$i];
+      }
+      $act->atten = $atten;
 
       // パートごと
-      // $parts = Part::orderBy('id')->get();
-      // $act->parts = $parts;
-
       foreach ($acts as $act) {
         $parts = Part::orderBy('id')->get();
         foreach ($parts as $part) {
-          // パートごとに人数を集計
-          $atten0  = Attendance::where('activity_id', '=', $act->id)
-                                ->where('part_id', '=', $part->id)
-                                ->where('attendance', '=', 0)->count();
-          $atten1  = Attendance::where('activity_id', '=', $act->id)
-                                ->where('part_id', '=', $part->id)
-                                ->where('attendance', '=', 1)->count();
-          $atten2  = Attendance::where('activity_id', '=', $act->id)
-                                ->where('part_id', '=', $part->id)
-                                ->where('attendance', '=', 2)->count();
-          $atten3  = Attendance::where('activity_id', '=', $act->id)
-                                ->where('part_id', '=', $part->id)
-                                ->where('attendance', '=', 3)->count();
-          $part->n_atten0 = $atten0;
-          $part->n_atten1 = $atten1;
-          $part->n_atten2 = $atten2;
-          $part->n_atten3 = $atten3;
-        }
+          $part_atten = array();
+          for ($i = 0 ; $i <= 3; $i++) {
+            $part_atten[]  = Attendance::where('activity_id', '=', $act->id)
+                                    ->where('part_id', '=', $part->id)
+                                    ->where('attendance', '=', $i)->count();
+          }
+          $part->atten = $part_atten;
+      }
         $act->parts = $parts;
       }
 
