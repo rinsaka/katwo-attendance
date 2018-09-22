@@ -71,4 +71,31 @@ class HomeController extends Controller
     return redirect('/admin/home/')
         ->with('status', $activity->act_at . "の活動予定を修正しました");
   }
+
+  public function create()
+  {
+    // dd("create");
+    $times = Time::orderBy('jikan')->get();
+    $places = Place::orderBy('id')->get();
+    return view('admin.create')
+            ->with('times', $times)
+            ->with('places', $places);
+  }
+
+  public function store(Request $request)
+  {
+    $this->validate($request, [
+      'act_at' => 'required|date',
+    ]);
+    $act_at = date('Y-m-01', strtotime($request->act_at));
+
+    $activity = new Activity();
+    $activity->act_at = $act_at;
+    $activity->time_id = $request->time;
+    $activity->place_id = $request->place;
+    $activity->save();
+
+    return redirect('/admin/home/')
+        ->with('status', $activity->act_at . "活動予定を新規登録しました");
+  }
 }

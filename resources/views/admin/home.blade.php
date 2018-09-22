@@ -36,7 +36,9 @@
                 </div>
 
                 <div  class="panel-footer">
-                  &nbsp;
+                  <a href="{{ action('Admin\HomeController@create') }}">
+                    活動予定を新規登録
+                  </a>
                 </div>
             </div>
         </div>
