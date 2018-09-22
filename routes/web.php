@@ -42,6 +42,6 @@ Route::group(['prefix' => 'admin'], function() {
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
   Route::get('home', 'Admin\HomeController@index')->name('admin.home');
   Route::get('activity/{aid}', 'Admin\HomeController@edit')->name('admin.home');
-  Route::patch('acmin/activity/', 'Admin\HomeController@update')->name('admin_act_update');
+  Route::patch('activity', 'Admin\HomeController@update')->name('admin_act_update');
   Route::post('logout', 'Admin\LoginController@logout')->name('admin.logout');
 });
