@@ -76,7 +76,9 @@
                 </div>
 
                 <div  class="panel-footer">
-                  &nbsp;
+                  <p><a href="{{ action('Admin\HomeController@index') }}">
+                    戻る
+                  </a></p>
                 </div>
             </div>
         </div>
