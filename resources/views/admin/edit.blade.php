@@ -9,16 +9,6 @@
 
                 <div class="panel-body">
                     {{-- フラッシュメッセージの表示 --}}
-                    @if (session('warning'))
-                        <div class="alert alert-warning">
-                            {{ session('warning') }}
-                        </div>
-                    @endif
-                    @if (session('status'))
-                        <div class="alert alert-info">
-                            {{ session('status') }}
-                        </div>
-                    @endif
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
@@ -39,7 +29,7 @@
                           @else
                             "{{ $activity->act_at }}"
                           @endif
-                          class="form-control" placeholder="【必須】日付を入力してください">
+                          class="form-control" placeholder="【必須】2020/01/01, 2020-01-01, 20200101 のいずれかで">
                           @if ($errors->has('act_at'))
                             <span class="error">{{ $errors->first('act_at') }}</span>
                           @endif

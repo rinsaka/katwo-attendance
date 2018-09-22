@@ -51,16 +51,24 @@ class HomeController extends Controller
 
   public function update(Request $request)
   {
+    $this->validate($request, [
+      'act_at' => 'required|date',
+    ]);
+
     $activity = Activity::where('id', '=', $request->aid)->first();
     if (!$activity) {
       return redirect('/admin/home/')->with('status', "そのような活動予定がありません");
     }
+    // dd($request->aid, $request->act_at, $request->time, $request->place, $request, $activity);
 
-    $activity->act_at = $request->act_at;
+    // dd($request->act_at, strtotime($request->act_at), date('Y-m-01', strtotime($request->act_at)) );
+
+    $activity->act_at = date('Y-m-01', strtotime($request->act_at));
     $activity->time_id = $request->time;
     $activity->place_id = $request->place;
     $activity->save();
-    return redirect('/admin/home/')->with('status', $request->act_at . "の活動予定を修正しました");
-    // dd($request, $request->aid, $request->act_at, $request->time, $request->place, $activity);
+
+    return redirect('/admin/home/')
+        ->with('status', $activity->act_at . "の活動予定を修正しました");
   }
 }
