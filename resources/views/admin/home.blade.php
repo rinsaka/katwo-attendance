@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Admin Dashboard</div>
+                <div class="panel-heading">活動予定一覧（管理者モード）</div>
 
                 <div class="panel-body">
                     {{-- フラッシュメッセージの表示 --}}
@@ -25,7 +25,23 @@
                         </div>
                     @endif
 
-                    You are logged in as admin!
+                    <div>
+                      @forelse ($activities as $activity)
+                        <p>
+                          <a href="{{ action('Admin\HomeController@edit', [$activity->id]) }}">
+                            {{ $activity->act_at }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }}
+                          </a>
+                        </p>
+                      @empty
+                      @endforelse
+
+                    </div>
+
+
+                </div>
+
+                <div  class="panel-footer">
+                  &nbsp;
                 </div>
             </div>
         </div>
