@@ -126,7 +126,7 @@ class HomeController extends Controller
     $n_act = count($activities);
 
     if ($n_act == 0) {
-        return redirect('/home/'.$year.'/'.$month)->with('status', "まだ練習予定が登録されていません");
+        return redirect('/home/'.$year.'/'.$month)->with('status', "活動予定がまだ登録されていません");
     }
 
     $parts = Part::orderBy('id')->get();
@@ -153,9 +153,11 @@ class HomeController extends Controller
     $year = $request->year;
     $month = $request->month;
 
+    // @codeCoverageIgnoreStart
     if (strlen($name)==0) {
       return redirect('/home/'.$year.'/'.$month .'/create')->with('status', "名前が入力されていません");
     }
+    // @codeCoverageIgnoreEnd
 
     $thismonth_head = date("Y-m-01", mktime(0,0,0,$month,1,$year));
     $thismonth_tail = date("Y-m-t", mktime(0,0,0,$month,1,$year));

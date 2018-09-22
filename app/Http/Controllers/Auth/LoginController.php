@@ -37,8 +37,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    // @codeCoverageIgnoreStart
     public function username()
     {
       return 'login_id';
     }
+    // @codeCoverageIgnoreEnd
+    
 }
