@@ -18,6 +18,7 @@ class CreateActivitiesTable extends Migration
             $table->date('act_at');
             $table->integer('place_id')->unsigned();
             $table->integer('time_id')->unsigned();
+            $table->string('note')->nullable();
             $table->timestamps();
 
             $table->foreign('place_id')

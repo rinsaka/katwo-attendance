@@ -25,6 +25,7 @@
                         <p>
                           <a href="{{ action('Admin\HomeController@edit', [$activity->id]) }}">
                             {{ $activity->act_at }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }}
+                            @if (strlen($activity->note)) <span>&nbsp; {{ $activity->note }}</span>@endif
                           </a>
                         </p>
                       @empty

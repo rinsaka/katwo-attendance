@@ -58,7 +58,7 @@
 
                     <div>
                       @forelse ($activities as $activity)
-                        <h3 class="act_at">{{ $activity->act_at }}</h3>
+                        <h3 class="act_at">{{ $activity->act_at }} @if (strlen($activity->note)) <span class="note">&nbsp; {{ $activity->note }}</span>@endif</h3>
                           <div class="detail">
                             <p class="time_place">
                               {{ $activity->time->jikan }}

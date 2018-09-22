@@ -68,6 +68,7 @@ class ActivitiesTableSeeder extends Seeder
         'act_at' => '2018-09-29',
         'place_id' => 2,
         'time_id' => 3,
+        'note' => "運営会議",
         'created_at' => Carbon::now(),
         'updated_at' => Carbon::now()
       ]);
@@ -85,6 +86,7 @@ class ActivitiesTableSeeder extends Seeder
         'act_at' => '2018-10-20',
         'place_id' => 2,
         'time_id' => 3,
+        'note' => '総会',
         'created_at' => Carbon::now(),
         'updated_at' => Carbon::now()
       ]);

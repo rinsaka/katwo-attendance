@@ -49,6 +49,7 @@
                           <label for="act{{$activity->id}}">{{ $activity->act_at }}</label> &nbsp;
                           {{ $activity->time->jikan }}
                           {{ $activity->place->place }}
+                          @if (strlen($activity->note)) <span>&nbsp; {{ $activity->note }}</span>@endif
                           <select name="act{{$activity->id}}" class="form-control">
                               <option value="0" @if(old("act$activity->id") == "0") selected @endif>- （未定） ---- 予定を選択してください ---- </option>
                               <option value="3" @if(old("act$activity->id") == "3") selected @endif>○ （参加）</option>
