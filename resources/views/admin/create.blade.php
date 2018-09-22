@@ -38,8 +38,10 @@
                           <select name="time" class="form-control">
                             @foreach ($times as $time)
                               <option value="{{ $time->id }}"
-                                @if ($time->default_jikan == true)
-                                selected
+                                @if ($errors->any())
+                                  @if (old('time') == "$time->id") selected @endif
+                                @else
+                                  @if ($time->default_jikan == true) selected @endif
                                 @endif
                                 >{{ $time->jikan }}</option>
                             @endforeach
@@ -51,10 +53,13 @@
                           <select name="place" class="form-control">
                             @foreach ($places as $place)
                               <option value="{{ $place->id }}"
-                                @if ($place->default_place == true)
-                                selected
+                                @if ($errors->any())
+                                  @if (old('place') == "$place->id") selected @endif
+                                @else
+                                  @if ($place->default_place == true ) selected @endif
                                 @endif
-                                >{{ $place->place }}</option>
+                                 >
+                                {{ $place->place }}</option>
                             @endforeach
                           </select>
                         </p>
