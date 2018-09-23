@@ -64,6 +64,20 @@
                           </select>
                         </p>
 
+                        <p>
+                          <label for="name">内容: </label>
+                          <input type="text" name="note" value=
+                          @if ($errors->any())
+                            "{{ old("note") }}"
+                          @else
+                            ""
+                          @endif
+                          class="form-control" placeholder="【任意】運営会議，本番，打ち上げ など通常練習以外の項目があれば（140文字以内）">
+                          @if ($errors->has('note'))
+                            <span class="error">{{ $errors->first('note') }}</span>
+                          @endif
+                        </p>
+
 
                         <hr>
                         <p>

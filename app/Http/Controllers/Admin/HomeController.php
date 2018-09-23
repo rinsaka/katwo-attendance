@@ -64,7 +64,7 @@ class HomeController extends Controller
 
     // dd($request->act_at, strtotime($request->act_at), date('Y-m-01', strtotime($request->act_at)) );
 
-    $activity->act_at = date('Y-m-01', strtotime($request->act_at));
+    $activity->act_at = date('Y-m-d', strtotime($request->act_at));
     $activity->time_id = $request->time;
     $activity->place_id = $request->place;
     $activity->note = $request->note;
@@ -88,13 +88,15 @@ class HomeController extends Controller
   {
     $this->validate($request, [
       'act_at' => 'required|date',
+      'note' => 'max:140',
     ]);
-    $act_at = date('Y-m-01', strtotime($request->act_at));
+    $act_at = date('Y-m-d', strtotime($request->act_at));
 
     $activity = new Activity();
     $activity->act_at = $act_at;
     $activity->time_id = $request->time;
     $activity->place_id = $request->place;
+    $activity->note = $request->note;
     $activity->save();
 
     return redirect('/admin/home/')
