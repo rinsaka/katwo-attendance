@@ -78,14 +78,28 @@
                     <a href="{{ url('/home') }}">団員専用のHomeへ</a>
                   </div>
                   <div class="links m-b-md">
-                    <a> 管理者モードで利用するには一旦ログアウトしてください</a>
+                      <a href="{{ route('logout') }}"
+                          onclick="event.preventDefault();
+                                   document.getElementById('logout-form').submit();">
+                          管理者モードで利用するには一旦ログアウトしてください
+                      </a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                          {{ csrf_field() }}
+                      </form>
                   </div>
                 @elseif (Auth::guard('admin')->user())
                   <div class="links m-b-md">
                     <a href="{{ url('/admin/home') }}">管理者のホームへ</a>
                   </div>
                   <div class="links m-b-md">
-                    <a> 団員モードで利用するには一旦ログアウトしてください</a>
+                    <a href="{{ route('admin.logout') }}"
+                        onclick="event.preventDefault();
+                                 document.getElementById('admin-logout-form').submit();">
+                        団員モードで利用するには一旦ログアウトしてください
+                    </a>
+                    <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
                   </div>
                 @else
                   <div class="links m-b-md">
