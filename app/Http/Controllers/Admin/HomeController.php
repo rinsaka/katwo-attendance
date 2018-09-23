@@ -53,6 +53,7 @@ class HomeController extends Controller
   {
     $this->validate($request, [
       'act_at' => 'required|date',
+      'note' => 'max:140'
     ]);
 
     $activity = Activity::where('id', '=', $request->aid)->first();
@@ -66,6 +67,7 @@ class HomeController extends Controller
     $activity->act_at = date('Y-m-01', strtotime($request->act_at));
     $activity->time_id = $request->time;
     $activity->place_id = $request->place;
+    $activity->note = $request->note;
     $activity->save();
 
     return redirect('/admin/home/')
