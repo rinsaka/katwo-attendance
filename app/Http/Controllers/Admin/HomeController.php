@@ -136,8 +136,12 @@ class HomeController extends Controller
         ->with('status', $activity->act_at . "活動予定を新規登録しました");
   }
 
-  public function destory($id)
+  public function destory(Request $request, $id)
   {
+    if($request->confirmation != 'yakuin') {
+      return redirect('/admin/activity/'.$id)->with('status', "確認用文字列を入力してください");
+    }
+    // dd($request);
     $activity = Activity::where('id', '=', $id)->first();
     if (!$activity) {
       return redirect('/admin/home')->with('status', "そのような活動予定がありません");

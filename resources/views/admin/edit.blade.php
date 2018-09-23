@@ -104,6 +104,15 @@
                     <form action="{{ url('/admin/activity', $activity->id) }}" method="post">
                           {{ csrf_field() }}
                           {{ method_field('DELETE') }}
+                          <h3>活動予定の削除</h3>
+                          <p>活動予定を削除するには下の確認用の文字列のボックスに「<strong>yakuin</strong>」と入力してボタンをクリック（またはタップ）してください．なお，活動予定を削除すると，その活動に関連付けられた出欠情報も同時に削除されます．</p>
+                          <p>
+                            <p>
+                              <label for="confirmation">確認用の文字列: </label>
+                              <input type="text" name="confirmation" value=""
+                              class="form-control" placeholder="yakuin と入力してください">
+                            </p>
+                          </p>
                           <p>
                           <button class="form-control">  活動予定の削除  </button>
                           </p>
