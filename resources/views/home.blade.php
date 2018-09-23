@@ -1,5 +1,7 @@
 @extends('layouts.app-jquery')
 
+@inject('myController', 'App\Http\Controllers\Controller')
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -36,8 +38,8 @@
                           <td width="30%" align="center">
                             <span class="next_prev link_right" ontouchstart="">
                               <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
-                                <i class="fas fa-angle-double-right fa-2x my-white"></i> &nbsp;
-                                {{ $next_month }}月
+                                {{ $next_month }}月 &nbsp;
+                                <i class="fas fa-angle-double-right fa-2x my-white"></i>
                               </a>
                             </span>
                           </td>
@@ -58,7 +60,7 @@
 
                     <div>
                       @forelse ($activities as $activity)
-                        <h3 class="act_at">{{ $activity->act_at }} @if (strlen($activity->note)) <span class="note">&nbsp; {{ $activity->note }}</span>@endif</h3>
+                        <h3 class="act_at">{{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} @if (strlen($activity->note)) <span class="note">&nbsp; {{ $activity->note }}</span>@endif</h3>
                           <div class="detail">
                             <p class="time_place">
                               {{ $activity->time->jikan }}
@@ -139,8 +141,8 @@
                           <td width="30%" align="center">
                             <span class="next_prev link_right" ontouchstart="">
                               <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
-                                <i class="fas fa-angle-double-right fa-2x my-white"></i> &nbsp;
-                                {{ $next_month }}月
+                                {{ $next_month }}月 &nbsp;
+                                <i class="fas fa-angle-double-right fa-2x my-white"></i>
                               </a>
                             </span>
                           </td>

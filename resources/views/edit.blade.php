@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@inject('myController', 'App\Http\Controllers\Controller')
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -44,7 +46,7 @@
                         <div class="form_atten">
                         <p>
 
-                          <label for="atten{{$attendance->attendance_id}}">{{ $attendance->activity->act_at }} &nbsp; </label>{{ $attendance->activity->time->jikan }} {{ $attendance->activity->place->place }}
+                          <label for="atten{{$attendance->attendance_id}}">{{ $attendance->activity->act_at }} {{ $myController->get_youbi($attendance->activity->act_at) }} &nbsp; </label>{{ $attendance->activity->time->jikan }} {{ $attendance->activity->place->place }}
                           @if (strlen($attendance->activity->note)) <span>&nbsp; {{ $attendance->activity->note }}</span>@endif
                           <select name="atten{{$attendance->attendance_id}}" class="form-control">
                               <option value="0"

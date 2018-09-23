@@ -102,4 +102,6 @@ class HomeController extends Controller
     return redirect('/admin/home/')
         ->with('status', $activity->act_at . "活動予定を新規登録しました");
   }
+
+
 }

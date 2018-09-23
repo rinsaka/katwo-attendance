@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@inject('myController', 'App\Http\Controllers\Controller')
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -24,7 +26,7 @@
                       @forelse ($activities as $activity)
                         <p>
                           <a href="{{ action('Admin\HomeController@edit', [$activity->id]) }}">
-                            {{ $activity->act_at }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }}
+                            {{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }}
                             @if (strlen($activity->note)) <span>&nbsp; {{ $activity->note }}</span>@endif
                           </a>
                         </p>
