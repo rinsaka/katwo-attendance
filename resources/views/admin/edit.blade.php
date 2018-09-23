@@ -38,6 +38,11 @@
                         <p>
                           <label for="time">時間: </label>
                           <select name="time" class="form-control">
+                            <option value="0"
+                              @if ($activity->time_id == 0)
+                              selected
+                              @endif
+                              >未定（または，その他）</option>
                             @foreach ($times as $time)
                               <option value="{{ $time->id }}"
                                 @if ($activity->time_id == $time->id)
@@ -51,6 +56,11 @@
                         <p>
                           <label for="place">場所: </label>
                           <select name="place" class="form-control">
+                            <option value="0"
+                              @if ($activity->place_id == 0)
+                              selected
+                              @endif
+                              >未定（または，その他）</option>
                             @foreach ($places as $place)
                               <option value="{{ $place->id }}"
                                 @if ($activity->place_id == $place->id)

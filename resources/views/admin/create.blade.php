@@ -36,6 +36,11 @@
                         <p>
                           <label for="time">時間: </label>
                           <select name="time" class="form-control">
+                            <option value="0"
+                              @if ($errors->any())
+                                @if (old('time') == "0") selected @endif
+                              @endif >
+                              未定（または，その他）</option>
                             @foreach ($times as $time)
                               <option value="{{ $time->id }}"
                                 @if ($errors->any())
@@ -51,6 +56,11 @@
                         <p>
                           <label for="place">場所: </label>
                           <select name="place" class="form-control">
+                            <option value="0"
+                              @if ($errors->any())
+                                @if (old('place') == "0") selected @endif
+                              @endif >
+                              未定（または，その他）</option>
                             @foreach ($places as $place)
                               <option value="{{ $place->id }}"
                                 @if ($errors->any())

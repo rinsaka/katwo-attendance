@@ -147,5 +147,14 @@ class ActivitiesTableSeeder extends Seeder
         'created_at' => Carbon::now(),
         'updated_at' => Carbon::now()
       ]);
+
+      DB::table('activities')->insert([
+        'act_at' => '2019-07-14',
+        'place_id' => null,
+        'time_id' => null,
+        'note' => '本番',
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now()
+      ]);
     }
 }
