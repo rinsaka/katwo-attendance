@@ -72,19 +72,30 @@
                     Kat-WO
                 </div>
 
-                <div class="links">
-                    @if (Route::has('login'))
-                      @if (Auth::check())
-                          <a href="{{ url('/home') }}">Home</a>
-                      @else
-                          <a href="{{ url('/login') }}">団員ログイン</a>
-                      @endif
-                    @endif
-                </div>
 
-                <div class="links">
-                    <a href="{{ url('/admin/login') }}">管理者用</a>
-                </div>
+                @if (Auth::guard('user')->user())
+                  <div class="links m-b-md">
+                    <a href="{{ url('/home') }}">団員専用のHomeへ</a>
+                  </div>
+                  <div class="links m-b-md">
+                    <a> 管理者モードで利用するには一旦ログアウトしてください</a>
+                  </div>
+                @elseif (Auth::guard('admin')->user())
+                  <div class="links m-b-md">
+                    <a href="{{ url('/admin/home') }}">管理者のホームへ</a>
+                  </div>
+                  <div class="links m-b-md">
+                    <a> 団員モードで利用するには一旦ログアウトしてください</a>
+                  </div>
+                @else
+                  <div class="links m-b-md">
+                    <a href="{{ url('/login') }}">団員ログイン</a>
+                  </div>
+                  <div class="links m-b-md">
+                    <a href="{{ url('/admin/login') }}">管理者ログイン</a>
+                  </div>
+                @endif
+
             </div>
         </div>
     </body>
