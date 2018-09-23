@@ -136,5 +136,24 @@ class HomeController extends Controller
         ->with('status', $activity->act_at . "活動予定を新規登録しました");
   }
 
+  public function destory($id)
+  {
+    $activity = Activity::where('id', '=', $id)->first();
+    if (!$activity) {
+      return redirect('/admin/home')->with('status', "そのような活動予定がありません");
+    }
 
+    // カスケード削除がうまく動いていないようなので，強制的に削除
+    $attendances = Attendance::where('activity_id', '=', $activity->id)->get();
+    foreach ($attendances as $attendance) {
+      // 本来は下の5行下の命令で連鎖削除されるはずであるが，SQlite は使えないので，手動で
+      $attendance->delete();
+    }
+
+    // 親のレコードを削除
+    $activity->delete();
+
+    return redirect('/admin/home')
+            ->with('status', $activity->act_at . " の活動予定を削除しました");
+  }
 }

@@ -100,6 +100,13 @@
                   <p><a href="{{ action('Admin\HomeController@index') }}">
                     戻る
                   </a></p>
+                  <div class="right">
+                    <form action="{{ url('/admin/activity', $activity->id) }}" method="post">
+                          {{ csrf_field() }}
+                          {{ method_field('DELETE') }}
+                          <button>  活動予定の削除  </button>
+                    </form>
+                  </div>
                 </div>
             </div>
         </div>

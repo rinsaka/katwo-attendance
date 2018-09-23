@@ -46,4 +46,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
   Route::patch('activity', 'Admin\HomeController@update')->name('admin_act_update');
   Route::post('activity', 'Admin\HomeController@store')->name('admin_act_store');
   Route::post('logout', 'Admin\LoginController@logout')->name('admin.logout');
+  Route::delete('activity/{id}', 'Admin\HomeController@destory');
 });
