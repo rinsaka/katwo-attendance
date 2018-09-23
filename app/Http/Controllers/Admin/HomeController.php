@@ -141,21 +141,11 @@ class HomeController extends Controller
     if($request->confirmation != 'yakuin') {
       return redirect('/admin/activity/'.$id)->with('status', "確認用文字列を入力してください");
     }
-    // dd($request);
     $activity = Activity::where('id', '=', $id)->first();
     if (!$activity) {
       return redirect('/admin/home')->with('status', "そのような活動予定がありません");
     }
-
-    // カスケード削除がうまく動いていないようなので，強制的に削除
-    $attendances = Attendance::where('activity_id', '=', $activity->id)->get();
-    foreach ($attendances as $attendance) {
-      // 本来は下の5行下の命令で連鎖削除されるはずであるが，SQlite は使えないので，手動で
-      $attendance->delete();
-    }
-
-    // 親のレコードを削除
-    $activity->delete();
+    $activity->delete();  // cascade にしているので関連した attendances も消える
 
     return redirect('/admin/home')
             ->with('status', $activity->act_at . " の活動予定を削除しました");
