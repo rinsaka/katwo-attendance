@@ -66,8 +66,16 @@ class HomeController extends Controller
     // dd($request->act_at, strtotime($request->act_at), date('Y-m-01', strtotime($request->act_at)) );
 
     $activity->act_at = date('Y-m-d', strtotime($request->act_at));
-    $activity->time_id = $request->time;
-    $activity->place_id = $request->place;
+    if ($request->time == "0") {
+      $activity->time_id = null;
+    } else {
+      $activity->time_id = $request->time;
+    }
+    if ($request->place == "0") {
+      $activity->place_id = null;
+    } else {
+      $activity->place_id = $request->place;
+    }
     $activity->note = $request->note;
     $activity->save();
 
@@ -95,8 +103,16 @@ class HomeController extends Controller
 
     $activity = new Activity();
     $activity->act_at = $act_at;
-    $activity->time_id = $request->time;
-    $activity->place_id = $request->place;
+    if ($request->time == "0") {
+      $activity->time_id = null;
+    } else {
+      $activity->time_id = $request->time;
+    }
+    if ($request->place == "0") {
+      $activity->place_id = null;
+    } else {
+      $activity->place_id = $request->place;
+    }
     $activity->note = $request->note;
     $activity->save();
 
