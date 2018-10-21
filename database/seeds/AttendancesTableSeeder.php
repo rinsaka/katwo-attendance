@@ -29,7 +29,7 @@ class AttendancesTableSeeder extends Seeder
         'name' => 'たろー',
         'part_id' => 2,
         'activity_id' => 8,
-        'attendance' => 2,
+        'attendance' => 1,
         'comment' => "長いコメントは途中まで表示されます．長いコメントは途中まで表示されます．",
         'created_at' => '2018-09-20 18:00:00',
         'updated_at' => '2018-09-20 18:10:00'
@@ -90,7 +90,7 @@ class AttendancesTableSeeder extends Seeder
         'name' => 'ジロー',
         'part_id' => 3,
         'activity_id' => 10,
-        'attendance' => 3,
+        'attendance' => 1,
         'created_at' => '2018-08-11 18:00:00',
         'updated_at' => '2018-08-11 18:00:00'
       ]);

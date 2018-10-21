@@ -67,15 +67,6 @@
                                 @endif
                               @endif
                               >○ （参加）</option>
-                              <option value="2"
-                              @if ($errors->any())
-                                @if(old("atten$attendance->attendance_id") == "2") selected @endif
-                              @else
-                                @if ($attendance->attendance == 2)
-                                  selected
-                                @endif
-                              @endif
-                              >△ （行けないかも）</option>
                               <option value="1"
                               @if ($errors->any())
                                 @if(old("atten$attendance->attendance_id") == "1") selected @endif

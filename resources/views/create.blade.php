@@ -55,7 +55,6 @@
                           <select name="act{{$activity->id}}" class="form-control">
                               <option value="0" @if(old("act$activity->id") == "0") selected @endif>- （未定） ---- 予定を選択してください ---- </option>
                               <option value="3" @if(old("act$activity->id") == "3") selected @endif>○ （参加）</option>
-                              <option value="2" @if(old("act$activity->id") == "2") selected @endif>△ （行けないかも）</option>
                               <option value="1" @if(old("act$activity->id") == "1") selected @endif>× （欠席）</option>
                           </select>
                         </p>

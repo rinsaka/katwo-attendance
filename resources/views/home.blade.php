@@ -68,7 +68,6 @@
                             </p>
                             <p class="results">
                               参加： <span class="n_attendance">{{ $activity->n_atten[3] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }}</span>, &nbsp;
-                              △： <span class="n_attendance">{{ $activity->n_atten[2] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }}</span>, &nbsp;
                               欠席： <span class="n_attendance">{{ $activity->n_atten[1] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }}</span>, &nbsp;
                               未定： <span class="n_attendance">{{ $activity->n_atten[0] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }} </span>&nbsp;
                             </p>
@@ -76,7 +75,7 @@
                               <span class="{{ $activity->class_expansion_link }}">回答者リストの表示／非表示を切り替える</span><br>
                               @foreach ($activity->parts as $part)
                                 <span class="atten_part">
-                                {{ $part->s_part }}： ○ <span class="n_attendance">{{ $part->n_atten[3] }}</span>，&nbsp; △ <span class="n_attendance">{{ $part->n_atten[2] }}</span>，&nbsp; × <span class="n_attendance">{{ $part->n_atten[1] }}</span>，&nbsp; − <span class="n_attendance">{{ $part->n_atten[0] }}</span></span><br>
+                                {{ $part->s_part }}： ○ <span class="n_attendance">{{ $part->n_atten[3] }}</span>，&nbsp; × <span class="n_attendance">{{ $part->n_atten[1] }}</span>，&nbsp; − <span class="n_attendance">{{ $part->n_atten[0] }}</span></span><br>
                                 @foreach ($part->attendances as $attendance)
                                   <span class="atten_detail">
                                   @if ($attendance->new) <span class="new">新規</span> @endif
@@ -85,8 +84,6 @@
                                     {{ $attendance->name }} &nbsp;
                                     @if ($attendance->attendance == 3)
                                       ○
-                                    @elseif ($attendance->attendance == 2)
-                                      △
                                     @elseif ($attendance->attendance == 1)
                                       ×
                                     @else
