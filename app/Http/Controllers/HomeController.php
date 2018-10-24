@@ -67,6 +67,11 @@ class HomeController extends Controller
 
   public function show($year, $month)
   {
+    // URL の Validation
+    if ($year > 2080 || $year < 2017 || $month < 1 || $month > 12) {
+      return redirect('/home/')->with('status', "不正なURLです！");
+    } // まだ home/2018/11.2/ のような場合も動いてしまう．この後 (int) でキャストしているので問題なし．
+
     $thismonth_head = date("Y-m-01", mktime(0,0,0,$month,1,$year));
     $thismonth_tail = date("Y-m-t", mktime(0,0,0,$month,1,$year));
     $this_year = $year;
