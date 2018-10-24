@@ -21,13 +21,13 @@
 
                         <p>
                           <label for="name">日にち: </label>
-                          <input type="text" name="act_at" value=
+                          <input type="date" name="act_at" value=
                           @if ($errors->any())
                             "{{ old("act_at") }}"
                           @else
                             ""
                           @endif
-                          class="form-control" placeholder="【必須】2020/01/01, 2020-01-01, 20200101 のいずれかで">
+                          class="form-control">
                           @if ($errors->has('act_at'))
                             <span class="error">{{ $errors->first('act_at') }}</span>
                           @endif
