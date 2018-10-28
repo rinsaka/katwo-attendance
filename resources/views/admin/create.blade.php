@@ -103,6 +103,10 @@
                   <p><a href="{{ action('Admin\HomeController@index') }}">
                     戻る
                   </a></p>
+                  <p>&nbsp;</p>
+                  <p>
+                    This system is developed with <a href="https://laravel.com/">Laravel</a>, <a href="https://aws.amazon.com/jp/">AWS</a> and <a href="https://github.com/rinsaka/katwo-attendance">GitHub</a>.
+                  </p>
                 </div>
             </div>
         </div>

@@ -150,7 +150,9 @@
 
                 </div>
                 <div  class="panel-footer">
-                  &nbsp;
+                  <p>
+                    This system is developed with <a href="https://laravel.com/">Laravel</a>, <a href="https://aws.amazon.com/jp/">AWS</a> and <a href="https://github.com/rinsaka/katwo-attendance">GitHub</a>.
+                  </p>
                 </div>
             </div>
         </div>
