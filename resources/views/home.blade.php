@@ -72,7 +72,7 @@
                               未定： <span class="n_attendance">{{ $activity->n_atten[0] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }} </span>&nbsp;
                             </p>
                             <p class="{{ $activity->class_attendance }} vertical" ontouchstart="">
-                              <span class="{{ $activity->class_expansion_link }}">回答者リストの表示／非表示を切り替える</span><br>
+                              <span class="{{ $activity->class_expansion_link }}">詳細の表示／非表示</span><br>
                               @foreach ($activity->parts as $part)
                                 <span class="atten_part">
                                 {{ $part->s_part }}： ○ <span class="n_attendance">{{ $part->n_atten[3] }}</span>，&nbsp; × <span class="n_attendance">{{ $part->n_atten[1] }}</span>，&nbsp; − <span class="n_attendance">{{ $part->n_atten[0] }}</span></span><br>
