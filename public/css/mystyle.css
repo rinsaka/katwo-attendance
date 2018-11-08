@@ -263,11 +263,13 @@ span.error {
 }
 
 span.new {
+  font-size: 70%;
   color: white;
   background-color: olive;
 }
 
 span.update {
+  font-size: 70%;
   color: red;
   background-color: yellow;
 }
