@@ -22,7 +22,7 @@
                         <input type="hidden" name="aid" value="{{ $activity->id }}">
 
                         <p>
-                          <label for="name">日にち: </label>
+                          <label for="act_at">日にち: </label>
                           <input type="date" name="act_at" value=
                           @if ($errors->any())
                             "{{ old("act_at") }}"
@@ -72,7 +72,7 @@
                         </p>
 
                         <p>
-                          <label for="name">内容: </label>
+                          <label for="note">内容: </label>
                           <input type="text" name="note" value=
                           @if ($errors->any())
                             "{{ old("note") }}"
