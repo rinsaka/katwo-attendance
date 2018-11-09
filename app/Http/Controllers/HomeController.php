@@ -101,6 +101,7 @@ class HomeController extends Controller
 
     $activities = Activity::where('act_at', '>=', $thismonth_head)
                             ->where('act_at', '<=', $thismonth_tail)
+                            ->orderBy('act_at')
                             ->get();
     // 各アクティビティについていろいろと取得する
     $activities = $this->get_Attendances_detail($activities);
