@@ -45,7 +45,7 @@ class PlacesTableSeeder extends Seeder
       ]);
 
       DB::table('places')->insert([
-        'place' => '西武市民会館（魚住）',
+        'place' => '西部市民会館（魚住）',
         'default_place' => false,
         'created_at' => Carbon::now(),
         'updated_at' => Carbon::now()
