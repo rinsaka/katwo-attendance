@@ -24,11 +24,13 @@ $this->post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['middleware' => 'auth:user'], function() {
   Route::get('/home', 'HomeController@index')->name('home');
+  Route::post('/home/confirm_delete', 'HomeController@confirm_delete');
   Route::get('/home/{year}/{month}', 'HomeController@show');
   Route::get('/home/{year}/{month}/create', 'HomeController@create');
   Route::get('/home/{year}/{month}/{aid}/edit', 'HomeController@edit');
   Route::post('/home/', 'HomeController@store')->name('store');
   Route::patch('/home/', 'HomeController@update')->name('update');
+  Route::delete('/home/', 'HomeController@destroy')->name('destroy');
 });
 
 

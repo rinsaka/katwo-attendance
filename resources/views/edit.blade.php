@@ -112,6 +112,20 @@
                   <p>
                     <a href="{{ action('HomeController@show', [$year, $month]) }}">戻る</a>
                   </p>
+                  <div class="pull-right">
+                    <form action="{{ url('/home/confirm_delete') }}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="year" value="{{ $year }}">
+                        <input type="hidden" name="month" value="{{ $month }}">
+                        <input type="hidden" name="name" value="{{ $name }}">
+                        <input type="hidden" name="aid" value="{{ $aid }}">
+
+                        @foreach ($attendances as $attendance)
+                          <input type="hidden" name="attens[]" value="{{ $attendance->id }}">
+                        @endforeach
+                      <button>{{ $name }}&nbsp;さんの{{ $year }}年{{ $month }}月の予定を削除</button>
+                     </form>
+                  </div>
                   <p>&nbsp;</p>
                   <p>
                     This system is developed with <a href="https://laravel.com/">Laravel</a>, <a href="https://aws.amazon.com/jp/">AWS</a> and <a href="https://github.com/rinsaka/katwo-attendance">GitHub</a>.

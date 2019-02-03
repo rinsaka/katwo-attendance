@@ -371,4 +371,27 @@ class HomeController extends Controller
     }
     return $acts;
   }
+
+  public function confirm_delete(Request $request)
+  {
+    return view('delete')
+              ->with('name', $request->name)
+              ->with('year', $request->year)
+              ->with('month', $request->month)
+              ->with('aid', $request->aid)
+              ->with('attens', $request->attens);
+  }
+
+  public function destroy(Request $request)
+  {
+    if($request->delete_token == $request->confirmation) {
+      foreach($request->attens as $atten) {
+        $attendance = Attendance::where('id', $atten)->first();
+        $attendance->delete();
+      }
+      return redirect('/home/'.$request->year.'/'.$request->month)->with('status', $request->name . " さんの予定を削除しました");
+    } else {
+      return redirect('/home/'.$request->year.'/'.$request->month.'/'.$request->aid.'/edit')->with('status', "予定を削除できません（確認用の文字列を正しく入力してください）");
+    }
+  }
 }
