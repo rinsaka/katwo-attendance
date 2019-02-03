@@ -123,7 +123,7 @@
                         @foreach ($attendances as $attendance)
                           <input type="hidden" name="attens[]" value="{{ $attendance->id }}">
                         @endforeach
-                      <button>{{ $name }}&nbsp;さんの{{ $year }}年{{ $month }}月の予定を削除</button>
+                      <button>予定を削除</button>
                      </form>
                   </div>
                   <p>&nbsp;</p>
