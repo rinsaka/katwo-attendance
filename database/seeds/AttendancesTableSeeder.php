@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 
-
 class AttendancesTableSeeder extends Seeder
 {
     /**
