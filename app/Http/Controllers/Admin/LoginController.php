@@ -44,6 +44,7 @@ class LoginController extends Controller
       return view('admin.login');
     }
 
+    // @codeCoverageIgnoreStart
     protected function guard()
     {
       return Auth::guard('admin');
@@ -60,4 +61,5 @@ class LoginController extends Controller
     {
       return 'login_id';
     }
+    // @codeCoverageIgnoreEnd
 }

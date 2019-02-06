@@ -271,6 +271,7 @@ class UsersHomeTest extends TestCase
                       ->assertSee('KatWO メンバー');
   }
 
+
   // 追加して削除する
   public function testCreateAndDelete()
   {
@@ -324,6 +325,8 @@ class UsersHomeTest extends TestCase
                         'confirmation' => "katwo"
                       ]);
   }
+
+
 
   /**
   *     月をずらす
