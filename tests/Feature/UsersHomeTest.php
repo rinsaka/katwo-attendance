@@ -93,6 +93,23 @@ class UsersHomeTest extends TestCase
     $response = $this->actingAs($user)
                       ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] .'/create')
                       ->assertRedirect('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1]);
+
+    // 1月，12月の切り替えチェック
+    $response = $this->actingAs($user)
+                     ->get('/home/'. $this->ymlist[0][0] . '/1')
+                     ->assertSee('12月')
+                     ->assertSee('2月');
+
+     // 1月，12月の切り替えチェック
+     $response = $this->actingAs($user)
+                      ->get('/home/'. $this->ymlist[0][0] . '/12')
+                      ->assertSee('11月')
+                      ->assertSee('1月');
+
+      // 不正なURL
+      $response = $this->actingAs($user)
+                       ->get('/home/'. $this->ymlist[0][0] . '/13')
+                       ->assertRedirect('/home/');
   }
 
   public function testCreateAsUser()
@@ -252,6 +269,60 @@ class UsersHomeTest extends TestCase
                       // ->assertSee('新規')
                       ->assertSee('更新')
                       ->assertSee('KatWO メンバー');
+  }
+
+  // 追加して削除する
+  public function testCreateAndDelete()
+  {
+    $user = User::where('id',1)->first();
+
+    $response = $this->actingAs($user)
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[1][0],
+                        'month' => $this->ymlist[1][1],
+                        'n_act' => "4",
+                        'part' => "1",
+                        'name' => "サブロー",
+                        'act4' => "3",
+                        'comment4' => "あとで削除します",
+                        'act5' => "3",
+                        'comment5' => "",
+                        'act6' => "1",
+                        'comment6' => "削除してね",
+                        'act7' => "3",
+                        'comment7' => "これ失敗"
+                      ]);
+
+    $response = $this->actingAs($user)
+                      ->json('POST', '/home/confirm_delete', [
+                        'year' => $this->ymlist[1][0],
+                        'month' => $this->ymlist[1][1],
+                        'name' => "サブロー",
+                        'aid' => "13",
+                        'attens' => array(13, 14, 15, 16),
+                      ]);
+
+    $response = $this->actingAs($user)
+                      ->json('DELETE', '/home', [
+                        'year' => $this->ymlist[1][0],
+                        'month' => $this->ymlist[1][1],
+                        'name' => "サブロー",
+                        'aid' => "13",
+                        'attens' => array(13, 14, 15, 16),
+                        'delete_token' => "katwo",
+                        'confirmation' => "hoge"  // 文字列が異なるので削除エラー
+                      ]);
+
+    $response = $this->actingAs($user)
+                      ->json('DELETE', '/home', [
+                        'year' => $this->ymlist[1][0],
+                        'month' => $this->ymlist[1][1],
+                        'name' => "サブロー",
+                        'aid' => "13",
+                        'attens' => array(13, 14, 15, 16),
+                        'delete_token' => "katwo",
+                        'confirmation' => "katwo"
+                      ]);
   }
 
   /**
