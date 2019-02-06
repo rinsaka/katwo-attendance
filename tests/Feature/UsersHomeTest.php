@@ -11,6 +11,22 @@ use App\User;
 
 class UsersHomeTest extends TestCase
 {
+
+  public function __construct()
+  {
+    // 日付の取得
+    $year = (int)date('Y');
+    $month = (int)date('m');
+    // var_dump($this->year);
+
+    // 3ヶ月前から8ヶ月後までの年と月を配列に格納
+    $this->ymlist = array();
+    for ($i = -3; $i <= 8; $i++) {
+      $this->ymlist[$i] = $this->shift_month($year, $month, $i);
+    }
+  }
+
+
   /**
    * A basic test example.
    *
@@ -48,24 +64,25 @@ class UsersHomeTest extends TestCase
                       ->assertSee('KatWO メンバー');
 
     $response = $this->actingAs($user)
-                      ->get('/home/2018/10')
+                      ->get('/home/'. $this->ymlist[2][0] . '/' . $this->ymlist[2][1])
                       ->assertSee('登録')
                       ->assertSee('常磐');
 
 
     $response = $this->actingAs($user)
-                     ->get('/home/2018/12')
+                     ->get('/home/'. $this->ymlist[4][0] . '/' . $this->ymlist[4][1])
                      ->assertSee('登録')
                      ->assertSee('常磐');
 
     $response = $this->actingAs($user)
-                      ->get('/home/2019/01')
+                      // ->get('/home/2019/01')
+                      ->get('/home/'. $this->ymlist[5][0] . '/' . $this->ymlist[5][1])
                       ->assertSee('登録')
                       ->assertSee('まだ');
 
 
     $response = $this->actingAs($user)
-                      ->get('/home/2018/09/create')
+                      ->get('/home/'. $this->ymlist[1][0] . '/' . $this->ymlist[1][1] .'/create')
                       ->assertSee('パート')
                       ->assertSee('必須')
                       ->assertSee('ニックネーム')
@@ -74,8 +91,8 @@ class UsersHomeTest extends TestCase
                       ->assertSee('戻る');
 
     $response = $this->actingAs($user)
-                      ->get('/home/2018/05/create')
-                      ->assertRedirect('/home/2018/05');
+                      ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] .'/create')
+                      ->assertRedirect('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1]);
   }
 
   public function testCreateAsUser()
@@ -84,8 +101,8 @@ class UsersHomeTest extends TestCase
 
     $response = $this->actingAs($user)
                       ->json('POST', '/home', [
-                        'year' => "2018",
-                        'month' => "09",
+                        'year' => $this->ymlist[1][0],
+                        'month' => $this->ymlist[1][1],
                         'n_act' => "4",
                         'part' => "8",
                         'name' => "test_json",
@@ -101,8 +118,8 @@ class UsersHomeTest extends TestCase
 
     $response = $this->actingAs($user)
                       ->json('POST', '/home', [
-                        'year' => "2018",
-                        'month' => "09",
+                        'year' => $this->ymlist[1][0],
+                        'month' => $this->ymlist[1][1],
                         'n_act' => "4",
                         'part' => "8",
                         'name' => "たろー",  // 名前が重複
@@ -118,8 +135,8 @@ class UsersHomeTest extends TestCase
 
     $response = $this->actingAs($user)
                       ->json('POST', '/home', [
-                        'year' => "2018",
-                        'month' => "09",
+                        'year' => $this->ymlist[1][0],
+                        'month' => $this->ymlist[1][1],
                         'n_act' => "4",
                         'part' => "",  // パート未選択
                         'name' => "ながいなまえ",
@@ -135,8 +152,8 @@ class UsersHomeTest extends TestCase
 
     $response = $this->actingAs($user)
                       ->json('POST', '/home', [
-                        'year' => "2018",
-                        'month' => "09",
+                        'year' => $this->ymlist[1][0],
+                        'month' => $this->ymlist[1][1],
                         'n_act' => "4",
                         'part' => "2",
                         'name' => "ながいなまえながいなまえながいなまえながいなまえながいなまえながいなまえながいなまえながいなまえながいなまえながいなまえ",  // 名前長い
@@ -152,8 +169,8 @@ class UsersHomeTest extends TestCase
 
     $response = $this->actingAs($user)
                       ->json('POST', '/home', [
-                        'year' => "2018",
-                        'month' => "09",
+                        'year' => $this->ymlist[1][0],
+                        'month' => $this->ymlist[1][1],
                         'n_act' => "4",
                         'part' => "2",
                         'name' => "長いコメント",
@@ -174,7 +191,7 @@ class UsersHomeTest extends TestCase
     $user = User::where('id',1)->first();
 
     $response = $this->actingAs($user)
-                      ->get('/home/2018/09')
+                      ->get('/home/'. $this->ymlist[1][0] . '/' . $this->ymlist[1][1])
                       ->assertSee('新規')
                       // ->assertSee('更新')
                       ->assertSee('KatWO メンバー');
@@ -185,7 +202,7 @@ class UsersHomeTest extends TestCase
     $user = User::where('id',1)->first();
 
     $response = $this->actingAs($user)
-                      ->get('/home/2018/09/12/edit')
+                      ->get('/home/'. $this->ymlist[1][0] . '/' . $this->ymlist[1][1] . '/12/edit')
                       ->assertSee('パート')
                       ->assertSee('予定を変更します')
                       ->assertSee('コメント')
@@ -193,12 +210,13 @@ class UsersHomeTest extends TestCase
                       ->assertSee('戻る');
 
     $response = $this->actingAs($user)
-                      ->get('/home/2018/05/12/edit')
-                      ->assertRedirect('/home/2018/05');
+                      ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/12/edit')
+                      ->assertRedirect('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1]);
 
     $response = $this->actingAs($user)
-                      ->get('/home/2018/08/99/edit')
-                      ->assertRedirect('/home/2018/08');
+                      // ->get('/home/2018/08/99/edit')
+                      ->get('/home/'. $this->ymlist[0][0] . '/' . $this->ymlist[0][1] . '/99/edit')
+                      ->assertRedirect('/home/'. $this->ymlist[0][0] . '/' . $this->ymlist[0][1]);
   }
 
 
@@ -208,8 +226,8 @@ class UsersHomeTest extends TestCase
 
     $response = $this->actingAs($user)
                       ->json('PATCH', '/home', [
-                        'year' => "2018",
-                        'month' => "09",
+                        'year' => $this->ymlist[1][0],
+                        'month' => $this->ymlist[1][1],
                         'n_act' => "4",
                         'aid' => "12",
                         'part' => "8",
@@ -230,9 +248,42 @@ class UsersHomeTest extends TestCase
     $user = User::where('id',1)->first();
 
     $response = $this->actingAs($user)
-                      ->get('/home/2018/09')
+                      ->get('/home/'. $this->ymlist[1][0] . '/' . $this->ymlist[1][1])
                       // ->assertSee('新規')
                       ->assertSee('更新')
                       ->assertSee('KatWO メンバー');
   }
+
+  /**
+  *     月をずらす
+  *
+  *
+  **/
+  private function shift_month($year, $month, $shift = 0)
+  {
+    if ($shift == 0) {
+      return array($year, $month);
+    } elseif ($shift > 0) {  // 増やす
+      for ($i = 1; $i <= $shift; $i++) {
+        if ($month == 12) {
+          $year++;
+          $month = 1;
+        } else {
+          $month++;
+        }
+      }
+      return array($year, $month);
+    } else { // 減らす
+      for ($i = -1; $i >= $shift; $i--) {
+        if ($month == 1) {
+          $year--;
+          $month = 12;
+        } else {
+          $month--;
+        }
+      }
+      return array($year, $month);
+    }
+  }
+
 }
