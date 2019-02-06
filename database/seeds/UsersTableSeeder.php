@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
       'name' => 'KatWO メンバー',
       'email' => 'a@sample.com',
       'login_id' => 'katwo',
-      'password' => bcrypt('abc'),
+      'password' => bcrypt(env('USER_PASSWORD')),
       'created_at' => Carbon::now()
     ]);
   }

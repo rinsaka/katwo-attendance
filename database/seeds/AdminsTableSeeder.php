@@ -20,7 +20,7 @@ class AdminsTableSeeder extends Seeder
         'name' => 'KatWO 役員',
         'email' => 'y@sample.com',
         'login_id' => 'yakuin',
-        'password' => bcrypt('katyakuin'),
+        'password' => bcrypt(env('ADMIN_PASSWORD')),
         'created_at' => Carbon::now()
       ]);
 
