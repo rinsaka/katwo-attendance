@@ -129,6 +129,7 @@ class HomeController extends Controller
 
     $activities = Activity::where('act_at', '>=', $thismonth_head)
                             ->where('act_at', '<=', $thismonth_tail)
+                            ->orderBy('act_at')
                             ->get();
     $n_act = count($activities);
 
@@ -225,6 +226,7 @@ class HomeController extends Controller
                                 ->where('attendances.name', '=', $name)
                                 ->where('activities.act_at', '>=', $thismonth_head)
                                 ->where('activities.act_at', '<=', $thismonth_tail)
+                                ->orderBy('activities.act_at')
                                 ->get();
 
     if (count($attendances) == 0) {
