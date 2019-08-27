@@ -21,7 +21,7 @@
                   <ul>
                   @foreach ($activities as $activity)
                   <li>
-                    {{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }}
+                    {{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }} {{ $activity->note }}
                   </li>
                   @endforeach
                   </ul>
