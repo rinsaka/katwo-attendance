@@ -397,7 +397,7 @@ class HomeController extends Controller
     }
   }
 
-  public function list()
+  public function all_act()
   {
     // すべての Activity を取得
     $activities = Activity::orderBy('act_at')

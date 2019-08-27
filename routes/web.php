@@ -25,7 +25,7 @@ $this->post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth:user'], function() {
   Route::get('/home', 'HomeController@index')->name('home');
   Route::post('/home/confirm_delete', 'HomeController@confirm_delete');
-  Route::get('/home/list', 'HomeController@list');
+  Route::get('/home/list', 'HomeController@all_act');
   Route::get('/home/{year}/{month}', 'HomeController@show');
   Route::get('/home/{year}/{month}/create', 'HomeController@create');
   Route::get('/home/{year}/{month}/{aid}/edit', 'HomeController@edit');
