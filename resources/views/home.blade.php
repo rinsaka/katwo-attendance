@@ -153,6 +153,9 @@
                   <p>
                     This system is developed with <a href="https://laravel.com/">Laravel</a>, <a href="https://aws.amazon.com/jp/">AWS</a> and <a href="https://github.com/rinsaka/katwo-attendance">GitHub</a>.
                   </p>
+                  <p>
+                    <a href="{{ action('HomeController@list') }}">練習予定の一覧を表示する</a>
+                  </p>
                 </div>
             </div>
         </div>

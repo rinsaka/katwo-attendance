@@ -396,4 +396,13 @@ class HomeController extends Controller
       return redirect('/home/'.$request->year.'/'.$request->month.'/'.$request->aid.'/edit')->with('status', "予定を削除できません（確認用の文字列を正しく入力してください）");
     }
   }
+
+  public function list()
+  {
+    // すべての Activity を取得
+    $activities = Activity::orderBy('act_at')
+                            ->get();
+    return view('list')
+            ->with('activities', $activities);
+  }
 }
