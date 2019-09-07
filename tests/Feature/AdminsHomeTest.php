@@ -57,12 +57,12 @@ class AdminsHomeTest extends TestCase
                       ->assertSee('アリーナ')
                       ->assertSee('管理者');
 
-    $response = $this->actingAs($admin, 'admin')
-                      ->get('/admin/activity/16')
-                      ->assertSee('日にち')
-                      ->assertSee('時間')
-                      ->assertSee('場所')
-                      ->assertSee('管理者');
+    // $response = $this->actingAs($admin, 'admin')
+    //                   ->get('/admin/activity/16')
+    //                   ->assertSee('日にち')
+    //                   ->assertSee('時間')
+    //                   ->assertSee('場所')
+    //                   ->assertSee('管理者');
 
     $response = $this->actingAs($admin, 'admin')
                       ->get('/admin/activity/99');
@@ -248,6 +248,12 @@ class AdminsHomeTest extends TestCase
     $iter = 0;
     foreach($act_list as $act) {
       $m = $month + $iter;
+      if ($m == 13) {
+        $year = $year + 1;
+        $m = $m -12;
+      } elseif ($m > 13) {
+        $m = $m - 12;
+      }
       $tmp_acts = $this->get_activities($year, $m, $act['count'], $act['w']);
       if ($tmp_acts) {
         foreach($tmp_acts as $tmp_act) {

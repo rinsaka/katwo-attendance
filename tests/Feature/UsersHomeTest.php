@@ -68,11 +68,11 @@ class UsersHomeTest extends TestCase
                       ->assertSee('登録')
                       ->assertSee('常磐');
 
-
+    // dd('/home/'. $this->ymlist[4][0] . '/' . $this->ymlist[4][1]);
     $response = $this->actingAs($user)
                      ->get('/home/'. $this->ymlist[4][0] . '/' . $this->ymlist[4][1])
                      ->assertSee('登録')
-                     ->assertSee('常磐');
+                     ->assertSee('瀬楽');
 
     $response = $this->actingAs($user)
                       // ->get('/home/2019/01')
@@ -358,6 +358,16 @@ class UsersHomeTest extends TestCase
       }
       return array($year, $month);
     }
+  }
+
+  public function testListAllActAsUser()
+  {
+    $user = User::where('id',1)->first();
+
+    $response = $this->actingAs($user)
+                      ->get('/home/list')
+                      ->assertSee('すべての予定')
+                      ->assertSee('KatWO メンバー');
   }
 
 }
