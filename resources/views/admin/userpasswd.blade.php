@@ -27,7 +27,7 @@
 
                         <h4>管理者の情報</h4>
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('管理者パスワード') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">管理者パスワード</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="管理者のパスワードを入力して下さい" required autofocus>
@@ -43,7 +43,7 @@
                         <hr>
                         <h4>変更したい団員の情報</h4>
                           <div class="form-group row">
-                              <label for="login_id" class="col-md-4 col-form-label text-md-right">{{ __('団員のログインID（変更されません）') }}</label>
+                              <label for="login_id" class="col-md-4 col-form-label text-md-right">団員のログインID（変更されません）</label>
 
                               <div class="col-md-6">
                                   <input id="login_id" type="text" class="form-control" name="login_id" value="{{ old('login_id') }}" placeholder="団員のログインIDを入れて下さい（これは変更されません）" required>
@@ -57,7 +57,7 @@
                           </div>
 
                           <div class="form-group row">
-                              <label for="new_password" class="col-md-4 col-form-label text-md-right">{{ __('新しいパスワード') }}</label>
+                              <label for="new_password" class="col-md-4 col-form-label text-md-right">新しいパスワード'</label>
 
                               <div class="col-md-6">
                                   <input id="new_password" type="password" class="form-control" name="new_password" required>
@@ -71,7 +71,7 @@
                           </div>
 
                           <div class="form-group row">
-                              <label for="new_password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('新しいパスワード（確認用として同じものを入力して下さい）') }}</label>
+                              <label for="new_password-confirm" class="col-md-4 col-form-label text-md-right">新しいパスワード（確認用として同じものを入力して下さい）</label>
 
                               <div class="col-md-6">
                                   <input id="new_password-confirm" type="password" class="form-control" name="new_password_confirmation" required>
@@ -82,7 +82,7 @@
                       <div class="form-group row mb-0">
                           <div class="col-md-6 offset-md-4">
                               <button type="submit" class="btn btn-primary btn-block">
-                                  {{ __('団員のパスワードを変更する') }}
+                                団員のパスワードを変更する
                               </button>
                           </div>
                       </div>
