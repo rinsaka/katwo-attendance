@@ -30,7 +30,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('管理者パスワード') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" value="{{ $password ?? old('password') }}" placeholder="管理者のパスワードを入力して下さい" required autofocus>
+                                <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="管理者のパスワードを入力して下さい" required autofocus>
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
@@ -46,7 +46,7 @@
                               <label for="login_id" class="col-md-4 col-form-label text-md-right">{{ __('団員のログインID（変更されません）') }}</label>
 
                               <div class="col-md-6">
-                                  <input id="login_id" type="text" class="form-control{{ $errors->has('login_id') ? ' is-invalid' : '' }}" name="login_id" value="{{ $login_id ?? old('login_id') }}" placeholder="団員のログインIDを入れて下さい（これは変更されません）" required>
+                                  <input id="login_id" type="text" class="form-control" name="login_id" value="{{ old('login_id') }}" placeholder="団員のログインIDを入れて下さい（これは変更されません）" required>
 
                                   @if ($errors->has('current_password'))
                                       <span class="invalid-feedback" role="alert">
@@ -60,7 +60,7 @@
                               <label for="new_password" class="col-md-4 col-form-label text-md-right">{{ __('新しいパスワード') }}</label>
 
                               <div class="col-md-6">
-                                  <input id="new_password" type="password" class="form-control{{ $errors->has('new_password') ? ' is-invalid' : '' }}" name="new_password" required>
+                                  <input id="new_password" type="password" class="form-control" name="new_password" required>
 
                                   @if ($errors->has('new_password'))
                                       <span class="invalid-feedback" role="alert">

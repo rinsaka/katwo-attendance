@@ -29,7 +29,7 @@
                               <label for="current_password" class="col-md-4 col-form-label text-md-right">{{ __('現在のパスワード') }}</label>
 
                               <div class="col-md-6">
-                                  <input id="current_password" type="password" class="form-control{{ $errors->has('current_password') ? ' is-invalid' : '' }}" name="current_password" value="{{ $current_password ?? old('current_password') }}" required autofocus>
+                                  <input id="current_password" type="password" class="form-control" name="current_password" value="{{ $current_password ?? old('current_password') }}" required autofocus>
 
                                   @if ($errors->has('current_password'))
                                       <span class="invalid-feedback" role="alert">
@@ -43,7 +43,7 @@
                               <label for="new_password" class="col-md-4 col-form-label text-md-right">{{ __('新しいパスワード') }}</label>
 
                               <div class="col-md-6">
-                                  <input id="new_password" type="password" class="form-control{{ $errors->has('new_password') ? ' is-invalid' : '' }}" name="new_password" required>
+                                  <input id="new_password" type="password" class="form-control" name="new_password" required>
 
                                   @if ($errors->has('new_password'))
                                       <span class="invalid-feedback" role="alert">
