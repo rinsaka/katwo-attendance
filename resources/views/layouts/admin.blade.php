@@ -54,6 +54,11 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+                                      <a href="{{ action('Admin\HomeController@passwd') }}">
+                                        管理者パスワードの変更
+                                      </a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('admin.logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

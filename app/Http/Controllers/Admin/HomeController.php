@@ -9,6 +9,7 @@ use App\Activity;
 use App\Time;
 use App\Place;
 use App\Attendance;
+use App\Admin;
 
 class HomeController extends Controller
 {
@@ -165,5 +166,39 @@ class HomeController extends Controller
 
     return redirect('/admin/home')
             ->with('status', $activity->act_at . " の活動予定を削除しました");
+  }
+
+  public function passwd()
+  {
+    $admin = \Auth::user();
+    return view('admin.passwd')
+            ->with('id', $admin->id);
+  }
+
+  public function passwd_update(Request $request)
+  {
+    $admin = \Auth::user();
+    // 現在のパスワードを確認
+    if (!password_verify($request->current_password, $admin->password)) {
+      return redirect('/admin/password')
+          ->with('status', 'パスワードが違います');
+    }
+    // ここはありえないはず
+    if ($request->id != $admin->id) {
+      return redirect('/admin/password')
+          ->with('status', 'IDが不正です');
+    }
+    // Validation（6文字以上あるか，2つが一致しているかなどのチェック）
+    $this->validate($request, [
+      'new_password' => 'required|string|min:6|confirmed'
+    ]);
+
+    // パスワードを保存
+    $admin->password = bcrypt($request->new_password);
+    $admin->save();
+    return redirect('/admin/home')
+            ->with('status', 'パスワードを変更しました');
+
+
   }
 }
