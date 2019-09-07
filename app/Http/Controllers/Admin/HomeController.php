@@ -10,6 +10,7 @@ use App\Time;
 use App\Place;
 use App\Attendance;
 use App\Admin;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -198,7 +199,41 @@ class HomeController extends Controller
     $admin->save();
     return redirect('/admin/home')
             ->with('status', 'パスワードを変更しました');
+  }
+
+  /*
+  *   ユーザ（団員）パスワードの変更画面
+  */
+  public function userpasswd()
+  {
+    $admin = \Auth::user();
+    // dd($admin);
+    return view('admin.userpasswd')
+            ->with('id', $admin->id);
+  }
 
 
+  public function userpasswd_update(Request $request)
+  {
+    $admin = \Auth::user();
+    // 現在のパスワードを確認
+    if (!password_verify($request->password, $admin->password)) {
+      return redirect('/admin/userpassword')
+          ->with('status', 'パスワードが違います');
+    }
+    $this->validate($request, [
+      'login_id' => 'required',
+      'new_password' => 'required|string|min:6|confirmed'
+    ]);
+    $user = User::where('login_id', '=', $request->login_id)->first();
+    if (!$user) {
+      return redirect('/admin/userpassword')
+          ->with('status', '団員のログインIDが違います');
+    }
+    // パスワードを保存
+    $user->password = bcrypt($request->new_password);
+    $user->save();
+    return redirect('/admin/home')
+            ->with('status', '団員 '. $user->login_id . ' のパスワードを変更しました');
   }
 }

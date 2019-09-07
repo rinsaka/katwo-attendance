@@ -6,7 +6,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                  管理者パスワードの変更
+                  団員パスワードの変更
                 </div>
 
                 <div class="panel-body">
@@ -17,7 +17,7 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" method="POST" action="{{ route('admin.passwd') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('admin.userpasswd') }}">
                         {{ csrf_field() }}
                         {{ method_field('patch') }}
 
@@ -25,11 +25,28 @@
 
                         <input type="hidden" name="id" value="{{ $id }}">
 
+                        <h4>管理者の情報</h4>
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('管理者パスワード') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" value="{{ $password ?? old('password') }}" placeholder="管理者のパスワードを入力して下さい" required autofocus>
+
+                                @if ($errors->has('password'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <hr>
+                        <h4>変更したい団員の情報</h4>
                           <div class="form-group row">
-                              <label for="current_password" class="col-md-4 col-form-label text-md-right">{{ __('現在のパスワード') }}</label>
+                              <label for="login_id" class="col-md-4 col-form-label text-md-right">{{ __('団員のログインID（変更されません）') }}</label>
 
                               <div class="col-md-6">
-                                  <input id="current_password" type="password" class="form-control{{ $errors->has('current_password') ? ' is-invalid' : '' }}" name="current_password" value="{{ $current_password ?? old('current_password') }}" required autofocus>
+                                  <input id="login_id" type="text" class="form-control{{ $errors->has('login_id') ? ' is-invalid' : '' }}" name="login_id" value="{{ $login_id ?? old('login_id') }}" placeholder="団員のログインIDを入れて下さい（これは変更されません）" required>
 
                                   @if ($errors->has('current_password'))
                                       <span class="invalid-feedback" role="alert">
@@ -65,7 +82,7 @@
                       <div class="form-group row mb-0">
                           <div class="col-md-6 offset-md-4">
                               <button type="submit" class="btn btn-primary btn-block">
-                                  {{ __('管理者パスワードを変更する') }}
+                                  {{ __('団員のパスワードを変更する') }}
                               </button>
                           </div>
                       </div>
