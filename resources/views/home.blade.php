@@ -74,7 +74,9 @@
                               </p>
                             @else
                               <p class="menu">
-                                練習メニュー未登録
+                                <a href="{{ action('MenusController@create', $activity->id) }}">
+                                  練習メニュー未登録
+                                </a>
                               </p>
                             @endif
                             <p class="results">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Menu;
+use App\Activity;
 
 class MenusController extends Controller
 {
@@ -35,5 +36,30 @@ class MenusController extends Controller
     $menu->save();
 
     return redirect($request->url)->with('status', '練習メニューを更新しました');
+  }
+
+  public function create($aid)
+  {
+    $activity = Activity::where('id', '=', $aid)->first();
+    if (!$activity) {
+      return redirect('/home')->with('status', 'アクティビティが見つかりません');
+    }
+    return view('menus.create')
+            ->with('activity', $activity);
+  }
+
+  public function store(Request $request)
+  {
+    $this->validate($request, [
+      'name' => 'required|max:30',
+      'menu' => 'required'
+    ]);
+    $menu = new Menu();
+    $menu->activity_id = $request->aid;
+    $menu->name = $request->name;
+    $menu->menu = $request->menu;
+    $menu->save();
+
+    return redirect($request->url)->with('status', '練習メニューを登録しました');
   }
 }
