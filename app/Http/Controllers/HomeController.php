@@ -65,6 +65,23 @@ class HomeController extends Controller
         $array = array();
       }
       $activity->menus = $array;
+
+      // 新規登録と更新情報を設定
+      if ($activity->menu) {
+        // 最終更新からの経過時間を分単位で取得する
+        $minutes_from_update = (strtotime("now") - strtotime($activity->menu->updated_at)) / 60;
+        // 「新規」と「更新」を初期化
+        $activity->menu->new = false;
+        $activity->menu->update = false;
+        // 定数で指定された時間より短ければ「新規」または「更新」を設定する
+        if ($minutes_from_update < \Config::get('const.NEW_THRESHOLD')) {
+          if ($activity->menu->created_at == $activity->menu->updated_at) {
+            $activity->menu->new = true;
+          } else {
+            $activity->menu->update = true;
+          }
+        }
+      }
     }
 
     return view('home')
@@ -133,6 +150,23 @@ class HomeController extends Controller
         $array = array();
       }
       $activity->menus = $array;
+
+      // 新規登録と更新情報を設定
+      if ($activity->menu) {
+        // 最終更新からの経過時間を分単位で取得する
+        $minutes_from_update = (strtotime("now") - strtotime($activity->menu->updated_at)) / 60;
+        // 「新規」と「更新」を初期化
+        $activity->menu->new = false;
+        $activity->menu->update = false;
+        // 定数で指定された時間より短ければ「新規」または「更新」を設定する
+        if ($minutes_from_update < \Config::get('const.NEW_THRESHOLD')) {
+          if ($activity->menu->created_at == $activity->menu->updated_at) {
+            $activity->menu->new = true;
+          } else {
+            $activity->menu->update = true;
+          }
+        }
+      }
     }
 
     return view('home')

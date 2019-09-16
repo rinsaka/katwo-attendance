@@ -132,7 +132,8 @@
 
 div.menu {
   width: 90%;
-  margin-left: 15px;
+  margin: auto;
+  /* margin-left: 15px; */
   background-color: #F6F6F6;
 }
 a > .menu {

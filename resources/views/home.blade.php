@@ -70,6 +70,8 @@
                               <a href="{{ action('MenusController@show', $activity->menu->id) }}">
                                 <div class="menu">
                                   <p class="menu">
+                                      @if ($activity->menu->new) <span class="new">新規</span><br> @endif
+                                      @if ($activity->menu->update) <span class="update">更新</span><br> @endif
                                       @foreach ($activity->menus as $menu)
                                         {{ $menu }} <br>
                                       @endforeach

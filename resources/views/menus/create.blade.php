@@ -31,7 +31,7 @@
 
                       <p>
                         <label for="menu">練習メニュー: </label>
-                        <textarea name="menu" rows="10" class="form-control" placeholder="練習メニューを入力して下さい" required></textarea>
+                        <textarea name="menu" rows="10" class="form-control" placeholder="練習メニューやお知らせ事項を入力して下さい" required></textarea>
                         @if ($errors->has('menu'))
                           <span class="error">{{ $errors->first('menu') }}</span>
                         @endif
