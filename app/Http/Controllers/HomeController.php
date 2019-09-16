@@ -477,9 +477,9 @@ class HomeController extends Controller
       $month_acts[] = $act; // 追加（改行）
       $m_prev = $m;
 
-      $activity->y = $y;
-      $activity->m = $m;
-      $activity->d = $d;
+      // $activity->y = $y;
+      // $activity->m = $m;
+      // $activity->d = $d;
     }
     return view('list')
             ->with('month_acts', $month_acts);

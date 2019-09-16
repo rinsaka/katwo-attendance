@@ -10,4 +10,9 @@ return array(
     投稿に「New!」と表示する時間を分単位で指定する
   */
   'NEW_THRESHOLD' => 60 * 48,  // 48時間
+
+  // メール文面作成に用いる情報
+  'URL' => env('MAIL_URL', 'http://localhost/'),
+  'UID' => env('MAIL_USER_ID', 'userid'),
+  'UPW' => env('MAIL_USER_PASS', 'xyz1234'),
 );

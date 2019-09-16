@@ -45,11 +45,18 @@
                         <input type="submit" value="　　　練習メニューを更新　　　" class="form-control submit_button">
                       </p>
                     </form>
+                    <p class="pull-right">
+                      <a href="{{ action('MenusController@mail', $menu->id) }}">
+                        案内メールの文面を生成する
+                      </a>
+                    </p>
 
                 </div>
                 <div  class="panel-footer">
                   <p>
                     <a href="{{ url()->previous() }}">戻る</a>
+                    &nbsp;
+                    <a href="{{ action('HomeController@index') }}">今月へ</a>
                   </p>
 
                   <p>&nbsp;</p>

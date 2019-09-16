@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth:user'], function() {
   Route::delete('/home/', 'HomeController@destroy')->name('destroy');
   Route::get('/menu/create', 'MenusController@create');
   Route::get('/menu/{id}', 'MenusController@show');
+  Route::get('/menu/{id}/mail', 'MenusController@mail');
   Route::patch('/menu', 'MenusController@update')->name('menu_update');
   Route::post('/menu', 'MenusController@store')->name('menu_store');
 
