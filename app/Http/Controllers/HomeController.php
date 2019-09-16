@@ -459,7 +459,29 @@ class HomeController extends Controller
     // すべての Activity を取得
     $activities = Activity::orderBy('act_at')
                             ->get();
+    // 月ごとにまとめる
+    $month_acts = array();
+    $m_prev = 0;
+    foreach ($activities as $activity) {
+      $y = date('Y', strtotime($activity->act_at));
+      $m = date('m', strtotime($activity->act_at));
+      $d = date('d', strtotime($activity->act_at));
+      // 次が変われば行を追加
+      if ($m_prev != $m) {
+        $month_acts[] = "【" . $m . "月】";
+      }
+      $act = $m . "月" . $d . "日" . parent::get_youbi($activity->act_at);
+      $act = $act . " " . $activity->time->jikan;
+      $month_acts[] = $act; // 追加（改行）
+      $act = "　" . $activity->place->place . " " . $activity->note;
+      $month_acts[] = $act; // 追加（改行）
+      $m_prev = $m;
+
+      $activity->y = $y;
+      $activity->m = $m;
+      $activity->d = $d;
+    }
     return view('list')
-            ->with('activities', $activities);
+            ->with('month_acts', $month_acts);
   }
 }

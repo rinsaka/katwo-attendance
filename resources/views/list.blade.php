@@ -18,13 +18,11 @@
                         </div>
                     @endif
 
-                  <ul>
-                  @foreach ($activities as $activity)
-                  <li>
-                    {{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }} {{ $activity->note }}
-                  </li>
-                  @endforeach
-                  </ul>
+                  <p>
+                    @foreach ($month_acts as $act)
+                      {{ $act }}<br>
+                    @endforeach
+                  </p>
                 </div>
                 <div  class="panel-footer" >
                   <p>
