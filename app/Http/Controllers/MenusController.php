@@ -38,9 +38,9 @@ class MenusController extends Controller
     return redirect($request->url)->with('status', '練習メニューを更新しました');
   }
 
-  public function create($aid)
+  public function create(Request $request)
   {
-    $activity = Activity::where('id', '=', $aid)->first();
+    $activity = Activity::where('id', '=', $request->aid)->first();
     if (!$activity) {
       return redirect('/home')->with('status', 'アクティビティが見つかりません');
     }

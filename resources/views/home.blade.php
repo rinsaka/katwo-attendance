@@ -77,7 +77,7 @@
                                 </div>
                               </a>
                             @else
-                              <a href="{{ action('MenusController@create', $activity->id) }}">
+                              <a href="{{ action('MenusController@create', ["aid" => $activity->id]) }}">
                                 <div class="menu">
                                   <p class="menu">
                                     練習メニュー未登録
