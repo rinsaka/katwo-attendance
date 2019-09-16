@@ -66,6 +66,15 @@
                               {{ $activity->time->jikan }}
                               {{ $activity->place->place }}
                             </p>
+                            @if ($activity->menu)
+                              <p class="menu">
+                                {{ $activity->menu->menu }}
+                              </p>
+                            @else
+                              <p class="menu">
+                                練習メニュー未登録
+                              </p>
+                            @endif
                             <p class="results">
                               参加： <span class="n_attendance">{{ $activity->n_atten[3] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }}</span>, &nbsp;
                               欠席： <span class="n_attendance">{{ $activity->n_atten[1] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }}</span>, &nbsp;
