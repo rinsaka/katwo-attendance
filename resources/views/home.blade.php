@@ -68,7 +68,9 @@
                             </p>
                             @if ($activity->menu)
                               <p class="menu">
-                                {{ $activity->menu->menu }}
+                                <a href="{{ action('MenusController@show', $activity->menu->id) }}">
+                                  {{ $activity->menu->menu }}
+                                </a>
                               </p>
                             @else
                               <p class="menu">

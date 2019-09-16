@@ -32,6 +32,9 @@ Route::group(['middleware' => 'auth:user'], function() {
   Route::post('/home/', 'HomeController@store')->name('store');
   Route::patch('/home/', 'HomeController@update')->name('update');
   Route::delete('/home/', 'HomeController@destroy')->name('destroy');
+  Route::get('/menu/{id}', 'MenusController@show');
+  Route::patch('/menu', 'MenusController@update')->name('menu_update');
+
 });
 
 

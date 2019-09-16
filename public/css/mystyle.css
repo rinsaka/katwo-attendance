@@ -126,6 +126,10 @@
   /* color: red; */
 }
 
+.menu {
+  margin-left:15px;
+}
+
 a:hover {
   background-color: lightgray;
 }
