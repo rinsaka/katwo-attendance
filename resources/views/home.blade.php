@@ -67,19 +67,23 @@
                               {{ $activity->place->place }}
                             </p>
                             @if ($activity->menu)
-                              <p class="menu">
-                                <a href="{{ action('MenusController@show', $activity->menu->id) }}">
-                                  @foreach ($activity->menus as $menu)
-                                    {{ $menu }} <br>
-                                  @endforeach
-                                </a>
-                              </p>
+                              <a href="{{ action('MenusController@show', $activity->menu->id) }}">
+                                <div class="menu">
+                                  <p class="menu">
+                                      @foreach ($activity->menus as $menu)
+                                        {{ $menu }} <br>
+                                      @endforeach
+                                  </p>
+                                </div>
+                              </a>
                             @else
-                              <p class="menu">
-                                <a href="{{ action('MenusController@create', $activity->id) }}">
-                                  練習メニュー未登録
-                                </a>
-                              </p>
+                              <a href="{{ action('MenusController@create', $activity->id) }}">
+                                <div class="menu">
+                                  <p class="menu">
+                                    練習メニュー未登録
+                                  </p>
+                                </div>
+                              </a>
                             @endif
                             <p class="results">
                               参加： <span class="n_attendance">{{ $activity->n_atten[3] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }}</span>, &nbsp;

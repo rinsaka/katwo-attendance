@@ -24,7 +24,7 @@ class MenusTableSeeder extends Seeder
     DB::table('menus')->insert([
       'activity_id' => 1,
       'name' => 'たろー',
-      'menu' => "19時から 合奏 ・ピアノコンチェルト・交響曲第1番",
+      'menu' => "19時から 合奏\nピアノコンチェルト\n交響曲第1番",
       'created_at' => Carbon::create($prev_year, $prev_month, 20, 18, 0, 0),
       'updated_at' => Carbon::create($prev_year, $prev_month, 20, 18, 10, 0)
     ]);
@@ -32,7 +32,7 @@ class MenusTableSeeder extends Seeder
     DB::table('menus')->insert([
       'activity_id' => 2,
       'name' => 'たろー',
-      'menu' => "19時から 合奏 ・交響曲第2番",
+      'menu' => "じゅげむ　じゅげむ　ごこうのすりきれかいじゃりすいぎょの　すいぎょうまつうんらいまつ　ふうらいまつくうねるところに　すむところやぶらこうじの　ぶらこうじパイポパイポパイポのシューリンガンシューリンガンのグーリンダイグーリンダイのポンポコピーのポンポコナーのちょうきゅうめいのちょうすけ",
       'created_at' => Carbon::create($prev_year, $prev_month, 22, 20, 0, 0),
       'updated_at' => Carbon::create($prev_year, $prev_month, 22, 20, 0, 0)
     ]);
@@ -40,7 +40,7 @@ class MenusTableSeeder extends Seeder
     DB::table('menus')->insert([
       'activity_id' => 3,
       'name' => 'じろー',
-      'menu' => "19時から 合奏 ・交響曲第3番",
+      'menu' => "19時から 合奏\n交響曲第3番",
       'created_at' => Carbon::create($prev_year, $prev_month, 23, 20, 0, 0),
       'updated_at' => Carbon::create($prev_year, $prev_month, 23, 20, 0, 0)
     ]);
@@ -48,14 +48,14 @@ class MenusTableSeeder extends Seeder
     DB::table('menus')->insert([
       'activity_id' => 4,
       'name' => 'たろー',
-      'menu' => "19時から 合奏 ・交響曲第4番・ピアノコンチェルト",
+      'menu' => "19時から 合奏\n交響曲第4番\nピアノコンチェルト",
       'created_at' => Carbon::yesterday(),
       'updated_at' => Carbon::yesterday()
     ]);
     DB::table('menus')->insert([
       'activity_id' => 6,
       'name' => 'たろー',
-      'menu' => "19時から 合奏 ・ピアノコンチェルト",
+      'menu' => "19時から 合奏\nピアノコンチェルト",
       'created_at' => Carbon::yesterday(),
       'updated_at' => Carbon::now()
     ]);

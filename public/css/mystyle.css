@@ -126,8 +126,21 @@
   /* color: red; */
 }
 
-.menu {
-  margin-left:15px;
+/* .menu {
+  margin-left: 15px;
+} */
+
+div.menu {
+  width: 90%;
+  margin-left: 15px;
+  background-color: #F6F6F6;
+}
+a > .menu {
+  color: #636b6f;  /* 本文と同じ色 */
+}
+
+p.menu {
+  padding-left: 10px;
 }
 
 a:hover {
