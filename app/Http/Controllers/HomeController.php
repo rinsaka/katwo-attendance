@@ -56,6 +56,17 @@ class HomeController extends Controller
     }
     // dd($activities);
 
+    // 改行を含む Menu をリストに変換
+    foreach ($activities as $activity) {
+      if ($activity->menu) {
+        $array = explode("\n", $activity->menu->menu); // 行に分割
+        $array = array_map('trim', $array); // 各行にtrim()をかける
+      } else {
+        $array = array();
+      }
+      $activity->menus = $array;
+    }
+
     return view('home')
             ->with('activities', $activities)
             ->with('prev_year', $prev_year)
@@ -112,6 +123,18 @@ class HomeController extends Controller
       $iter++;
     }
     // dd($activities);
+
+    // 改行を含む Menu をリストに変換
+    foreach ($activities as $activity) {
+      if ($activity->menu) {
+        $array = explode("\n", $activity->menu->menu); // 行に分割
+        $array = array_map('trim', $array); // 各行にtrim()をかける
+      } else {
+        $array = array();
+      }
+      $activity->menus = $array;
+    }
+
     return view('home')
             ->with('activities', $activities)
             ->with('prev_year', $prev_year)
