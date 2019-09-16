@@ -15,7 +15,15 @@ class CreateMenusTable extends Migration
   {
     Schema::create('menus', function (Blueprint $table) {
       $table->increments('id');
+      $table->integer('activity_id')->unsigned();
+      $table->string('name', 30);  // sqlite では文字列の長さは指定しても意味がない
+      $table->string('menu')->nullable();
       $table->timestamps();
+
+      $table->foreign('activity_id')
+              ->references('id')
+              ->on('activities')
+              ->onDelete('cascade');
     });
   }
 
