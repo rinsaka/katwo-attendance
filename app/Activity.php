@@ -23,4 +23,10 @@ class Activity extends Model
   {
     return $this->hasMany('App\Attendance');
   }
+
+  // One to One
+  public function Menu()
+  {
+    return $this->hasOne('App\Menu');
+  }
 }
