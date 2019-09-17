@@ -63,7 +63,7 @@ class ActivitiesTableSeeder extends Seeder
     *       翌々月 3回（3回目総会）
     *       3ヶ月先 3回
     *       4ヶ月先 3回
-    *       6ヶ月先 1回（本番）
+    *       8ヶ月先日曜 1回（本番）
     **/
     private function mk_activities()
     {
@@ -92,6 +92,12 @@ class ActivitiesTableSeeder extends Seeder
         }
 
         $iter++;
+        if ($m == 12) {
+          $year = $year + 1;
+          $iter = 0;
+          $month = 1;
+        }
+
       }
       return $activities;
     }
