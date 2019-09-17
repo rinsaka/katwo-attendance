@@ -46,7 +46,7 @@
             }
 
             .title {
-                font-size: 36px;
+                font-size: 24px;
             }
 
             .links > a {
@@ -108,6 +108,9 @@
                   </div>
                   <div class="links m-b-md">
                     <a href="{{ url('/admin/login') }}">管理者ログイン</a>
+                  </div>
+                  <div class="links m-b-md">
+                    <a href="https://kat-wind.com/">神戸学園都市吹奏楽団</a>
                   </div>
                 @endif
 
