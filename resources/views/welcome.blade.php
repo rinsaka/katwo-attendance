@@ -46,7 +46,7 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 36px;
             }
 
             .links > a {
@@ -69,7 +69,8 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Kat-WO
+                  神戸学園都市吹奏楽団<br>
+                    出欠登録
                 </div>
 
 

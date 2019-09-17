@@ -171,11 +171,11 @@
 
                 </div>
                 <div  class="panel-footer">
-                  {{-- フッターの表示 --}}
-                  @include('layouts.footer')
                   <p>
                     <a href="{{ action('HomeController@all_act') }}">練習予定の一覧を表示する</a>
                   </p>
+                  {{-- フッターの表示 --}}
+                  @include('layouts.footer')
                 </div>
             </div>
         </div>
