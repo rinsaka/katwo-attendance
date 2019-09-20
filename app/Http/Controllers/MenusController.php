@@ -141,6 +141,11 @@ class MenusController extends Controller
       $m_prev = $m;
 
     }
+    // 参考情報 ---------------------------
+    if (\Config::get('const.SAMPLE_URL')) {
+      $mail .= "\n★". \Config::get('const.SAMPLE_MSG') . "★\n";
+      $mail .= \Config::get('const.SAMPLE_URL') . "\n";
+    }
 
     // dd($menu->activity->act_at, $activities, $mail);
     return view('menus.mail')
