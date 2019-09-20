@@ -1,3 +1,10 @@
+@if (\Config::get('const.SAMPLE_URL'))
+<p>
+  <a href="{{ \Config::get('const.SAMPLE_URL') }}">
+    {{ \Config::get('const.SAMPLE_MSG') }}
+  </a>
+</p>
+@endif
 <p>
   <a href="https://kat-wind.com/">
     神戸学園都市吹奏楽団

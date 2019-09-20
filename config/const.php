@@ -15,4 +15,8 @@ return array(
   'URL' => env('MAIL_URL', 'http://localhost/'),
   'UID' => env('MAIL_USER_ID', 'userid'),
   'UPW' => env('MAIL_USER_PASS', 'xyz1234'),
+
+  // サンプルの情報
+  'SAMPLE_URL' => env('SAMPLE_URL', null),
+  'SAMPLE_MSG' => env('SAMPLE_MSG', null),
 );
