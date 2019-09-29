@@ -31,7 +31,7 @@
 
                         <hr>
                         <p>
-                          <input type="submit" value="　　　活動予定を変更　　　" class="form-control submit_button">
+                          <input type="submit" value="　　　メールフッタを更新　　　" class="form-control submit_button">
                         </p>
                       </form>
                     </div>

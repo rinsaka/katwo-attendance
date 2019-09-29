@@ -25,6 +25,17 @@ class MailinfosController extends Controller
 
   public function update(Request $request)
   {
-    dd($request);
+    $this->validate($request, [
+              'mailinfo' => 'required',  // 入力が必須
+            ]);
+    $mailinfo = Mailinfo::where('id', '=', $request->id)
+                          ->where('key', '=', $request->key)
+                          ->first();
+    if (!$mailinfo) {
+      return redirect('/admin/home')->with('status', '不正なパラメータです');
+    }
+    $mailinfo->mailinfo = $request->mailinfo;
+    $mailinfo->save();
+    return redirect('/admin/mailinfo')->with('status', "メールフッタを更新しました");
   }
 }
