@@ -18,7 +18,9 @@ class MailinfosController extends Controller
       $mailinfo->mailinfo = 'メールフッタをここに';
       $mailinfo->save();
     }
-    dd('edit', $mailinfo);
+    return view('admin.mailinfo')
+            ->with('mailinfo', $mailinfo);
+    // dd('edit', $mailinfo);
   }
 
   public function update(Request $request)
