@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Activity;
 use App\Part;
 use App\Attendance;
-
+use App\Mailinfo;
 
 
 class HomeController extends Controller
@@ -483,5 +483,14 @@ class HomeController extends Controller
     }
     return view('list')
             ->with('month_acts', $month_acts);
+  }
+
+  public function mail_footer()
+  {
+    $mailinfo = Mailinfo::where('key', '=', 'signiture')->first();
+    if (!$mailinfo) {
+      return redirect('/home/')->with('status', "メールフッタが未登録です");
+    }
+    return view('mailfooter')->with('mailinfo', $mailinfo);
   }
 }

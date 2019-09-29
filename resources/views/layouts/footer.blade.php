@@ -5,6 +5,11 @@
   </a>
 </p>
 @endif
+<p class="pull-right">
+  <a href="{{ action('HomeController@mail_footer') }}">
+    メールフッタ
+  </a>
+</p>
 <p>
   <a href="https://kat-wind.com/">
     神戸学園都市吹奏楽団
