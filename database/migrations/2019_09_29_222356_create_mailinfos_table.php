@@ -15,6 +15,8 @@ class CreateMailinfosTable extends Migration
   {
     Schema::create('mailinfos', function (Blueprint $table) {
       $table->increments('id');
+      $table->string('key', 30)->unique();  // sqlite では文字列の長さは指定しても意味がない
+      $table->string('mailinfo')->nullable();
       $table->timestamps();
     });
   }
