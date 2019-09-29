@@ -44,6 +44,11 @@
                     活動予定を新規登録
                   </a>
                   </p>
+                  <p class='pull-right'>
+                    <a href="{{ action('Admin\MailinfosController@edit') }}">
+                      メールフッタを編集
+                    </a>
+                  </p>
                   <p>&nbsp;</p>
                   <p>
                     This system is developed with <a href="https://laravel.com/">Laravel</a>, <a href="https://aws.amazon.com/jp/">AWS</a> and <a href="https://github.com/rinsaka/katwo-attendance">GitHub</a>.

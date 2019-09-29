@@ -60,4 +60,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
   Route::patch('password', 'Admin\HomeController@passwd_update')->name('admin.passwd');
   Route::get('userpassword', 'Admin\HomeController@userpasswd');
   Route::patch('userpassword', 'Admin\HomeController@userpasswd_update')->name('admin.userpasswd');
+  Route::get('mailinfo', 'Admin\MailinfosController@edit');
+  Route::post('mailinfo', 'Admin\MailinfosController@update');
 });
