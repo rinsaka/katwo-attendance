@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Menu;
 use App\Activity;
+use App\Mailinfo;
 use Carbon\Carbon;
 
 class MenusController extends Controller
@@ -145,6 +146,15 @@ class MenusController extends Controller
     if (\Config::get('const.SAMPLE_URL')) {
       $mail .= "\n★". \Config::get('const.SAMPLE_MSG') . "★\n";
       $mail .= \Config::get('const.SAMPLE_URL') . "\n";
+    }
+
+    // 参考情報 ---------------------------
+    $mailinfo = Mailinfo::where('key', '=', 'signiture')
+                            ->first();
+    if ($mailinfo) {
+      $mail .= "\n";
+      $mail .= $mailinfo->mailinfo;
+      $mail .= "\n";
     }
 
     // dd($menu->activity->act_at, $activities, $mail);
