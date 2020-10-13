@@ -226,10 +226,15 @@ class UsersHomeTest extends TestCase
                       ->assertSee('予定を変更')
                       ->assertSee('戻る');
 
+    // dd('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/12/edit');
     $response = $this->actingAs($user)
                       ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/12/edit')
                       ->assertRedirect('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1]);
-
+    //
+    $response = $this->actingAs($user)
+                      ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/9999/edit')
+                      ->assertRedirect('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1]);
+    //
     $response = $this->actingAs($user)
                       // ->get('/home/2018/08/99/edit')
                       ->get('/home/'. $this->ymlist[0][0] . '/' . $this->ymlist[0][1] . '/99/edit')

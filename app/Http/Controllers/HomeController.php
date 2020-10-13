@@ -269,7 +269,8 @@ class HomeController extends Controller
   public function edit($year, $month, $aid)
   {
     $arg_attendance = Attendance::where('id', '=', $aid)->first();
-    if (count($arg_attendance)==0) {
+    // if (count($arg_attendance)==0) {
+    if (is_null($arg_attendance)) {
       return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
     }
     $name = $arg_attendance->name;
@@ -278,6 +279,17 @@ class HomeController extends Controller
     $thismonth_head = date("Y-m-01", mktime(0,0,0,$month,1,$year));
     $thismonth_tail = date("Y-m-t", mktime(0,0,0,$month,1,$year));
 
+
+    $cnt_att = Attendance::select('attendances.*', 'activities.*', 'attendances.id as attendance_id')
+                                ->join('activities', 'attendances.activity_id', '=', 'activities.id')
+                                ->where('attendances.name', '=', $name)
+                                ->where('activities.act_at', '>=', $thismonth_head)
+                                ->where('activities.act_at', '<=', $thismonth_tail)
+                                ->orderBy('activities.act_at')
+                                ->count();
+    if ($cnt_att == 0) {
+      return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
+    }
     $attendances = Attendance::select('attendances.*', 'activities.*', 'attendances.id as attendance_id')
                                 ->join('activities', 'attendances.activity_id', '=', 'activities.id')
                                 ->where('attendances.name', '=', $name)
@@ -285,10 +297,10 @@ class HomeController extends Controller
                                 ->where('activities.act_at', '<=', $thismonth_tail)
                                 ->orderBy('activities.act_at')
                                 ->get();
+    // if (count($attendances)==0) {
+    //     return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
+    // }
 
-    if (count($attendances) == 0) {
-        return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
-    }
     foreach ($attendances as $attendance) {
       $attendance->id = $attendance->attendance_id;
     }
