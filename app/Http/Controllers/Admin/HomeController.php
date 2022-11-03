@@ -279,8 +279,10 @@ class HomeController extends Controller
     if ($place->default_place == 0 && isset($request->default_place)) {
       // デフォルト活動場所が変更された
       $prev_default = Place::where('default_place', '=', 1)->first();
-      $prev_default->default_place = 0;
-      $prev_default->save();
+      if ($prev_default) {
+        $prev_default->default_place = 0;
+        $prev_default->save();
+      }
       $place->default_place = 1;
     }
 
@@ -325,9 +327,16 @@ class HomeController extends Controller
     if(!$place) {
       return redirect('/admin/home/')->with('warning', "そのような活動施設がありません");
     }
+    // その施設での登録済活動回数を取得する．
+    // $cnt = 0;
+    $cnt = Activity::where('place_id', '=', $pid)->count();
+    if ($cnt > 0) {
+      return redirect('/admin/place/'.$pid)->with('warning', "この施設での活動が" . $cnt .  "回登録されているので施設情報を削除できません．削除する前にこの施設での活動予定者を削除してください．");
+    }
     // dd($place);
     return view('admin.place.delete')
-            ->with('place', $place);
+            ->with('place', $place)
+            ->with('cnt', $cnt);
   }
 
   public function place_destroy($pid)
@@ -337,6 +346,18 @@ class HomeController extends Controller
       return redirect('/admin/home/')->with('warning', "そのような活動施設がありません");
     }
     $place->delete();
+    // 削除した後，default_place がなければ，どれかを default_placeにする
+    // なお，データベースから削除しても $place 自体はまだ生きている
+    if ($place->default_place == 1) {
+      $default_place = Place::get()->first();
+      if ($default_place) {
+        $default_place->default_place = 1;
+        $default_place->save();
+        return redirect('/admin/place/')->with('status', "活動施設情報を削除し，デフォルト活動施設を変更しました");
+      } else {
+        return redirect('/admin/place/')->with('status', "すべての活動施設情報が削除されました");
+      }
+    }
     return redirect('/admin/place/')->with('status', "活動施設情報を削除しました");
   }
 }

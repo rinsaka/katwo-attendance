@@ -33,7 +33,8 @@
                         <p>
                           施設名：{{ $place->place }}<br>
                           登録日時：{{ $place->created_at }}<br>
-                          最終更新：{{ $place->updated_at }}
+                          最終更新：{{ $place->updated_at }}<br>
+                          登録済み活動回数：{{ $cnt }}
                         </p>
 
                         <hr>
