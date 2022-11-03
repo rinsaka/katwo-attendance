@@ -355,7 +355,9 @@ class HomeController extends Controller
         $default_place->save();
         return redirect('/admin/place/')->with('status', "活動施設情報を削除し，デフォルト活動施設を変更しました");
       } else {
+        // @codeCoverageIgnoreStart
         return redirect('/admin/place/')->with('status', "すべての活動施設情報が削除されました");
+        // @codeCoverageIgnoreEnd
       }
     }
     return redirect('/admin/place/')->with('status', "活動施設情報を削除しました");
