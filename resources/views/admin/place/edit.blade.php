@@ -81,8 +81,12 @@
                       活動予定一覧（管理者モード）に戻る
                     </a>
                   </p>
-
-                  <!-- <p>&nbsp;</p> -->
+                  <p class='pull-right'>
+                    <a href="{{ action('Admin\HomeController@place_delete', $place->id) }}">
+                      活動施設情報を削除する
+                    </a>
+                  </p>
+                  <p>&nbsp;</p>
                   <p>
                     This system is developed with <a href="https://laravel.com/">Laravel</a>, <a href="https://aws.amazon.com/jp/">AWS</a> and <a href="https://github.com/rinsaka/katwo-attendance">GitHub</a>.
                   </p>

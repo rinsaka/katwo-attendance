@@ -267,7 +267,7 @@ class HomeController extends Controller
     $this->validate($request, [
       'place' => [
         'required',
-        'max:10',
+        'max:100',
         Rule::unique('places')->ignore($request->pid),
       ],
     ]);
@@ -299,7 +299,7 @@ class HomeController extends Controller
     $this->validate($request, [
       'place' => [
         'required',
-        'max:10',
+        'max:100',
         Rule::unique('places'),
       ],
     ]);
@@ -317,6 +317,26 @@ class HomeController extends Controller
     $place->save();
     return redirect()->action('Admin\HomeController@place')
           ->with('status', "活動施設情報を登録しました");
+  }
 
+  public function place_delete($pid)
+  {
+    $place = Place::where('id', '=', $pid)->first();
+    if(!$place) {
+      return redirect('/admin/home/')->with('warning', "そのような活動施設がありません");
+    }
+    // dd($place);
+    return view('admin.place.delete')
+            ->with('place', $place);
+  }
+
+  public function place_destroy($pid)
+  {
+    $place = Place::where('id', '=', $pid)->first();
+    if(!$place) {
+      return redirect('/admin/home/')->with('warning', "そのような活動施設がありません");
+    }
+    $place->delete();
+    return redirect('/admin/place/')->with('status', "活動施設情報を削除しました");
   }
 }
