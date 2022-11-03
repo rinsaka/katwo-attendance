@@ -62,7 +62,9 @@ class HomeController extends Controller
         $array = explode("\n", $activity->menu->menu); // 行に分割
         $array = array_map('trim', $array); // 各行にtrim()をかける
       } else {
+        // @codeCoverageIgnoreStart
         $array = array();
+        // @codeCoverageIgnoreEnd
       }
       $activity->menus = $array;
 
