@@ -17,28 +17,28 @@ class PlacesTableSeeder extends Seeder
 
 
       DB::table('places')->insert([
-        'place' => '神戸常磐アリーナ 研修室A（スリッパ要）',
+        'place' => '神戸常盤アリーナ 研修室A（スリッパ要）',
         'default_place' => false,
         'created_at' => Carbon::now(),
         'updated_at' => Carbon::now()
       ]);
 
       DB::table('places')->insert([
-        'place' => '神戸常磐アリーナ 研修室B',
+        'place' => '神戸常盤アリーナ 研修室B',
         'default_place' => true,
         'created_at' => Carbon::now(),
         'updated_at' => Carbon::now()
       ]);
 
       DB::table('places')->insert([
-        'place' => '神戸常磐アリーナ 会議室A',
+        'place' => '神戸常盤アリーナ 会議室A',
         'default_place' => false,
         'created_at' => Carbon::now(),
         'updated_at' => Carbon::now()
       ]);
 
       DB::table('places')->insert([
-        'place' => '神戸常磐アリーナ 小ホール',
+        'place' => '神戸常盤アリーナ 小ホール',
         'default_place' => false,
         'created_at' => Carbon::now(),
         'updated_at' => Carbon::now()
