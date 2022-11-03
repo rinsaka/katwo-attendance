@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">主な活動場所一覧（管理者モード）</div>
+                <div class="panel-heading">主な活動施設一覧（管理者モード）</div>
 
                 <div class="panel-body">
                     {{-- フラッシュメッセージの表示 --}}
@@ -31,7 +31,9 @@
                         <ol>
                             @forelse ($places as $place)
                                 <li>
+                                  <a href="{{ action('Admin\HomeController@place_edit', [$place->id]) }}">
                                     {{ $place->place }}
+                                  </a>
                                     @if ($place->default_place == 1)
                                         【<span class="default">デフォルト施設</span>】
                                     @endif

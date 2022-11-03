@@ -249,4 +249,30 @@ class HomeController extends Controller
     return view('admin.place.index')
             ->with('places', $places);
   }
+
+  public function place_edit($pid)
+  {
+    $place = Place::where('id', '=', $pid)->first();
+    if(!$place) {
+      return redirect('/admin/home/')->with('warning', "そのような活動施設がありません");
+    }
+    // dd($place);
+    return view('admin.place.edit')
+            ->with('place', $place);
+  }
+
+  public function place_update(Request $request)
+  {
+    $this->validate($request, [
+      'place' => 'required|max:100'
+    ]);
+    $place = Place::where('id', '=', $request->pid)->first();
+    if (!$place) {
+      return redirect('/admin/home/')->with('warning', "そのような活動施設がありません");
+    }
+    $place->place = $request->place;
+    $place->save();
+    return redirect()->action('Admin\HomeController@place')
+          ->with('status', "施設名を更新しました");
+  }
 }
