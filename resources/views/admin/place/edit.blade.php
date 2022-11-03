@@ -45,6 +45,21 @@
                             <span class="error">{{ $errors->first('place') }}</span>
                           @endif
                         </p>
+
+                        <p>
+                          <label for="default_place">
+                            <input type="checkbox" name="default_place" id="default_place" class=""
+                            @if ($place->default_place)
+                              checked disabled
+                            @endif
+                            >
+                            @if ($place->default_place)
+                              デフォルト活動施設に設定されています
+                            @else
+                              デフォルト活動施設に設定する
+                            @endif
+                          </label>
+                        </p>
                         <p>
                           登録日時：{{ $place->created_at }}<br>
                           最終更新：{{ $place->updated_at }}

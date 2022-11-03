@@ -271,8 +271,16 @@ class HomeController extends Controller
       return redirect('/admin/home/')->with('warning', "そのような活動施設がありません");
     }
     $place->place = $request->place;
+    if ($place->default_place == 0 && isset($request->default_place)) {
+      // デフォルト活動場所が変更された
+      $prev_default = Place::where('default_place', '=', 1)->first();
+      $prev_default->default_place = 0;
+      $prev_default->save();
+      $place->default_place = 1;
+    }
+
     $place->save();
     return redirect()->action('Admin\HomeController@place')
-          ->with('status', "施設名を更新しました");
+          ->with('status', "活動施設情報を更新しました");
   }
 }
