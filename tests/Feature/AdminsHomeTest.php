@@ -188,6 +188,29 @@ class AdminsHomeTest extends TestCase
                       ]);
   }
 
+  public function testPlaceAsAdmin()
+  {
+    $admin = Admin::where('id',1)->first();
+    // dd($admin);
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/place')
+                      ->assertSee('瀬楽スタジオ')
+                      ->assertSee('活動施設一覧')
+                      ->assertSee('アリーナ')
+                      ->assertSee('管理者');
+
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/place/6')
+                      ->assertSee('瀬楽スタジオ')
+                      ->assertSee('活動施設の編集')
+                      ->assertSee('デフォルト活動施設')
+                      ->assertSee('管理者');
+
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/place/99a')
+                      ->assertRedirect('/admin/home/');
+  }
+
   /**
   *     月をずらす
   *
