@@ -66,7 +66,7 @@ class UsersHomeTest extends TestCase
     $response = $this->actingAs($user)
                       ->get('/home/'. $this->ymlist[2][0] . '/' . $this->ymlist[2][1])
                       ->assertSee('登録')
-                      ->assertSee('常磐');
+                      ->assertSee('常盤');
 
     // dd('/home/'. $this->ymlist[4][0] . '/' . $this->ymlist[4][1]);
     $response = $this->actingAs($user)
