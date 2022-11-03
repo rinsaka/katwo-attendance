@@ -103,6 +103,12 @@ class AdminsHomeTest extends TestCase
                         'note' => "土曜日から日曜日に変更しました",
                       ]);
 
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/activity/1')
+                      ->assertSee('活動予定の表示と編集')
+                      ->assertSee('日にち')
+                      ->assertSee('活動予定を変更')
+                      ->assertSee('管理者');
   }
 
   public function testCreateAsAdmin()
