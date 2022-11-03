@@ -292,6 +292,12 @@ span.update {
   background-color: yellow;
 }
 
+span.default {
+  font-size: 100%;
+  color: red;
+  background-color: yellow;
+}
+
 span.comment {
   font-size: 80%;
 }

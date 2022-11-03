@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">活動予定一覧（管理者モード）</div>
+                <div class="panel-heading">主な活動場所一覧（管理者モード）</div>
 
                 <div class="panel-body">
                     {{-- フラッシュメッセージの表示 --}}
@@ -21,18 +21,24 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <div>
+                        <p>
+                            活動予定の登録時にリストに表示する活動施設の一覧です．このページで活動施設の名称を変更したり，新規登録・削除ができます．また，デフォルト施設に設定すると，練習登録の新規作成時に自動的に選択されるようになります．
+                        </p>
+                    </div>
 
                     <div>
-                      @forelse ($activities as $activity)
-                        <p>
-                          <a href="{{ action('Admin\HomeController@edit', [$activity->id]) }}">
-                            {{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }}
-                            @if (strlen($activity->note)) <span>&nbsp; {{ $activity->note }}</span>@endif
-                          </a>
-                        </p>
-                      @empty
-                      @endforelse
-
+                        <ol>
+                            @forelse ($places as $place)
+                                <li>
+                                    {{ $place->place }}
+                                    @if ($place->default_place == 1)
+                                        【<span class="default">デフォルト施設</span>】
+                                    @endif
+                                </li>
+                            @empty
+                            @endforelse
+                        </ol>
                     </div>
 
 
@@ -40,22 +46,12 @@
 
                 <div  class="panel-footer">
                   <p>
-                  <a href="{{ action('Admin\HomeController@create') }}">
-                    活動予定を新規登録
-                  </a>
-                  </p>
-                  <p class='pull-right'>
-                    <a href="{{ action('Admin\MailinfosController@edit') }}">
-                      メールフッタを編集
+                    <a href="{{ action('Admin\HomeController@index') }}">
+                      活動予定一覧（管理者モード）に戻る
                     </a>
                   </p>
-                  <p>&nbsp;</p>
-                  <p class='pull-right'>
-                    <a href="{{ action('Admin\HomeController@place') }}">
-                      活動施設の一覧表示
-                    </a>
-                  </p>
-                  <p>&nbsp;</p>
+
+                  <!-- <p>&nbsp;</p> -->
                   <p>
                     This system is developed with <a href="https://laravel.com/">Laravel</a>, <a href="https://aws.amazon.com/jp/">AWS</a> and <a href="https://github.com/rinsaka/katwo-attendance">GitHub</a>.
                   </p>

@@ -236,4 +236,17 @@ class HomeController extends Controller
     return redirect('/admin/home')
             ->with('status', '団員 '. $user->login_id . ' のパスワードを変更しました');
   }
+
+  /*
+  *
+  * 練習場所の一覧
+  *
+  */
+  public function place()
+  {
+    $places = Place::orderBy('place')->get();
+    // dd($places);
+    return view('admin.place.index')
+            ->with('places', $places);
+  }
 }
