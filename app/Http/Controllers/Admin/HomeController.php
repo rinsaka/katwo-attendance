@@ -90,7 +90,7 @@ class HomeController extends Controller
   {
     // dd("create");
     $times = Time::orderBy('jikan')->get();
-    $places = Place::orderBy('id')->get();
+    $places = Place::orderBy('place')->get();
     return view('admin.create')
             ->with('times', $times)
             ->with('places', $places);
