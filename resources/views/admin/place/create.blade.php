@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">主な活動施設一覧（管理者モード）</div>
+                <div class="panel-heading">活動施設の新規登録（管理者モード）</div>
 
                 <div class="panel-body">
                     {{-- フラッシュメッセージの表示 --}}
@@ -21,37 +21,46 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <div>
-                        <p>
-                            活動予定の登録時にリストに表示する活動施設の一覧です．このページで活動施設の名称を変更したり，新規登録・削除ができます．また，デフォルト施設に設定すると，練習登録の新規作成時に自動的に選択されるようになります．
-                        </p>
-                    </div>
+
 
                     <div>
-                        <ol>
-                            @forelse ($places as $place)
-                                <li>
-                                  <a href="{{ action('Admin\HomeController@place_edit', [$place->id]) }}">
-                                    {{ $place->place }}
-                                  </a>
-                                    @if ($place->default_place == 1)
-                                        【<span class="default">デフォルト施設</span>】
-                                    @endif
-                                </li>
-                            @empty
-                            @endforelse
-                        </ol>
+
+                    <form method="post" action="{{ route('admin_place_store') }}" enctype='multipart/form-data'>
+                        {{ csrf_field() }}
+
+                        <p>
+                          <label for="place">活動施設名: </label>
+                          <input type="text" name="place" required value=
+                          @if ($errors->any())
+                            "{{ old("place") }}"
+                          @else
+                            ""
+                          @endif
+                          class="form-control" placeholder="活動施設名を入力してください．（100文字以内）">
+                          @if ($errors->has('place'))
+                            <span class="error">{{ $errors->first('place') }}</span>
+                          @endif
+                        </p>
+
+                        <p>
+                          <label for="default_place">
+                            <input type="checkbox" name="default_place" id="default_place" class="">
+                            デフォルト活動施設に設定する
+                          </label>
+                        </p>
+
+
+                        <hr>
+                        <p>
+                          <input type="submit" value="　　　活動施設を登録　　　" class="form-control submit_button">
+                        </p>
+                      </form>
                     </div>
 
 
                 </div>
 
                 <div  class="panel-footer">
-                  <p>
-                    <a href="{{ action('Admin\HomeController@place_create') }}">
-                      活動施設を新規に登録する
-                    </a>
-                  </p>
                   <p>
                     <a href="{{ action('Admin\HomeController@index') }}">
                       活動予定一覧（管理者モード）に戻る

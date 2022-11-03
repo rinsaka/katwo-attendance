@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 use App\Activity;
@@ -264,7 +265,11 @@ class HomeController extends Controller
   public function place_update(Request $request)
   {
     $this->validate($request, [
-      'place' => 'required|max:100'
+      'place' => [
+        'required',
+        'max:10',
+        Rule::unique('places')->ignore($request->pid),
+      ],
     ]);
     $place = Place::where('id', '=', $request->pid)->first();
     if (!$place) {
@@ -282,5 +287,36 @@ class HomeController extends Controller
     $place->save();
     return redirect()->action('Admin\HomeController@place')
           ->with('status', "活動施設情報を更新しました");
+  }
+
+  public function place_create()
+  {
+    return view('admin.place.create');
+  }
+
+  public function place_store(Request $request)
+  {
+    $this->validate($request, [
+      'place' => [
+        'required',
+        'max:10',
+        Rule::unique('places'),
+      ],
+    ]);
+    $place = new Place();
+    $place->place = $request->place;
+    if (isset($request->default_place)) {
+      // デフォルト活動場所が変更された
+      $prev_default = Place::where('default_place', '=', 1)->first();
+      $prev_default->default_place = 0;
+      $prev_default->save();
+      $place->default_place = 1;
+    } else {
+      $place->default_place = 0;
+    }
+    $place->save();
+    return redirect()->action('Admin\HomeController@place')
+          ->with('status', "活動施設情報を登録しました");
+
   }
 }

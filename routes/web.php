@@ -58,8 +58,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
   Route::post('logout', 'Admin\LoginController@logout')->name('admin.logout');
   Route::delete('activity/{id}', 'Admin\HomeController@destory');
   Route::get('place', 'Admin\HomeController@place')->name('admin.place');
+  Route::get('place/create', 'Admin\HomeController@place_create');
   Route::get('place/{pid}', 'Admin\HomeController@place_edit');
   Route::patch('place', 'Admin\HomeController@place_update')->name('admin_place_update');
+  Route::post('place', 'Admin\HomeController@place_store')->name('admin_place_store');
   Route::get('password', 'Admin\HomeController@passwd');
   Route::patch('password', 'Admin\HomeController@passwd_update')->name('admin.passwd');
   Route::get('userpassword', 'Admin\HomeController@userpasswd');
