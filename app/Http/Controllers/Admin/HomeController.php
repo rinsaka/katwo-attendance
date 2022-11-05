@@ -362,4 +362,17 @@ class HomeController extends Controller
     }
     return redirect('/admin/place/')->with('status', "活動施設情報を削除しました");
   }
+
+  /*
+  *
+  * 練習時間の一覧
+  *
+  */
+  public function time()
+  {
+    $times = Time::orderBy('time')->get();
+    // dd($places);
+    return view('admin.time.index')
+            ->with('times', $times);
+  }
 }

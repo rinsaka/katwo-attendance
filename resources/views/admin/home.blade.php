@@ -56,6 +56,12 @@
                     </a>
                   </p>
                   <p>&nbsp;</p>
+                  <p class='pull-right'>
+                    <a href="{{ action('Admin\HomeController@time') }}">
+                      活動時間の一覧表示
+                    </a>
+                  </p>
+                  <p>&nbsp;</p>
                   <p>
                     This system is developed with <a href="https://laravel.com/">Laravel</a>, <a href="https://aws.amazon.com/jp/">AWS</a> and <a href="https://github.com/rinsaka/katwo-attendance">GitHub</a>.
                   </p>
