@@ -370,9 +370,80 @@ class HomeController extends Controller
   */
   public function time()
   {
-    $times = Time::orderBy('time')->get();
+    $times = Time::orderBy('jikan')->get();
     // dd($places);
     return view('admin.time.index')
             ->with('times', $times);
   }
+
+  public function time_edit($tid)
+  {
+    $time = Time::where('id', '=', $tid)->first();
+    if(!$time) {
+      return redirect('/admin/home/')->with('warning', "そのような活動時間がありません");
+    }
+    // dd($time);
+    return view('admin.time.edit')
+            ->with('time', $time);
+  }
+
+  public function time_update(Request $request)
+  {
+    $this->validate($request, [
+      'jikan' => [
+        'required',
+        'max:100',
+        Rule::unique('times')->ignore($request->tid),
+      ],
+    ]);
+    $time = Time::where('id', '=', $request->tid)->first();
+    if (!$time) {
+      return redirect('/admin/home/')->with('warning', "そのような活動時間がありません");
+    }
+    $time->jikan = $request->jikan;
+    if ($time->default_jikan == 0 && isset($request->default_jikan)) {
+      // デフォルト活動時間が変更された
+      $prev_default = Time::where('default_jikan', '=', 1)->first();
+      if ($prev_default) {
+        $prev_default->default_jikan = 0;
+        $prev_default->save();
+      }
+      $time->default_jikan = 1;
+    }
+
+    $time->save();
+    return redirect()->action('Admin\HomeController@time')
+          ->with('status', "活動時間情報を更新しました");
+  }
+
+  public function time_create()
+  {
+    return view('admin.time.create');
+  }
+
+  public function time_store(Request $request)
+  {
+    $this->validate($request, [
+      'jikan' => [
+        'required',
+        'max:100',
+        Rule::unique('times'),
+      ],
+    ]);
+    $time = new Time();
+    $time->jikan = $request->jikan;
+    if (isset($request->default_jikan)) {
+      // デフォルト活動時間が変更された
+      $prev_default = Time::where('default_jikan', '=', 1)->first();
+      $prev_default->default_jikan = 0;
+      $prev_default->save();
+      $time->default_jikan = 1;
+    } else {
+      $time->default_jikan = 0;
+    }
+    $time->save();
+    return redirect()->action('Admin\HomeController@time')
+          ->with('status', "活動時間情報を登録しました");
+  }
+
 }

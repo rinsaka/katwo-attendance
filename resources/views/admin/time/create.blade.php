@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">主な活動時間一覧（管理者モード）</div>
+                <div class="panel-heading">活動時間の新規登録（管理者モード）</div>
 
                 <div class="panel-body">
                     {{-- フラッシュメッセージの表示 --}}
@@ -21,37 +21,46 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <div>
-                        <p>
-                            活動予定の登録時にリストに表示する活動時間の一覧です．
-                        </p>
-                    </div>
+
 
                     <div>
-                        <ol>
-                            @forelse ($times as $time)
-                                <li>
-                                    <a href="{{ action('Admin\HomeController@time_edit', [$time->id]) }}">
-                                        {{ $time->jikan }}
-                                    </a>
-                                    @if ($time->default_jikan == 1)
-                                        【<span class="default">デフォルト時間</span>】
-                                    @endif
-                                </li>
-                            @empty
-                            @endforelse
-                        </ol>
+
+                    <form method="post" action="{{ route('admin_time_store') }}" enctype='multipart/form-data'>
+                        {{ csrf_field() }}
+
+                        <p>
+                          <label for="jikan">活動時間: </label>
+                          <input type="text" name="jikan" required value=
+                          @if ($errors->any())
+                            "{{ old("jikan") }}"
+                          @else
+                            ""
+                          @endif
+                          class="form-control" placeholder="18:00 - 22:00">
+                          @if ($errors->has('jikan'))
+                            <span class="error">{{ $errors->first('jikan') }}</span>
+                          @endif
+                        </p>
+
+                        <p>
+                          <label for="default_jikan">
+                            <input type="checkbox" name="default_jikan" id="default_jikan" class="">
+                            デフォルト活動時間に設定する
+                          </label>
+                        </p>
+
+
+                        <hr>
+                        <p>
+                          <input type="submit" value="　　　活動時間を登録　　　" class="form-control submit_button">
+                        </p>
+                      </form>
                     </div>
 
 
                 </div>
 
                 <div  class="panel-footer">
-                  <p>
-                    <a href="{{ action('Admin\HomeController@time_create') }}">
-                      活動時間を新規に登録する
-                    </a>
-                  </p>
                   <p>
                     <a href="{{ action('Admin\HomeController@index') }}">
                       活動予定一覧（管理者モード）に戻る
