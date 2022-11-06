@@ -82,7 +82,9 @@
                     </a>
                   </p>
                   <p class='pull-right'>
+                    <a href="{{ action('Admin\HomeController@time_delete', $time->id) }}">
                       活動時間情報を削除する
+                    </a>
                   </p>
                   <p>&nbsp;</p>
                   <p>

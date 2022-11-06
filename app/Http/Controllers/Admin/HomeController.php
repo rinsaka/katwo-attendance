@@ -331,7 +331,7 @@ class HomeController extends Controller
     // $cnt = 0;
     $cnt = Activity::where('place_id', '=', $pid)->count();
     if ($cnt > 0) {
-      return redirect('/admin/place/'.$pid)->with('warning', "この施設での活動が" . $cnt .  "回登録されているので施設情報を削除できません．削除する前にこの施設での活動予定者を削除してください．");
+      return redirect('/admin/place/'.$pid)->with('warning', "この施設での活動が" . $cnt .  "回登録されているので施設情報を削除できません．削除する前にこの施設での活動予定を削除してください．");
     }
     // dd($place);
     return view('admin.place.delete')
@@ -444,6 +444,48 @@ class HomeController extends Controller
     $time->save();
     return redirect()->action('Admin\HomeController@time')
           ->with('status', "活動時間情報を登録しました");
+  }
+
+  public function time_delete($tid)
+  {
+    $time = Time::where('id', '=', $tid)->first();
+    if(!$time) {
+      return redirect('/admin/home/')->with('warning', "そのような活動時間がありません");
+    }
+    // その時間での登録済活動回数を取得する．
+    // $cnt = 0;
+    $cnt = Activity::where('time_id', '=', $tid)->count();
+    if ($cnt > 0) {
+      return redirect('/admin/time/'.$tid)->with('warning', "この時間での活動が" . $cnt .  "回登録されているので時間情報を削除できません．削除する前にこの時間での活動予定を削除してください．");
+    }
+    // dd($time);
+    return view('admin.time.delete')
+            ->with('time', $time)
+            ->with('cnt', $cnt);
+  }
+
+  public function time_destroy($tid)
+  {
+    $time = Time::where('id', '=', $tid)->first();
+    if(!$time) {
+      return redirect('/admin/home/')->with('warning', "そのような活動時間がありません");
+    }
+    $time->delete();
+    // 削除した後，default_jikan がなければ，どれかを default_jikan にする
+    // なお，データベースから削除しても $time 自体はまだ生きている
+    if ($time->default_jikan == 1) {
+      $default_jikan = Time::get()->first();
+      if ($default_jikan) {
+        $default_jikan->default_jikan = 1;
+        $default_jikan->save();
+        return redirect('/admin/time/')->with('status', "活動時間情報を削除し，デフォルト活動施設を変更しました");
+      } else {
+        // @codeCoverageIgnoreStart
+        return redirect('/admin/time/')->with('status', "すべての活動時間情報が削除されました");
+        // @codeCoverageIgnoreEnd
+      }
+    }
+    return redirect('/admin/time/')->with('status', "活動時間情報を削除しました");
   }
 
 }

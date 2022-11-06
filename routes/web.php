@@ -67,9 +67,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
   Route::get('time', 'Admin\HomeController@time')->name('admin.time');
   Route::get('time/create', 'Admin\HomeController@time_create');
   Route::get('time/{tid}', 'Admin\HomeController@time_edit')->name('admin.time_edit');
+  Route::get('time/{tid}/delete', 'Admin\HomeController@time_delete');
   Route::patch('time', 'Admin\HomeController@time_update')->name('admin_time_update');
   Route::post('time', 'Admin\HomeController@time_store')->name('admin_time_store');
-
+  Route::delete('time/{tid}', 'Admin\HomeController@time_destroy');
   Route::get('password', 'Admin\HomeController@passwd');
   Route::patch('password', 'Admin\HomeController@passwd_update')->name('admin.passwd');
   Route::get('userpassword', 'Admin\HomeController@userpasswd');
