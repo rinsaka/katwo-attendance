@@ -287,6 +287,102 @@ class AdminsHomeTest extends TestCase
 
   }
 
+
+
+  public function testTimeAsAdmin()
+  {
+    $admin = Admin::where('id',1)->first();
+    // dd($admin);
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/time')
+                      ->assertSee('13:00 - 17:00')
+                      ->assertSee('活動時間一覧')
+                      ->assertSee('デフォルト')
+                      ->assertSee('管理者');
+
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/time/1')
+                      ->assertSee('13:00 - 17:00')
+                      ->assertSee('活動時間の編集')
+                      ->assertSee('デフォルト活動時間')
+                      ->assertSee('管理者');
+
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/time/99a')
+                      ->assertRedirect('/admin/home/');
+  }
+
+
+  public function testTimeCreateUpdateDeleteAsAdmin()
+  {
+    $admin = Admin::where('id',1)->first();
+    // dd($admin);
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/time/create')
+                      ->assertSee('活動時間')
+                      ->assertSee('新規登録')
+                      ->assertSee('デフォルト')
+                      ->assertSee('管理者');
+
+    // 活動時間の追加
+    $response = $this->actingAs($admin, 'admin')
+            ->json('POST', '/admin/time', [
+              'jikan' => "新しい練習時間A",
+            ]);
+    $response = $this->actingAs($admin, 'admin')
+            ->json('POST', '/admin/time', [
+              'jikan' => "新しい練習時間B",
+              'default_jikan' => '1',
+            ]);
+    // 編集できない
+    $response = $this->actingAs($admin, 'admin')
+            ->json('PATCH', '/admin/time', [
+              'tid' => '99a',
+              'jikan' => "そんな時間は存在しない",
+            ]);
+    // 編集
+    $response = $this->actingAs($admin, 'admin')
+            ->json('PATCH', '/admin/time', [
+              'tid' => '6',
+              'jikan' => "新しい練習時間B更新",
+            ]);
+    // 編集
+    $response = $this->actingAs($admin, 'admin')
+            ->json('PATCH', '/admin/time', [
+              'tid' => '5',
+              'jikan' => "新しい練習時間A更新デフォルト",
+              'default_jikan' => '1',
+            ]);
+    // 時間18:00-22:00は削除できない
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/time/3/delete')
+                      ->assertRedirect('/admin/time/3');
+
+    // 時間がない
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/time/99a/delete')
+                      ->assertRedirect('/admin/home');
+    // B を削除（確認画面）
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/time/6/delete')
+                      ->assertSee('活動時間情報を削除')
+                      ->assertSee('この操作は元に戻せません')
+                      ->assertSee('登録済み活動回数');
+
+    // B を削除
+    $response = $this->actingAs($admin, 'admin')
+            ->json('DELETE', '/admin/time/6', []);
+    // 削除できない
+    $response = $this->actingAs($admin, 'admin')
+            ->json('DELETE', '/admin/time/99a', [])
+            ->assertRedirect('/admin/home');
+    // A を削除し，デフォルトが移行
+    $response = $this->actingAs($admin, 'admin')
+            ->json('DELETE', '/admin/time/5', [])
+            ->assertRedirect('/admin/time');
+
+  }
+
   /**
   *     月をずらす
   *
