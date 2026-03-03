@@ -54,6 +54,18 @@
                         </p>
 
                         <p>
+                          <label for="meeting">活動形態: </label>
+                          <select name="meeting" class="form-control">
+                            <option value="0">
+                              練習，演奏会，打ち上げなど全員が対象（通常はこちら）
+                            </option>
+                            <option value="1">
+                              演奏会実行委員会など一部の団員のみが対象（集計方法が異なる）
+                            </option>
+                          </select>
+                        </p>
+
+                        <p>
                           <label for="place">場所: </label>
                           <select name="place" class="form-control">
                             <option value="0"

@@ -102,6 +102,12 @@ class HomeController extends Controller
       'act_at' => 'required|date',
       'note' => 'max:140',
     ]);
+    if ($request->meeting == "1") {
+      if ($request->note =="") {
+        return redirect('/admin/activity/create')->with('status', "「活動形態」を指定した場合は，「内容」に会議名などを指定してください");
+      }
+    }
+
     $act_at = date('Y-m-d', strtotime($request->act_at));
 
     $activity = new Activity();
@@ -115,6 +121,9 @@ class HomeController extends Controller
       $activity->place_id = null;
     } else {
       $activity->place_id = $request->place;
+    }
+    if ($request->meeting == "1") {
+      $activity->meeting = true;
     }
     $activity->note = $request->note;
     $activity->save();
