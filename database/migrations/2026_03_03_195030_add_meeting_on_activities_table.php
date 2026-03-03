@@ -14,7 +14,7 @@ class AddMeetingOnActivitiesTable extends Migration
     public function up()
     {
         Schema::table('activities', function (Blueprint $table) {
-            //
+            $table->boolean('meeting')->nullable()->default(NULL);
         });
     }
 
