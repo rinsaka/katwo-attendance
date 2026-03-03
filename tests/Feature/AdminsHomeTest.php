@@ -174,6 +174,16 @@ class AdminsHomeTest extends TestCase
                         'place' => "1",
                         'note' => "さらに追加された日程です"
                       ]);
+    //
+    // 7ヶ月先の予定(3回目：選曲委員会)をさらに追加
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('POST', '/admin/activity', [
+                        'act_at' => $acts[19],
+                        'time' => null,
+                        'place' => "1",
+                        'note' => "選曲委員会 10:00~12:00"
+                      ]);
+    //
   }
 
   public function testDeleteAsAdmin()
