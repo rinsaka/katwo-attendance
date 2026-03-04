@@ -79,6 +79,7 @@ class HomeController extends Controller
     } else {
       $activity->place_id = $request->place;
     }
+    $activity->meeting = $request->meeting;
     $activity->note = $request->note;
     $activity->save();
 
