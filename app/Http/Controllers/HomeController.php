@@ -442,7 +442,7 @@ class HomeController extends Controller
             }
 
           }
-      }
+        }
         $act->parts = $parts;
       }
     }
