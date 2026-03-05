@@ -60,8 +60,19 @@
 
                     <div>
                       @forelse ($activities as $activity)
-                        <h3 class="act_at">{{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} @if (strlen($activity->note)) <span class="note">&nbsp; {{ $activity->note }}</span>@endif</h3>
+                        <h3 
+                          @if ($activity->meeting == "1")
+                            class="meeting_at"
+                          @else
+                            class="act_at"
+                          @endif
+                        >{{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} @if (strlen($activity->note)) <span class="note">&nbsp; {{ $activity->note }}</span>@endif</h3>
                           <div class="detail">
+                            @if ($activity->meeting == "1")
+                            <p class="info_meeting">
+                              【一部団員に限定した会議等】
+                            </p>
+                            @endif
                             <p class="time_place">
                               {{ $activity->time->jikan }}
                               {{ $activity->place->place }}
