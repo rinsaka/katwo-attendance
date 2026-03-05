@@ -397,6 +397,10 @@ class HomeController extends Controller
       }
       $act->n_atten = $atten;
 
+      // 会議対象外の数
+      $act->n_not_members = Attendance::where('activity_id', '=', $act->id)
+                                ->where('attendance', '=', 99)->count();
+
       // パートごと
       foreach ($acts as $act) {
         $parts = Part::orderBy('id')->get();
