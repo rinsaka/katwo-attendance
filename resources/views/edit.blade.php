@@ -58,6 +58,15 @@
                                   @endif
                                 @endif
                               >- （未定）</option>
+                              <option value="99"
+                              @if ($errors->any())
+                                @if(old("atten$attendance->attendance_id") == "99") selected @endif
+                              @else
+                                @if ($attendance->attendance == 99)
+                                  selected
+                                @endif
+                              @endif
+                              >対象外（この会議の参加メンバーではありません）</option>
                               <option value="3"
                               @if ($errors->any())
                                 @if(old("atten$attendance->attendance_id") == "3") selected @endif

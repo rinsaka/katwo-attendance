@@ -54,6 +54,9 @@
                           @if (strlen($activity->note)) <span>&nbsp; {{ $activity->note }}</span>@endif
                           <select name="act{{$activity->id}}" class="form-control">
                               <option value="0" @if(old("act$activity->id") == "0") selected @endif>- （未定） ---- 予定を選択してください ---- </option>
+                              @if ($activity->meeting == "1")
+                                <option value="99" @if(old("act$activity->id") == "99") selected @endif>対象外（この会議の参加メンバーではありません）</option>
+                              @endif
                               <option value="3" @if(old("act$activity->id") == "3") selected @endif>○ （参加）</option>
                               <option value="1" @if(old("act$activity->id") == "1") selected @endif>× （欠席）</option>
                           </select>
