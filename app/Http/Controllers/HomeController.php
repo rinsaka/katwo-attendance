@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use App\Activity;
 use App\Part;
 use App\Attendance;
@@ -444,6 +445,49 @@ class HomeController extends Controller
           }
         }
         $act->parts = $parts;
+      }
+
+      // 出席形態ごと
+      foreach ($acts as $act) {
+        $atten_ids = array(0, 1, 3, 99);
+        $attens = collect();
+        // 出席携帯ごとに回答のリストを取得
+        foreach ($atten_ids as $atten_id) {
+          $atten = Attendance::where('activity_id', '=', $act->id)
+                      ->where('attendance', '=', $atten_id)
+                      ->orderBy('updated_at')
+                      ->get();
+          $attens[$atten_id] = $atten;
+        }
+        // 新規登録と更新情報を設定
+        foreach ($attens as $attendances) {
+          foreach($attendances as $attendance) {
+            // 最終更新からの経過時間を分単位で取得する
+            $minutes_from_update = (strtotime("now") - strtotime($attendance->updated_at)) / 60;
+            // 「新規」と「更新」を初期化
+            $attendance->new = false;
+            $attendance->update = false;
+            // 定数で指定された時間より短ければ「新規」または「更新」を設定する
+            if ($minutes_from_update < \Config::get('const.NEW_THRESHOLD')) {
+              if ($attendance->created_at == $attendance->updated_at) {
+                $attendance->new = true;
+              } else {
+                $attendance->update = true;
+              }
+            }
+          }
+
+        }
+        // コメントをトリミング
+        foreach ($attens as $attendances) {
+          foreach($attendances as $attendance) {
+            if (mb_strlen($attendance->comment) > 20) {
+              $attendance->comment = mb_substr($attendance->comment, 0, 20) . "...";
+            }
+          }
+        }
+
+        $act->attens = $attens;
       }
     }
     return $acts;
