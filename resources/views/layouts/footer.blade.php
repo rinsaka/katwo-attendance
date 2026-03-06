@@ -16,7 +16,7 @@
   </a>
 </p>
 <p>
-  This system is developed with <a href="https://laravel.com/">Laravel</a>, <a href="https://lolipop.jp/">LOLIPOP!</a> and <a href="https://github.com/rinsaka/katwo-attendance">GitHub</a>.
+  This system is developed with <a href="https://laravel.com/" target="_blank">Laravel</a>, <a href="https://lolipop.jp/" target="_blank">LOLIPOP!</a> and <a href="https://github.com/rinsaka/katwo-attendance" target="_blank">GitHub</a>.
 </p>
 <p>
   <a href="https://rinsaka.com/rinsaka/">
