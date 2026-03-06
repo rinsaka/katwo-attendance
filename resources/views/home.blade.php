@@ -109,29 +109,26 @@
                             @if ($activity->meeting == "1")
                               <p class="{{ $activity->class_attendance }} vertical" ontouchstart="">
                                 <span class="{{ $activity->class_expansion_link }}">詳細の表示／非表示</span><br>
-                                @foreach ($activity->parts as $part)
-                                  <span class="atten_part">
-                                  {{ $part->s_part }}： ○ <span class="n_attendance">{{ $part->n_atten[3] }}</span>，&nbsp; × <span class="n_attendance">{{ $part->n_atten[1] }}</span>，&nbsp; − <span class="n_attendance">{{ $part->n_atten[0] }}</span></span><br>
-                                  @foreach ($part->attendances as $attendance)
+                                @foreach ($activity->attens as $key => $atten_type)
+                                  @if ($key == 0)
+                                    <span class="atten_part">参加<br></span>
+                                  @elseif ($key == 1)
+                                    <span class="atten_part">欠席<br></span>
+                                  @elseif ($key == 2)
+                                    <span class="atten_part">未定<br></span>
+                                  @else
+                                    <span class="atten_part">対象外<br></span>
+                                  @endif
+                                  @foreach ($atten_type as $attendance)
                                     <span class="atten_detail">
-                                    @if ($attendance->new) <span class="new">新規</span> @endif
-                                    @if ($attendance->update) <span class="update">更新</span> @endif
-                                    <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
-                                      {{ $attendance->name }} &nbsp;
-                                      @if ($attendance->attendance == 3)
-                                        ○
-                                      @elseif ($attendance->attendance == 1)
-                                        ×
-                                      @elseif ($attendance->attendance == 0)
-                                        -
-                                      @else
-                                        対象外
-                                      @endif
-                                      @if ($attendance->comment) &emsp;<span class="comment">{{  $attendance->comment }}</span> @endif
-                                    </a>
+                                      @if ($attendance->new) <span class="new">新規</span> @endif
+                                      @if ($attendance->update) <span class="update">更新</span> @endif
+                                      <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
+                                        {{ $attendance->name }} ({{ $attendance->part->part  }})
+                                        @if ($attendance->comment) &emsp;<span class="comment">{{  $attendance->comment }}</span> @endif
+                                      </a>
                                     </span>
                                     <br>
-
                                   @endforeach
                                 @endforeach
                               </p>

@@ -58,11 +58,11 @@
                                   @endif
                                 @endif
                               >- （未定）</option>
-                              <option value="99"
+                              <option value="-1"
                               @if ($errors->any())
-                                @if(old("atten$attendance->attendance_id") == "99") selected @endif
+                                @if(old("atten$attendance->attendance_id") == "-1") selected @endif
                               @else
-                                @if ($attendance->attendance == 99)
+                                @if ($attendance->attendance == -1)
                                   selected
                                 @endif
                               @endif

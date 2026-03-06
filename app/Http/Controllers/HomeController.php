@@ -55,7 +55,7 @@ class HomeController extends Controller
       $activity->class_attendance = "attendance" . $iter;
       $iter++;
     }
-    // dd($activities);
+    // dd($activities, $activities[0], $activities[0]->attens);
 
     // 改行を含む Menu をリストに変換
     foreach ($activities as $activity) {
@@ -400,7 +400,7 @@ class HomeController extends Controller
 
       // 会議対象外の数
       $act->n_not_members = Attendance::where('activity_id', '=', $act->id)
-                                ->where('attendance', '=', 99)->count();
+                                ->where('attendance', '=', -1)->count();
 
       // パートごと
       foreach ($acts as $act) {
@@ -449,15 +449,15 @@ class HomeController extends Controller
 
       // 出席形態ごと
       foreach ($acts as $act) {
-        $atten_ids = array(0, 1, 3, 99);
+        $atten_ids = array(3, 1, 0, -1);
         $attens = collect();
         // 出席携帯ごとに回答のリストを取得
-        foreach ($atten_ids as $atten_id) {
+        foreach ($atten_ids as $key => $atten_id) {
           $atten = Attendance::where('activity_id', '=', $act->id)
                       ->where('attendance', '=', $atten_id)
                       ->orderBy('updated_at')
                       ->get();
-          $attens[$atten_id] = $atten;
+          $attens[] = $atten;
         }
         // 新規登録と更新情報を設定
         foreach ($attens as $attendances) {
@@ -490,6 +490,7 @@ class HomeController extends Controller
         $act->attens = $attens;
       }
     }
+    // dd($acts);
     return $acts;
   }
 
