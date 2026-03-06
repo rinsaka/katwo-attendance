@@ -46,6 +46,7 @@ class HomeController extends Controller
     $activities = Activity::where('act_at', '>=', $thismonth_head)
                             ->where('act_at', '<=', $thismonth_tail)
                             ->orderBy('act_at')
+                            ->orderBy('meeting', 'DESC')
                             ->get();
     // 各アクティビティについていろいろと取得する
     $activities = $this->get_Attendances_detail($activities);
@@ -133,6 +134,7 @@ class HomeController extends Controller
     $activities = Activity::where('act_at', '>=', $thismonth_head)
                             ->where('act_at', '<=', $thismonth_tail)
                             ->orderBy('act_at')
+                            ->orderBy('meeting', 'DESC')
                             ->get();
     // 各アクティビティについていろいろと取得する
     $activities = $this->get_Attendances_detail($activities);
@@ -190,6 +192,7 @@ class HomeController extends Controller
     $activities = Activity::where('act_at', '>=', $thismonth_head)
                             ->where('act_at', '<=', $thismonth_tail)
                             ->orderBy('act_at')
+                            ->orderBy('meeting', 'DESC')
                             ->get();
     $n_act = count($activities);
 
@@ -289,6 +292,7 @@ class HomeController extends Controller
                                 ->where('activities.act_at', '>=', $thismonth_head)
                                 ->where('activities.act_at', '<=', $thismonth_tail)
                                 ->orderBy('activities.act_at')
+                                ->orderBy('meeting', 'DESC')
                                 ->count();
     if ($cnt_att == 0) {
       return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
@@ -299,6 +303,7 @@ class HomeController extends Controller
                                 ->where('activities.act_at', '>=', $thismonth_head)
                                 ->where('activities.act_at', '<=', $thismonth_tail)
                                 ->orderBy('activities.act_at')
+                                ->orderBy('meeting', 'DESC')
                                 ->get();
     // if (count($attendances)==0) {
     //     return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
