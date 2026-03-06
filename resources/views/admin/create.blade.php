@@ -54,7 +54,7 @@
                         </p>
 
                         <p>
-                          <label for="meeting">活動形態: </label>
+                          <label for="meeting">活動形態（※ 新項目！）: </label>
                           <select name="meeting" class="form-control">
                             <option value="0">
                               練習，演奏会，打ち上げなど全員が対象（通常はこちら）

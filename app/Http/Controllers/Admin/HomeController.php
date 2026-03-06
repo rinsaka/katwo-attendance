@@ -60,6 +60,10 @@ class HomeController extends Controller
       'note' => 'max:140'
     ]);
 
+    // dd($request->note, trim($request->note), mb_strlen($request->note), mb_strlen(trim($request->note)));
+
+
+
     $activity = Activity::where('id', '=', $request->aid)->first();
     if (!$activity) {
       return redirect('/admin/home/')->with('status', "そのような活動予定がありません");
@@ -79,7 +83,14 @@ class HomeController extends Controller
     } else {
       $activity->place_id = $request->place;
     }
-    $activity->meeting = $request->meeting;
+    // $activity->meeting = $request->meeting;
+    if ($activity->meeting == '1') {
+      if (mb_strlen($request->note) == 0) {
+        return back()
+                ->with('status', '【一部の団員対象】を選択した場合は【活動内容】に何か情報を入力してください')
+                ->withInput();
+      }
+    }
     $activity->note = $request->note;
     $activity->save();
 

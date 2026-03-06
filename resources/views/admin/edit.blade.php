@@ -54,8 +54,9 @@
                         </p>
 
                         <p>
-                          <label for="meeting">活動形態: </label>
-                          <select name="meeting" class="form-control">
+                          <label for="meeting">活動形態: （変更できません：変更したい場合は一旦活動予定を削除してください）
+                          </label>
+                          <select name="meeting" class="form-control" disabled>
                             <option value="0"
                               @if ($activity->meeting != 1)
                                 selected
