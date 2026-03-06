@@ -32,7 +32,7 @@ class HomeController extends Controller
    */
   public function index()
   {
-    $activities = Activity::orderBy('act_at')->get();
+    $activities = Activity::orderBy('act_at')->orderBy('meeting', 'DESC')->get();
     return view('admin.home')
             ->with('activities', $activities);
   }
