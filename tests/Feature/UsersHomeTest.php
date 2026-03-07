@@ -219,7 +219,7 @@ class UsersHomeTest extends TestCase
     $user = User::where('id',1)->first();
 
     $response = $this->actingAs($user)
-                      ->get('/home/'. $this->ymlist[1][0] . '/' . $this->ymlist[1][1] . '/12/edit')
+                      ->get('/home/'. $this->ymlist[1][0] . '/' . $this->ymlist[1][1] . '/48/edit')
                       ->assertSee('パート')
                       ->assertSee('予定を変更します')
                       ->assertSee('コメント')
@@ -228,7 +228,7 @@ class UsersHomeTest extends TestCase
 
     // dd('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/12/edit');
     $response = $this->actingAs($user)
-                      ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/12/edit')
+                      ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/48/edit')
                       ->assertRedirect('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1]);
     //
     $response = $this->actingAs($user)

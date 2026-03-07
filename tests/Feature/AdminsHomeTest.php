@@ -180,7 +180,7 @@ class AdminsHomeTest extends TestCase
                       ->json('POST', '/admin/activity', [
                         'act_at' => $acts[19],
                         'time' => null,
-                        'place' => "1",
+                        'place' => "2",
                         'note' => "選曲委員会 10:00~12:00"
                       ]);
     //
@@ -391,6 +391,196 @@ class AdminsHomeTest extends TestCase
             ->json('DELETE', '/admin/time/5', [])
             ->assertRedirect('/admin/time');
 
+  }
+
+  public function testAddMeetingActivitiesAsAdmin()
+  {
+    $admin = Admin::where('id',1)->first();
+    $acts = $this->mk_activities();
+    // dd($acts[0]);
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('POST', '/admin/activity', [
+                        'act_at' => $acts[0],
+                        'time' => null,
+                        'place' => "1",
+                        'meeting' => "1",
+                        'note' => "選曲委員会 10:00~12:00"
+                      ]);
+    // 参加登録
+    $user = User::where('id',1)->first();
+    // dd($user, $this->ymlist, $this->ymlist[0][0], $this->ymlist[0][1]);
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        // 'month' => $this->ymlist[0][1],
+                        'month' => "03",
+                        'n_act' => "4",
+                        'part' => "1",
+                        'name' => "あい うえお",
+                        'act22' => "3",
+                        'comment22' => "あいうえおあいうえおあいうえおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえお",
+                        'act1' => "1",
+                        'comment1' => "おあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえお",
+                        'act2' => "3",
+                        'comment2' => "",
+                        'act3' => "0",
+                        'comment3' => "これもコメント JSON"
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        // 'month' => $this->ymlist[0][1],
+                        'month' => "03",
+                        'n_act' => "4",
+                        'part' => "3",
+                        'name' => "かき くけこ",
+                        'act22' => "1",
+                        'comment22' => "",
+                        'act1' => "0",
+                        'comment1' => "",
+                        'act2' => "0",
+                        'comment2' => "",
+                        'act3' => "0",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        // 'month' => $this->ymlist[0][1],
+                        'month' => "03",
+                        'n_act' => "4",
+                        'part' => "2",
+                        'name' => "さし すせそ",
+                        'act22' => "-1",
+                        'comment22' => "",
+                        'act1' => "0",
+                        'comment1' => "",
+                        'act2' => "1",
+                        'comment2' => "",
+                        'act3' => "1",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        // 'month' => $this->ymlist[0][1],
+                        'month' => "03",
+                        'n_act' => "4",
+                        'part' => "2",
+                        'name' => "たち つてと",
+                        'act22' => "-1",
+                        'comment22' => "",
+                        'act1' => "0",
+                        'comment1' => "",
+                        'act2' => "0",
+                        'comment2' => "",
+                        'act3' => "0",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        // 'month' => $this->ymlist[0][1],
+                        'month' => "03",
+                        'n_act' => "4",
+                        'part' => "3",
+                        'name' => "なにぬ ねの",
+                        'act22' => "1",
+                        'comment22' => "",
+                        'act1' => "1",
+                        'comment1' => "",
+                        'act2' => "1",
+                        'comment2' => "",
+                        'act3' => "1",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        // 'month' => $this->ymlist[0][1],
+                        'month' => "03",
+                        'n_act' => "4",
+                        'part' => "4",
+                        'name' => "はひ ふへほ",
+                        'act22' => "3",
+                        'comment22' => "はひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへお",
+                        'act1' => "3",
+                        'comment1' => "はひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへお",
+                        'act2' => "3",
+                        'comment2' => "はひふへお",
+                        'act3' => "3",
+                        'comment3' => "はひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへお"
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        // 'month' => $this->ymlist[0][1],
+                        'month' => "03",
+                        'n_act' => "4",
+                        'part' => "5",
+                        'name' => "まみ むめも",
+                        'act22' => "-1",
+                        'comment22' => "",
+                        'act1' => "3",
+                        'comment1' => "",
+                        'act2' => "3",
+                        'comment2' => "",
+                        'act3' => "3",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        // 'month' => $this->ymlist[0][1],
+                        'month' => "03",
+                        'n_act' => "4",
+                        'part' => "7",
+                        'name' => "やいゆ えよ",
+                        'act22' => "0",
+                        'comment22' => "",
+                        'act1' => "3",
+                        'comment1' => "",
+                        'act2' => "3",
+                        'comment2' => "",
+                        'act3' => "3",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        // 'month' => $this->ymlist[0][1],
+                        'month' => "03",
+                        'n_act' => "4",
+                        'part' => "8",
+                        'name' => "わおん",
+                        'act22' => "3",
+                        'comment22' => "",
+                        'act1' => "1",
+                        'comment1' => "",
+                        'act2' => "3",
+                        'comment2' => "",
+                        'act3' => "0",
+                        'comment3' => ""
+                      ]);
+    //
+
+
+
+    // dd($admin);
+    // $response = $this->actingAs($admin, 'admin')
+    //                   ->get('/admin/time/create')
+    //                   ->assertSee('活動時間')
+    //                   ->assertSee('新規登録')
+    //                   ->assertSee('デフォルト')
+    //                   ->assertSee('管理者');
   }
 
   /**
