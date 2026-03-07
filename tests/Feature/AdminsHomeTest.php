@@ -535,7 +535,7 @@ class AdminsHomeTest extends TestCase
                         'n_act' => "4",
                         'part' => "7",
                         'name' => "やいゆ えよ",
-                        'act22' => "0",
+                        'act22' => "3",
                         'comment22' => "",
                         'act1' => "3",
                         'comment1' => "",
