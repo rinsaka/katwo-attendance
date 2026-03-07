@@ -1,226 +1,111 @@
-@extends('layouts.app-jquery')
+@extends('layouts.app-2026')
 
 @inject('myController', 'App\Http\Controllers\Controller')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ $this_year }}年{{ $this_month }}月の予定</div>
-
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <div class="link_container">
-                      <table border="0" width="100%" cellspacing="0" cellpadding="5" bordercolor="#333333">
-                        <tr>
-                          <td width="30%" align="center">
-                            <span class="next_prev link_left" ontouchstart="">
-                              <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}">
-                                <i class="fas fa-angle-double-left fa-2x my-white"></i> &nbsp;
-                                {{ $prev_month }}月
-                              </a>
-                            </span>
-                          </td>
-                          <td align="center">
-                            <span class="next_prev link_center" ontouchstart="">
-                              <a href="{{ action('HomeController@index') }}">
-                                <i class="fas fa-home fa-2x my-white"></i> &nbsp;
-                                今月
-                              </a>
-                            </span>
-                          </td>
-                          <td width="30%" align="center">
-                            <span class="next_prev link_right" ontouchstart="">
-                              <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
-                                {{ $next_month }}月 &nbsp;
-                                <i class="fas fa-angle-double-right fa-2x my-white"></i>
-                              </a>
-                            </span>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-
-                    @if (count($activities) > 0)
-                      <div class="create_link" ontouchstart="">
-                        <p>
-                          <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
-                            <i class="fas fa-plus-circle fa-2x"></i>
-                            {{ $this_year }}年{{ $this_month }}月の<br>自分の予定を登録
-                          </a>
-                        </p>
-                      </div>
-                    @endif
-
-                    <div>
-                      @forelse ($activities as $activity)
-                        <h3
-                          @if ($activity->meeting == "1")
-                            class="meeting_at"
-                          @else
-                            class="act_at"
-                          @endif
-                        >{{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} @if (strlen($activity->note)) <span class="note">&nbsp; {{ $activity->note }}</span>@endif</h3>
-                          <div class="detail">
-                            @if ($activity->meeting == "1")
-                            <p class="info_meeting">
-                              【一部団員に限定した会議等】
-                            </p>
-                            @endif
-                            <p class="time_place">
-                              {{ $activity->time->jikan }}
-                              {{ $activity->place->place }}
-                            </p>
-                            @if ($activity->menu)
-                              <a href="{{ action('MenusController@show', $activity->menu->id) }}">
-                                <div class="menu">
-                                  <p class="menu">
-                                      @if ($activity->menu->new) <span class="new">新規</span><br> @endif
-                                      @if ($activity->menu->update) <span class="update">更新</span><br> @endif
-                                      @foreach ($activity->menus as $menu)
-                                        {{ $menu }} <br>
-                                      @endforeach
-                                  </p>
-                                </div>
-                              </a>
-                            @else
-                              <a href="{{ action('MenusController@create', ["aid" => $activity->id]) }}">
-                                <div class="menu">
-                                  <p class="menu">
-                                    練習メニュー未登録
-                                  </p>
-                                </div>
-                              </a>
-                            @endif
-                            <p class="results">
-                              参加： <span class="n_attendance">{{ $activity->n_atten[3] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }}</span>, &nbsp;
-                              欠席： <span class="n_attendance">{{ $activity->n_atten[1] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }}</span>, &nbsp;
-                              未定： <span class="n_attendance">{{ $activity->n_atten[0] }}</span><span class="total_attendance">/{{ $activity->n_atten[4] }} </span>&nbsp;
-                              @if ($activity->meeting == "1")
-                                対象外： <span class="n_attendance">{{ $activity->n_not_members }}</span>&nbsp;
-                              @endif
-                            </p>
-                            @if ($activity->meeting == "1")
-                              <p class="{{ $activity->class_attendance }} vertical" ontouchstart="">
-                                <span class="{{ $activity->class_expansion_link }}">詳細の表示／非表示</span><br>
-                                @foreach ($activity->attens as $key => $atten_type)
-                                  @if ($key == 0)
-                                    <span class="atten_part">参加<br></span>
-                                  @elseif ($key == 1)
-                                    <span class="atten_part">欠席<br></span>
-                                  @elseif ($key == 2)
-                                    <span class="atten_part">未定<br></span>
-                                  @else
-                                    <span class="atten_part">対象外<br></span>
-                                  @endif
-                                  @foreach ($atten_type as $attendance)
-                                    <span class="atten_detail">
-                                      @if ($attendance->new) <span class="new">新規</span> @endif
-                                      @if ($attendance->update) <span class="update">更新</span> @endif
-                                      <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
-                                        {{ $attendance->name }} ({{ $attendance->part->part  }})
-                                        @if ($attendance->comment) &emsp;<span class="comment">{{  $attendance->comment }}</span> @endif
-                                      </a>
-                                    </span>
-                                    <br>
-                                  @endforeach
-                                @endforeach
-                              </p>
-                            @else
-                              <p class="{{ $activity->class_attendance }} vertical" ontouchstart="">
-                                <span class="{{ $activity->class_expansion_link }}">詳細の表示／非表示</span><br>
-                                @foreach ($activity->parts as $part)
-                                  <span class="atten_part">
-                                  {{ $part->s_part }}： ○ <span class="n_attendance">{{ $part->n_atten[3] }}</span>，&nbsp; × <span class="n_attendance">{{ $part->n_atten[1] }}</span>，&nbsp; − <span class="n_attendance">{{ $part->n_atten[0] }}</span></span><br>
-                                  @foreach ($part->attendances as $attendance)
-                                    <span class="atten_detail">
-                                    @if ($attendance->new) <span class="new">新規</span> @endif
-                                    @if ($attendance->update) <span class="update">更新</span> @endif
-                                    <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
-                                      {{ $attendance->name }} &nbsp;
-                                      @if ($attendance->attendance == 3)
-                                        ○
-                                      @elseif ($attendance->attendance == 1)
-                                        ×
-                                      @else
-                                        -
-                                      @endif
-                                      @if ($attendance->comment) &emsp;<span class="comment">{{  $attendance->comment }}</span> @endif
-                                    </a>
-                                    </span>
-                                    <br>
-
-                                  @endforeach
-                                @endforeach
-                              </p>
-                            @endif
-                        </div>
-                      @empty
-                      <p>活動予定がまだ登録されていません!</p>
-                      @endforelse
-                    </div>
-
-
-                    @if (count($activities) > 0)
-                      <div class="create_link" ontouchstart="">
-                        <p>
-                          <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}">
-                            <i class="fas fa-plus-circle fa-2x"></i>
-                            {{ $this_year }}年{{ $this_month }}月の<br>自分の予定を登録
-                          </a>
-                        </p>
-                      </div>
-                    @endif
-
-                    @if (count($activities) > 0)
-                    <div class="link_container">
-                      <table border="0" width="100%" cellspacing="0" cellpadding="5" bordercolor="#333333">
-                        <tr>
-                          <td width="30%" align="center">
-                            <span class="next_prev link_left" ontouchstart="">
-                              <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}">
-                                <i class="fas fa-angle-double-left fa-2x my-white"></i> &nbsp;
-                                {{ $prev_month }}月
-                              </a>
-                            </span>
-                          </td>
-                          <td align="center">
-                            <span class="next_prev link_center" ontouchstart="">
-                              <a href="{{ action('HomeController@index') }}">
-                                <i class="fas fa-home fa-2x my-white"></i> &nbsp;
-                                今月
-                              </a>
-                            </span>
-                          </td>
-                          <td width="30%" align="center">
-                            <span class="next_prev link_right" ontouchstart="">
-                              <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}">
-                                {{ $next_month }}月 &nbsp;
-                                <i class="fas fa-angle-double-right fa-2x my-white"></i>
-                              </a>
-                            </span>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-                    @endif
-
-                </div>
-                <div  class="panel-footer">
-                  <p>
-                    <a href="{{ action('HomeController@all_act') }}">練習予定の一覧を表示する</a>
-                  </p>
-                  {{-- フッターの表示 --}}
-                  @include('layouts.footer')
-                </div>
-            </div>
+<main>
+@forelse ($activities as $activity)
+  <div class="card mb-3 shadow-sm">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <div class="d-flex flex-wrap align-items-baseline gap-3">
+        <h3 class="h5 mb-0">{{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }}</h3>
+        <div class="text-body-secondary">
+          {{ $activity->note }}
+          {{ $activity->time->jikan }} /
+          {{ $activity->place->place }}
         </div>
+      </div>
+      <div class="d-flex gap-2">
+        <span class="badge text-bg-success">参加 {{ $activity->n_atten[3] }}</span>
+        <span class="badge text-bg-danger">欠席 {{ $activity->n_atten[1] }}</span>
+        <span class="badge text-bg-secondary">未定 {{ $activity->n_atten[0] }}</span>
+      </div>
     </div>
-</div>
+
+    <div class="card-body">
+      <p class="mb-3">
+        @if ($activity->menu)
+          @if ($activity->menu->new)
+            <span class="badge text-bg-primary ms-2">新規</span>
+          @endif
+          @if ($activity->menu->update)
+            <span class="badge text-bg-warning text-dark ms-1">更新</span>
+          @endif
+          @foreach ($activity->menus as $menu)
+            {{ $menu }} <br>
+          @endforeach
+          <a href="{{ action('MenusController@show', $activity->menu->id) }}">
+            [練習メニューを編集する]
+          </a>
+        @else
+          練習メニュー未登録
+          <a href="{{ action('MenusController@create', ["aid" => $activity->id]) }}">
+            [練習メニューを登録する]
+          </a>
+        @endif
+      </p>
+      <div class="d-flex flex-wrap gap-2 mb-3">
+
+        <button class="btn btn-outline-primary"
+                type="button"
+                onclick="document.getElementById('atten{{ $activity->id }}').classList.toggle('d-none')">
+          出欠一覧の表示／非表示
+        </button>
+      </div>
+      <div id="atten{{ $activity->id }}" class="d-none mt-2">
+        <div class="border rounded p-2 bg-body">
+          @foreach ($activity->parts as $part)
+            <!-- パート -->
+            <div class="mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="h6 mb-0">{{ $part->part }}</h4>
+                <div class="d-flex gap-2">
+                  <span class="badge rounded-pill text-bg-success">参加 {{ $part->n_atten[3] }}</span>
+                  <span class="badge rounded-pill text-bg-danger">欠席 {{ $part->n_atten[1] }}</span>
+                  <span class="badge rounded-pill text-bg-secondary">未定 {{ $part->n_atten[0] }}</span>
+                </div>
+              </div>
+
+              <ul class="list-group list-group-flush">
+                @foreach ($part->attendances as $attendance)
+                  <!-- 行：左にステータス、中央に名前/新規更新/メモ -->
+                  <li class="list-group-item d-flex align-items-start gap-3 py-2">
+                    <!-- ステータス（名前の直前） -->
+                    @if ($attendance->attendance == 3)
+                      <span class="badge rounded-pill text-bg-success flex-shrink-0 mt-1">参加</span>
+                    @elseif ($attendance->attendance == 1)
+                      <span class="badge rounded-pill text-bg-danger flex-shrink-0 mt-1">欠席</span>
+                    @else
+                      <span class="badge rounded-pill text-bg-secondary flex-shrink-0 mt-1">未定</span>
+                    @endif
+                    <!-- 本文 -->
+                    <div class="flex-grow-1">
+                      <div class="fw-semibold">
+                        <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
+                          {{ $attendance->name }}
+                        </a>
+                      </div>
+                      <div class="text-body-secondary small">
+                        <span class="d-inline d-sm-none text-truncate" style="max-width:30ch; display:inline-block; vertical-align:bottom;">
+                          {{ $attendance->comment }}
+                        </span>
+                        <span class="d-none d-sm-inline">
+                          {{ $attendance->comment }}
+                        </span>
+                      </div>
+                    </div>
+                  </li>
+                @endforeach
+              </ul>
+            </div>
+          @endforeach
+        </div>
+      </div>
+    </div>
+  </div>
+@empty
+<p>活動予定がまだ登録されていません!</p>
+@endforelse
+</main>
+
 @endsection
