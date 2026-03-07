@@ -69,7 +69,7 @@
               <ul class="list-group ">
                 @foreach ($part->attendances as $attendance)
                   <!-- 行：左にステータス、中央に名前/新規更新/メモ -->
-                  <li class="list-group-item d-flex align-items-start gap-3 py-2">
+                  <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" class="list-group-item list-group-item-action d-flex align-items-start gap-3 py-2">
                     <!-- ステータス（名前の直前） -->
                     @if ($attendance->attendance == 3)
                       <span class="badge rounded-pill text-bg-success flex-shrink-0 mt-1">参加</span>
@@ -81,21 +81,20 @@
                     <!-- 本文 -->
                     <div class="flex-grow-1">
                       <span class="fw-semibold">
-                        <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
+
                           {{ $attendance->name }}
-                        </a>
                         &nbsp;
                       </span>
                       <span class="text-body-secondary comment" >
-                        <span class="d-inline d-sm-none">
+                        <span class="d-inline d-md-none">
                           {{ $attendance->comment_trim }}
                         </span>
-                        <span class="d-none d-sm-inline">
+                        <span class="d-none d-md-inline">
                           {{ $attendance->comment }}
                         </span>
                       </span>
                     </div>
-                  </li>
+                  </a>
                 @endforeach
               </ul>
             </div>
