@@ -443,8 +443,9 @@ class HomeController extends Controller
 
           // コメントをトリミング
           foreach ($part->attendances as $attendance) {
-            if (mb_strlen($attendance->comment) > 20) {
-              $attendance->comment = mb_substr($attendance->comment, 0, 20) . "...";
+            $attendance->comment_trim = $attendance->comment;
+            if (mb_strlen($attendance->comment) > 18) {
+              $attendance->comment_trim = mb_substr($attendance->comment, 0, 16) . "...";
             }
 
           }

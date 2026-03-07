@@ -80,19 +80,20 @@
                     @endif
                     <!-- 本文 -->
                     <div class="flex-grow-1">
-                      <div class="fw-semibold">
+                      <span class="fw-semibold">
                         <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" ontouchstart="">
                           {{ $attendance->name }}
                         </a>
-                      </div>
-                      <div class="text-body-secondary small">
-                        <span class="d-inline d-sm-none text-truncate" style="max-width:30ch; display:inline-block; vertical-align:bottom;">
-                          {{ $attendance->comment }}
+                        &nbsp;
+                      </span>
+                      <span class="text-body-secondary comment" >
+                        <span class="d-inline d-sm-none">
+                          {{ $attendance->comment_trim }}
                         </span>
                         <span class="d-none d-sm-inline">
                           {{ $attendance->comment }}
                         </span>
-                      </div>
+                      </span>
                     </div>
                   </li>
                 @endforeach
