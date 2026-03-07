@@ -66,7 +66,7 @@
                 </div>
               </div>
 
-              <ul class="list-group list-group-flush">
+              <ul class="list-group ">
                 @foreach ($part->attendances as $attendance)
                   <!-- 行：左にステータス、中央に名前/新規更新/メモ -->
                   <li class="list-group-item d-flex align-items-start gap-3 py-2">
