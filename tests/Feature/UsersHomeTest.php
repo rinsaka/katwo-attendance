@@ -304,8 +304,8 @@ class UsersHomeTest extends TestCase
                         'year' => $this->ymlist[1][0],
                         'month' => $this->ymlist[1][1],
                         'name' => "サブロー",
-                        'aid' => "13",
-                        'attens' => array(13, 14, 15, 16),
+                        'aid' => "52",
+                        'attens' => array(52, 53, 54, 55),
                       ]);
 
     $response = $this->actingAs($user)
@@ -313,8 +313,8 @@ class UsersHomeTest extends TestCase
                         'year' => $this->ymlist[1][0],
                         'month' => $this->ymlist[1][1],
                         'name' => "サブロー",
-                        'aid' => "13",
-                        'attens' => array(13, 14, 15, 16),
+                        'aid' => "52",
+                        'attens' => array(52, 53, 54, 55),
                         'delete_token' => "katwo",
                         'confirmation' => "hoge"  // 文字列が異なるので削除エラー
                       ]);
@@ -324,8 +324,8 @@ class UsersHomeTest extends TestCase
                         'year' => $this->ymlist[1][0],
                         'month' => $this->ymlist[1][1],
                         'name' => "サブロー",
-                        'aid' => "13",
-                        'attens' => array(13, 14, 15, 16),
+                        'aid' => "52",
+                        'attens' => array(52, 53, 54, 55),
                         'delete_token' => "katwo",
                         'confirmation' => "katwo"
                       ]);

@@ -412,15 +412,14 @@ class AdminsHomeTest extends TestCase
     $response = $this->actingAs($user, 'user')
                       ->json('POST', '/home', [
                         'year' => $this->ymlist[0][0],
-                        // 'month' => $this->ymlist[0][1],
-                        'month' => "03",
+                        'month' => $this->ymlist[0][1],
                         'n_act' => "4",
                         'part' => "1",
                         'name' => "あい うえお",
                         'act22' => "3",
-                        'comment22' => "あいうえおあいうえおあいうえおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえお",
+                        'comment22' => "あいうえおあいうえおあいうえおあいうえお",
                         'act1' => "1",
-                        'comment1' => "おあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえお",
+                        'comment1' => "おあいうえおおあいうえおおあ",
                         'act2' => "3",
                         'comment2' => "",
                         'act3' => "0",
@@ -430,8 +429,7 @@ class AdminsHomeTest extends TestCase
     $response = $this->actingAs($user, 'user')
                       ->json('POST', '/home', [
                         'year' => $this->ymlist[0][0],
-                        // 'month' => $this->ymlist[0][1],
-                        'month' => "03",
+                        'month' => $this->ymlist[0][1],
                         'n_act' => "4",
                         'part' => "3",
                         'name' => "かき くけこ",
@@ -448,8 +446,7 @@ class AdminsHomeTest extends TestCase
     $response = $this->actingAs($user, 'user')
                       ->json('POST', '/home', [
                         'year' => $this->ymlist[0][0],
-                        // 'month' => $this->ymlist[0][1],
-                        'month' => "03",
+                        'month' => $this->ymlist[0][1],
                         'n_act' => "4",
                         'part' => "2",
                         'name' => "さし すせそ",
@@ -466,8 +463,7 @@ class AdminsHomeTest extends TestCase
     $response = $this->actingAs($user, 'user')
                       ->json('POST', '/home', [
                         'year' => $this->ymlist[0][0],
-                        // 'month' => $this->ymlist[0][1],
-                        'month' => "03",
+                        'month' => $this->ymlist[0][1],
                         'n_act' => "4",
                         'part' => "2",
                         'name' => "たち つてと",
@@ -484,8 +480,7 @@ class AdminsHomeTest extends TestCase
     $response = $this->actingAs($user, 'user')
                       ->json('POST', '/home', [
                         'year' => $this->ymlist[0][0],
-                        // 'month' => $this->ymlist[0][1],
-                        'month' => "03",
+                        'month' => $this->ymlist[0][1],
                         'n_act' => "4",
                         'part' => "3",
                         'name' => "なにぬ ねの",
@@ -502,8 +497,7 @@ class AdminsHomeTest extends TestCase
     $response = $this->actingAs($user, 'user')
                       ->json('POST', '/home', [
                         'year' => $this->ymlist[0][0],
-                        // 'month' => $this->ymlist[0][1],
-                        'month' => "03",
+                        'month' => $this->ymlist[0][1],
                         'n_act' => "4",
                         'part' => "4",
                         'name' => "はひ ふへほ",
@@ -520,8 +514,7 @@ class AdminsHomeTest extends TestCase
     $response = $this->actingAs($user, 'user')
                       ->json('POST', '/home', [
                         'year' => $this->ymlist[0][0],
-                        // 'month' => $this->ymlist[0][1],
-                        'month' => "03",
+                        'month' => $this->ymlist[0][1],
                         'n_act' => "4",
                         'part' => "5",
                         'name' => "まみ むめも",
@@ -538,8 +531,7 @@ class AdminsHomeTest extends TestCase
     $response = $this->actingAs($user, 'user')
                       ->json('POST', '/home', [
                         'year' => $this->ymlist[0][0],
-                        // 'month' => $this->ymlist[0][1],
-                        'month' => "03",
+                        'month' => $this->ymlist[0][1],
                         'n_act' => "4",
                         'part' => "7",
                         'name' => "やいゆ えよ",
@@ -556,8 +548,7 @@ class AdminsHomeTest extends TestCase
     $response = $this->actingAs($user, 'user')
                       ->json('POST', '/home', [
                         'year' => $this->ymlist[0][0],
-                        // 'month' => $this->ymlist[0][1],
-                        'month' => "03",
+                        'month' => $this->ymlist[0][1],
                         'n_act' => "4",
                         'part' => "8",
                         'name' => "わおん",
@@ -571,6 +562,25 @@ class AdminsHomeTest extends TestCase
                         'comment3' => ""
                       ]);
     //
+    $response = $this->actingAs($user)
+                      ->json('PATCH', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        'month' => $this->ymlist[0][1],
+                        'n_act' => "4",
+                        'aid' => "15",
+                        'part' => "1",
+                        'name' => "あい うえお",
+                        'atten15' => "-1",
+                        'comment15' => "メンバー外でしたあいうえおあいうえおあいうえおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえお",
+                        'atten12' => "0",
+                        'comment12' => "未定に変更おあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえお あい",
+                        'atten13' => "3",
+                        'comment13' => "",
+                        'atten14' => "0",
+                        'comment14' => "これもコメント JSON add"
+                      ]);
+    //
+
 
 
 
