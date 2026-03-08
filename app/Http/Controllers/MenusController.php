@@ -123,7 +123,9 @@ class MenusController extends Controller
     $mail .= "★今後の練習予定★\n";
     // 指定日以降の練習予定だけを取得
     $activities = Activity::where('act_at', '>', $menu->activity->act_at)
-                      ->orderBy('act_at')->get();
+                      ->orderBy('act_at')
+                      ->orderBy('meeting', 'DESC')
+                      ->get();
     // 月ごとにまとめる
     $m_prev = 0;
     foreach ($activities as $activity) {
