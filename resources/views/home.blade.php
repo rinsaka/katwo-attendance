@@ -4,6 +4,37 @@
 
 @section('content')
 <main>
+
+<div class="card my-3 border-0 shadow-sm">
+  <div class="card-header bg-primary text-white h5 mb-0">
+    {{ $this_year }}年{{ $this_month }}月の活動予定
+  </div>
+  <div class="card-body">
+
+    <!-- 上段：前月／今月／翌月（カード幅いっぱい＋ボタン間に隙間） -->
+    <div class="row g-2 mb-3">
+      <div class="col-4">
+        <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}" class="btn btn-outline-secondary w-100">« {{ $prev_month }}月</a>
+      </div>
+      <div class="col-4">
+        <a href="{{ action('HomeController@index') }}" class="btn btn-primary w-100">今月</a>
+      </div>
+      <div class="col-4">
+        <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}" class="btn btn-outline-secondary w-100">{{ $next_month }}月 »</a>
+      </div>
+    </div>
+
+    <!-- 下段：自分のスケジュールを新規登録（中央寄せ・カード幅の約50%） -->
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}" class="btn btn-success btn-lg">
+        {{ $this_year }}年{{ $this_month }}月の<br>自分の予定を登録
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ここから活動予定カード群 -->
+
 @forelse ($activities as $activity)
   @if ($activity->meeting == "1")
       <div class="card text-bg-info mb-3 shadow-sm">
@@ -244,6 +275,34 @@
 @empty
 <p>活動予定がまだ登録されていません!</p>
 @endforelse
+
+<div class="card my-3 border-0 shadow-sm">
+  <div class="card-body">
+
+    <!-- 下段：自分のスケジュールを新規登録（中央寄せ・カード幅の約50%） -->
+    <div class="d-grid gap-2 col-6 mx-auto mb-3">
+      <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}" class="btn btn-success btn-lg">
+        {{ $this_year }}年{{ $this_month }}月の<br>自分の予定を登録
+      </a>
+    </div>
+
+    <!-- 上段：前月／今月／翌月（カード幅いっぱい＋ボタン間に隙間） -->
+    <div class="row g-2">
+      <div class="col-4">
+        <a href="{{ action('HomeController@show', [$prev_year, $prev_month]) }}" class="btn btn-outline-secondary w-100">« {{ $prev_month }}月</a>
+      </div>
+      <div class="col-4">
+        <a href="{{ action('HomeController@index') }}" class="btn btn-primary w-100">今月</a>
+      </div>
+      <div class="col-4">
+        <a href="{{ action('HomeController@show', [$next_year, $next_month]) }}" class="btn btn-outline-secondary w-100">{{ $next_month }}月 »</a>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
 </main>
 
 @endsection
