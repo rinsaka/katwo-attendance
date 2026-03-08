@@ -285,7 +285,20 @@
     </div>
   @endif
 @empty
-<p>活動予定がまだ登録されていません!</p>
+
+<div class="card text-bg-warning mb-3 shadow-sm">
+  <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+    <div class="d-flex flex-wrap align-items-baseline gap-3">
+      <h3 class="h5 mb-0">未登録</h3>
+    </div>
+  </div>
+
+  <div class="card-body">
+    活動予定はまだ登録されていません!
+  </div>
+</div>
+
+
 @endforelse
 
 <div class="card my-3 border-0 shadow-sm">
