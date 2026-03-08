@@ -38,13 +38,15 @@
               {{ $menu }} <br>
             @endforeach
             <a href="{{ action('MenusController@show', $activity->menu->id) }}">
-              [練習メニューを編集する]
+              <span class="menu_edit">[練習メニューを編集する]</span>
             </a>
           @else
-            練習メニュー未登録
-            <a href="{{ action('MenusController@create', ["aid" => $activity->id]) }}">
-              [練習メニューを登録する]
-            </a>
+            <span class="menu_edit">
+              練習メニューはまだ登録されていません
+              <a href="{{ action('MenusController@create', ["aid" => $activity->id]) }}">
+                [登録する]
+              </a>
+            </span>
           @endif
         </p>
         <div class="d-flex flex-wrap gap-2 mb-3">
