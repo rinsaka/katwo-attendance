@@ -36,8 +36,8 @@
       </div>
     </div>
 
-    <!-- 下段：自分のスケジュールを新規登録（中央寄せ・カード幅の約50%） -->
-    <div class="d-grid gap-2 col-6 mx-auto">
+    <!-- 下段：自分のスケジュールを新規登録（中央寄せ・カード幅の約66%） -->
+    <div class="d-grid gap-2 col-8 mx-auto">
       <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}" class="btn btn-success btn-lg">
         {{ $this_year }}年{{ $this_month }}月の<br>自分の予定を登録
       </a>
@@ -304,8 +304,8 @@
 <div class="card my-3 border-0 shadow-sm">
   <div class="card-body">
 
-    <!-- 下段：自分のスケジュールを新規登録（中央寄せ・カード幅の約50%） -->
-    <div class="d-grid gap-2 col-6 mx-auto mb-3">
+    <!-- 下段：自分のスケジュールを新規登録（中央寄せ・カード幅の約66%） -->
+    <div class="d-grid gap-2 col-8 mx-auto mb-3">
       <a href="{{ action('HomeController@create', [$this_year, $this_month]) }}" class="btn btn-success btn-lg">
         {{ $this_year }}年{{ $this_month }}月の<br>自分の予定を登録
       </a>
