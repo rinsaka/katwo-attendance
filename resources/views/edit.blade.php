@@ -82,7 +82,7 @@
           <div class="card-body">
               <div class="row g-3">
                 <div class="col-12 col-md-4">
-                  <label for="atten{{$attendance->attendance_id}}" class="form-label fw-semibold">出欠</label>
+                  <label for="atten{{$attendance->attendance_id}}" class="form-label fw-semibold">出欠 {{$attendance->attendance}}</label>
                   <select id="atten{{$attendance->attendance_id}}" name="atten{{$attendance->attendance_id}}"  class="form-select" required>
                     <option value="0"
                       @if ($errors->any())
@@ -93,7 +93,7 @@
                         @endif
                       @endif
                     >- （未定）</option>
-                    <option value="3">○ （参加）</option>
+                    <option value="3"
                       @if ($errors->any())
                         @if(old("atten$attendance->attendance_id") == "3") selected @endif
                       @else
@@ -101,6 +101,7 @@
                           selected
                         @endif
                       @endif
+                    >○ （参加）</option>
                     <option value="1"
                       @if ($errors->any())
                         @if(old("atten$attendance->attendance_id") == "1") selected @endif
