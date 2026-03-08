@@ -5,6 +5,18 @@
 @section('content')
 <main>
 
+{{-- =========================
+    Flash messages
+========================= --}}
+@foreach (['success' => 'success', 'error' => 'danger'] as $key => $bs)
+  @if (session($key))
+    <div class="alert alert-{{ $bs }} alert-dismissible fade show my-3" role="alert">
+      {{ session($key) }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="閉じる"></button>
+    </div>
+  @endif
+@endforeach
+
 <div class="card my-3 border-0 shadow-sm">
   <div class="card-header bg-primary text-white h5 mb-0">
     {{ $this_year }}年{{ $this_month }}月の活動予定

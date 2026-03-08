@@ -102,7 +102,7 @@ class HomeController extends Controller
   {
     // URL の Validation
     if ($year > 2080 || $year < 2017 || $month < 1 || $month > 12) {
-      return redirect('/home/')->with('status', "不正なURLです！");
+      return redirect('/home/')->with('error', "不正なURLです！");
     } // まだ home/2018/11.2/ のような場合も動いてしまう．この後 (int) でキャストしているので問題なし．
 
     $thismonth_head = date("Y-m-01", mktime(0,0,0,$month,1,$year));
@@ -197,7 +197,7 @@ class HomeController extends Controller
     $n_act = count($activities);
 
     if ($n_act == 0) {
-        return redirect('/home/'.$year.'/'.$month)->with('status', "活動予定がまだ登録されていません");
+        return redirect('/home/'.$year.'/'.$month)->with('error', "活動予定がまだ登録されていません");
     }
 
     $parts = Part::orderBy('id')->get();
@@ -226,7 +226,7 @@ class HomeController extends Controller
 
     // @codeCoverageIgnoreStart
     if (strlen($name)==0) {
-      return redirect('/home/'.$year.'/'.$month .'/create')->with('status', "名前が入力されていません");
+      return redirect('/home/'.$year.'/'.$month .'/create')->with('error', "名前が入力されていません");
     }
     // @codeCoverageIgnoreEnd
 
@@ -242,7 +242,7 @@ class HomeController extends Controller
       $attens = Attendance::where('activity_id', '=', $act_id)->get();
       foreach ($attens as $atten) {
         if ($atten->name == $name) {
-          return redirect('/home/'.$year.'/'.$month .'/create')->with('status', "登録できませんでした！同じ名前の予定が登録済みです");
+          return redirect('/home/'.$year.'/'.$month .'/create')->with('error', "登録できませんでした！同じ名前の予定が登録済みです");
         }
       }
     }
@@ -269,7 +269,7 @@ class HomeController extends Controller
 
       $attendance->save();
     }
-    return redirect('/home/'.$year.'/'.$month)->with('status', $name . " さんの予定を登録しました");
+    return redirect('/home/'.$year.'/'.$month)->with('success', $name . " さんの予定を登録しました");
   }
 
   public function edit($year, $month, $aid)
@@ -277,7 +277,7 @@ class HomeController extends Controller
     $arg_attendance = Attendance::where('id', '=', $aid)->first();
     // if (count($arg_attendance)==0) {
     if (is_null($arg_attendance)) {
-      return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
+      return redirect('/home/'.$year.'/'.$month)->with('error', "不正なURLです");
     }
     $name = $arg_attendance->name;
     $part = $arg_attendance->part_id;
@@ -295,7 +295,7 @@ class HomeController extends Controller
                                 ->orderBy('meeting', 'DESC')
                                 ->count();
     if ($cnt_att == 0) {
-      return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
+      return redirect('/home/'.$year.'/'.$month)->with('error', "不正なURLです");
     }
     $attendances = Attendance::select('attendances.*', 'activities.*', 'attendances.id as attendance_id')
                                 ->join('activities', 'attendances.activity_id', '=', 'activities.id')
@@ -306,7 +306,7 @@ class HomeController extends Controller
                                 ->orderBy('meeting', 'DESC')
                                 ->get();
     // if (count($attendances)==0) {
-    //     return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
+    //     return redirect('/home/'.$year.'/'.$month)->with('error', "不正なURLです");
     // }
 
     foreach ($attendances as $attendance) {
@@ -384,7 +384,7 @@ class HomeController extends Controller
       $atten->save();
 
     }
-    return redirect('/home/'.$year.'/'.$month)->with('status', $atten->name . " さんの予定を変更しました");
+    return redirect('/home/'.$year.'/'.$month)->with('success', $atten->name . " さんの予定を変更しました");
   }
 
   private function get_Attendances_detail($acts)
@@ -518,9 +518,9 @@ class HomeController extends Controller
         $attendance = Attendance::where('id', $atten)->first();
         $attendance->delete();
       }
-      return redirect('/home/'.$request->year.'/'.$request->month)->with('status', $request->name . " さんの予定を削除しました");
+      return redirect('/home/'.$request->year.'/'.$request->month)->with('success', $request->name . " さんの予定を削除しました");
     } else {
-      return redirect('/home/'.$request->year.'/'.$request->month.'/'.$request->aid.'/edit')->with('status', "予定を削除できません（確認用の文字列を正しく入力してください）");
+      return redirect('/home/'.$request->year.'/'.$request->month.'/'.$request->aid.'/edit')->with('error', "予定を削除できません（確認用の文字列を正しく入力してください）");
     }
   }
 
@@ -559,7 +559,7 @@ class HomeController extends Controller
   {
     $mailinfo = Mailinfo::where('key', '=', 'signiture')->first();
     if (!$mailinfo) {
-      return redirect('/home/')->with('status', "メールフッタが未登録です");
+      return redirect('/home/')->with('error', "メールフッタが未登録です");
     }
     return view('mailfooter')->with('mailinfo', $mailinfo);
   }
