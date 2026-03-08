@@ -86,7 +86,7 @@ class UsersHomeTest extends TestCase
                       ->assertSee('パート')
                       ->assertSee('必須')
                       ->assertSee('ニックネーム')
-                      ->assertSee('コメント')
+                      ->assertSee('メッセージ')
                       ->assertSee('登録')
                       ->assertSee('戻る');
 
