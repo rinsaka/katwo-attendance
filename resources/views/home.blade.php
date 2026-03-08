@@ -20,6 +20,7 @@
           <span class="badge text-bg-success">参加 {{ $activity->n_atten[3] }}</span>
           <span class="badge text-bg-danger">欠席 {{ $activity->n_atten[1] }}</span>
           <span class="badge text-bg-secondary">未定 {{ $activity->n_atten[0] }}</span>
+          <span class="badge text-bg-info">対象外 {{ $activity->n_not_members }}</span>
         </div>
       </div>
 
@@ -56,37 +57,47 @@
         </div>
         <div id="atten{{ $activity->id }}" class="d-none mt-2">
           <div class="border rounded p-2 bg-body">
-            @foreach ($activity->parts as $part)
-              <!-- パート -->
+            @foreach ($activity->attens as $key => $atten)
+              <!-- 出席形態 -->
               <div class="mb-3">
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h4 class="h6 mb-0">{{ $part->part }}</h4>
-                  <div class="d-flex gap-2">
-                    <span class="badge rounded-pill text-bg-success">参加 {{ $part->n_atten[3] }}</span>
-                    <span class="badge rounded-pill text-bg-danger">欠席 {{ $part->n_atten[1] }}</span>
-                    <span class="badge rounded-pill text-bg-secondary">未定 {{ $part->n_atten[0] }}</span>
-                  </div>
+                  <h4 class="h6 mb-0">
+                    @if ($key == "0")
+                      <span class="badge text-bg-success">参加 {{ $activity->n_atten[3] }}</span>
+                    @elseif ($key == "1")
+                      <span class="badge text-bg-danger">欠席 {{ $activity->n_atten[1] }}</span>
+                    @elseif ($key == "2")
+                      <span class="badge text-bg-secondary">未定 {{ $activity->n_atten[0] }}</span>
+                    @else
+                      <span class="badge text-bg-info">対象外 {{ $activity->n_not_members }}</span>
+                    @endif
+                  </h4>
                 </div>
 
                 <ul class="list-group ">
-                  @foreach ($part->attendances as $attendance)
-                    <!-- 行：左にステータス、中央に名前/新規更新/メモ -->
+                  @foreach ($atten as $attendance)
+                    <!-- 行：ニックネーム/パート/新規更新/メモ -->
                     <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" class="list-group-item list-group-item-action d-flex align-items-start gap-3 py-2">
-                      <!-- ステータス（名前の直前） -->
-                      @if ($attendance->attendance == 3)
-                        <span class="badge rounded-pill text-bg-success flex-shrink-0 mt-1">参加</span>
-                      @elseif ($attendance->attendance == 1)
-                        <span class="badge rounded-pill text-bg-danger flex-shrink-0 mt-1">欠席</span>
-                      @else
-                        <span class="badge rounded-pill text-bg-secondary flex-shrink-0 mt-1">未定</span>
-                      @endif
-                      <!-- 本文 -->
+                      <!-- ニックネーム・パート -->
                       <div class="flex-grow-1">
                         <span class="fw-semibold">
-
                             {{ $attendance->name }}
-                          &nbsp;
                         </span>
+                        <span>({{ $attendance->part->s_part }})&nbsp;</span>
+                        <!-- 新規更新バッジ -->
+                        @if ($attendance->new)
+                          <span class="badge rounded-pill text-bg-primary align-text-top me-2">
+                            <span class="d-inline d-sm-none" aria-hidden="true">🆕</span>
+                            <span class="d-none d-sm-inline">新規</span>
+                          </span>
+                        @endif
+                        @if ($attendance->update)
+                          <span class="badge rounded-pill text-bg-warning text-dark align-text-top me-2">
+                            <span class="d-inline d-sm-none" aria-hidden="true">✎</span>
+                            <span class="d-none d-sm-inline">更新</span>
+                          </span>
+                        @endif
+                        <!-- コメント -->
                         <span class="text-body-secondary comment" >
                           <span class="d-inline d-md-none">
                             {{ $attendance->comment_trim }}
@@ -169,9 +180,9 @@
 
                 <ul class="list-group ">
                   @foreach ($part->attendances as $attendance)
-                    <!-- 行：左にステータス、中央に名前/新規更新/メモ -->
+                    <!-- 行：左にステータス、中央にニックネーム/新規更新/メモ -->
                     <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" class="list-group-item list-group-item-action d-flex align-items-start gap-3 py-2">
-                      <!-- ステータス（名前の直前） -->
+                      <!-- ステータス（ニックネームの直前） -->
                       @if ($attendance->attendance == 3)
                         <span class="badge rounded-pill text-bg-success flex-shrink-0 mt-1">参加</span>
                       @elseif ($attendance->attendance == 1)
@@ -179,13 +190,25 @@
                       @else
                         <span class="badge rounded-pill text-bg-secondary flex-shrink-0 mt-1">未定</span>
                       @endif
-                      <!-- 本文 -->
+                      <!-- ニックネーム -->
                       <div class="flex-grow-1">
-                        <span class="fw-semibold">
-
+                        <span class="fw-semibold me-2">
                             {{ $attendance->name }}
-                          &nbsp;
                         </span>
+                        <!-- 新規更新バッジ -->
+                        @if ($attendance->new)
+                          <span class="badge rounded-pill text-bg-primary aign-text-top me-2">
+                            <span class="d-inline d-sm-none" aria-hidden="true">🆕</span>
+                            <span class="d-none d-sm-inline">新規</span>
+                          </span>
+                        @endif
+                        @if ($attendance->update)
+                          <span class="badge rounded-pill text-bg-warning text-dark align-text-top me-2">
+                            <span class="d-inline d-sm-none" aria-hidden="true">✎</span>
+                            <span class="d-none d-sm-inline">更新</span>
+                          </span>
+                        @endif
+                        <!-- コメント -->
                         <span class="text-body-secondary comment" >
                           <span class="d-inline d-md-none">
                             {{ $attendance->comment_trim }}

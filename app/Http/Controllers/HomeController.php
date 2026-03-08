@@ -56,7 +56,7 @@ class HomeController extends Controller
       $activity->class_attendance = "attendance" . $iter;
       $iter++;
     }
-    // dd($activities, $activities[0], $activities[0]->attens);
+    // dd($activities, $activities[0], $activities[0]->attens, $activities[0]->attens[0]);
 
     // 改行を含む Menu をリストに変換
     foreach ($activities as $activity) {
@@ -447,7 +447,6 @@ class HomeController extends Controller
             if (mb_strlen($attendance->comment) > 18) {
               $attendance->comment_trim = mb_substr($attendance->comment, 0, 16) . "...";
             }
-
           }
         }
         $act->parts = $parts;
@@ -457,7 +456,7 @@ class HomeController extends Controller
       foreach ($acts as $act) {
         $atten_ids = array(3, 1, 0, -1);
         $attens = collect();
-        // 出席携帯ごとに回答のリストを取得
+        // 出席形態ごとに回答のリストを取得
         foreach ($atten_ids as $key => $atten_id) {
           $atten = Attendance::where('activity_id', '=', $act->id)
                       ->where('attendance', '=', $atten_id)
@@ -485,10 +484,12 @@ class HomeController extends Controller
 
         }
         // コメントをトリミング
+        // dd($attens);
         foreach ($attens as $attendances) {
-          foreach($attendances as $attendance) {
-            if (mb_strlen($attendance->comment) > 20) {
-              $attendance->comment = mb_substr($attendance->comment, 0, 20) . "...";
+          foreach ($attendances as $attendance){
+            $attendance->comment_trim = $attendance->comment;
+            if (mb_strlen($attendance->comment) > 18) {
+              $attendance->comment_trim = mb_substr($attendance->comment, 0, 16) . "...";
             }
           }
         }
