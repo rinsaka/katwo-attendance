@@ -11,3 +11,8 @@
 .menu_edit {
   font-size:75%;
 }
+
+footer {
+  background-color: lightgray;
+  padding: 16px;
+}

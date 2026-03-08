@@ -1,3 +1,4 @@
+<footer>
 @if (\Config::get('const.SAMPLE_URL'))
 <p>
   <a href="{{ \Config::get('const.SAMPLE_URL') }}">
@@ -23,3 +24,4 @@
     rinsaka.com
   </a>
 </p>
+</footer>
