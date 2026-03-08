@@ -186,11 +186,20 @@
                     <a href="{{ action('HomeController@edit', [$this_year, $this_month, $attendance->id]) }}" class="list-group-item list-group-item-action d-flex align-items-start gap-3 py-2">
                       <!-- ステータス（ニックネームの直前） -->
                       @if ($attendance->attendance == 3)
-                        <span class="badge rounded-pill text-bg-success flex-shrink-0 mt-1">参加</span>
+                        <span class="badge rounded-pill text-bg-success mt-1">
+                          <span class="d-inline d-sm-none" aria-hidden="true">○</span>
+                          <span class="d-none d-sm-inline">参加</span>
+                        </span>
                       @elseif ($attendance->attendance == 1)
-                        <span class="badge rounded-pill text-bg-danger flex-shrink-0 mt-1">欠席</span>
+                        <span class="badge rounded-pill text-bg-danger mt-1">
+                          <span class="d-inline d-sm-none" aria-hidden="true">×</span>
+                          <span class="d-none d-sm-inline">欠席</span>
+                        </span>
                       @else
-                        <span class="badge rounded-pill text-bg-secondary flex-shrink-0 mt-1">未定</span>
+                        <span class="badge rounded-pill text-bg-secondary mt-1">
+                          <span class="d-inline d-sm-none" aria-hidden="true">-</span>
+                          <span class="d-none d-sm-inline">未定</span>
+                        </span>
                       @endif
                       <!-- ニックネーム -->
                       <div class="flex-grow-1">
