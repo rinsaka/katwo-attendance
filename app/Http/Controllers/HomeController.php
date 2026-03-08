@@ -528,6 +528,7 @@ class HomeController extends Controller
   {
     // すべての Activity を取得
     $activities = Activity::orderBy('act_at')
+                            ->orderBy('meeting', 'DESC')
                             ->get();
     // 月ごとにまとめる
     $month_acts = array();
@@ -542,6 +543,9 @@ class HomeController extends Controller
       }
       $act = $m . "月" . $d . "日" . parent::get_youbi($activity->act_at);
       $act = $act . " " . $activity->time->jikan;
+      if ($activity->meeting=="1") {
+        $act = $act . " " . "【一部団員に限定した活動です】" ;
+      }
       $month_acts[] = $act; // 追加（改行）
       $act = "　" . $activity->place->place . " " . $activity->note;
       $month_acts[] = $act; // 追加（改行）
