@@ -82,7 +82,7 @@
           <div class="card-body">
               <div class="row g-3">
                 <div class="col-12 col-md-4">
-                  <label for="atten{{$attendance->attendance_id}}" class="form-label fw-semibold">出欠 {{$attendance->attendance}}</label>
+                  <label for="atten{{$attendance->attendance_id}}" class="form-label fw-semibold">出欠</label>
                   <select id="atten{{$attendance->attendance_id}}" name="atten{{$attendance->attendance_id}}"  class="form-select" required>
                     <option value="0"
                       @if ($errors->any())
