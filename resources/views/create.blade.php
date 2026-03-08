@@ -93,11 +93,9 @@
                   <label for="act{{$activity->id}}" class="form-label fw-semibold">出欠</label>
                   <select id="act{{$activity->id}}" name="act{{$activity->id}}" class="form-select" required>
                     <option value="0">- （未定） --- 選択してください ---</option>
-                    @if ($activity->meeting == "1")
-                      <option value="-1" @if(old("act$activity->id") == "-1") selected @endif>対象外（この会議の参加メンバーではありません）</option>
-                    @endif
                     <option value="3" @if(old("act$activity->id") == "3") selected @endif>○ （参加）</option>
                     <option value="1" @if(old("act$activity->id") == "1") selected @endif>× （欠席）</option>
+                    <option value="-1" @if(old("act$activity->id") == "-1") selected @endif @if ($activity->meeting != "1") disabled @endif>対象外（この会議の参加メンバーではない）</option>
                   </select>
                 </div>
                 <div class="col-12 col-md-8">
