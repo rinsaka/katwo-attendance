@@ -109,6 +109,7 @@ class AdminsHomeTest extends TestCase
                       ->assertSee('日にち')
                       ->assertSee('活動予定を変更')
                       ->assertSee('管理者');
+    //
   }
 
   public function testCreateAsAdmin()
@@ -140,6 +141,16 @@ class AdminsHomeTest extends TestCase
                         'time' => "0",
                         'place' => "0",
                         'note' => "練習日程を追加しました"
+                      ]);
+    //
+    // 活動形態の指定でエラー
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('POST', '/admin/activity', [
+                        'act_at' => $acts[18],
+                        'time' => "",
+                        'place' => "1",
+                        'meeting' => "1",
+                        'note' => ""
                       ]);
   }
 
@@ -405,6 +416,17 @@ class AdminsHomeTest extends TestCase
                         'place' => "1",
                         'meeting' => "1",
                         'note' => "選曲委員会 10:00~12:00"
+                      ]);
+    //
+    // 一部団員対象：活動内容を空で更新エラー
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/activity', [
+                        'aid' => "22",
+                        'act_at' => $acts[0],
+                        'time' => null,
+                        'place' => "1",
+                        'meeting' => "1",
+                        'note' => ""
                       ]);
     // 参加登録
     $user = User::where('id',1)->first();
