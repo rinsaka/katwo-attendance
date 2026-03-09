@@ -68,7 +68,7 @@
       </div>
 
       <div class="card-body">
-        <p class="mb-3">
+        <p class="mb-3 menu">
           <span class="meeting_type">【一部団員に限定した活動です】<br></span>
           @if ($activity->menu)
             @if ($activity->menu->new)
@@ -180,7 +180,7 @@
       </div>
 
       <div class="card-body">
-        <p class="mb-3">
+        <p class="mb-3 menu">
           @if ($activity->menu)
             @if ($activity->menu->new)
               <span class="badge text-bg-primary ms-2">新規</span>

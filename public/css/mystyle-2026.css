@@ -4,11 +4,14 @@
 
 .meeting_type {
   font-weight: bold;
-  font-size:75%;
   color:brown;
 }
 
 .menu_edit {
+  font-size:80%;
+}
+
+.menu {
   font-size:75%;
 }
 
