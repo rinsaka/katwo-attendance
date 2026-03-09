@@ -55,7 +55,7 @@
           <h3 class="h5 mb-0">{{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }}</h3>
           <div class="text-body-secondary">
             {{ $activity->note }}
-            {{ $activity->time->jikan }} /
+            <span class="badge text-bg-secondary ms-0 me-2">{{ $activity->time->jikan }}</span>
             {{ $activity->place->place }}
           </div>
         </div>
@@ -168,7 +168,7 @@
           <h3 class="h5 mb-0">{{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }}</h3>
           <div class="text-body-secondary">
             {{ $activity->note }}
-            {{ $activity->time->jikan }} /
+            <span class="badge text-bg-secondary ms-0 me-2">{{ $activity->time->jikan }}</span>
             {{ $activity->place->place }}
           </div>
         </div>
