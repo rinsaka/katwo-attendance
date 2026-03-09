@@ -16,7 +16,7 @@
   @endif
 @endforeach
 
-<div class="card my-3 border-0 shadow-sm">
+<div class="card my-3 border-0 shadow-lg">
   <div class="card-header bg-primary text-white h5 mb-0">
     {{ $name }}&nbsp;さんの{{ $year }}年{{ $month }}月の予定を変更します
   </div>
@@ -63,9 +63,9 @@
         <section>
           <div
             @if ($attendance->activity->meeting == "1")
-              class="card mb-3 text-bg-info shadow-sm"
+              class="card mb-3 text-bg-info shadow-lg"
             @else
-              class="card mb-3 shadow-sm"
+              class="card mb-3 shadow-lg"
             @endif
           >
             <div class="h6 d-flex align-items-center gap-2 ">

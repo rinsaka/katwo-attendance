@@ -17,7 +17,7 @@
   @endif
 @endforeach
 
-<div class="card my-3 border-0 shadow-sm">
+<div class="card my-3 border-0 shadow-lg">
   <div class="card-header bg-primary text-white h5 mb-0">
     {{ $this_year }}年{{ $this_month }}月の活動予定
   </div>
@@ -49,7 +49,7 @@
 
 @forelse ($activities as $activity)
   @if ($activity->meeting == "1")
-      <div class="card text-bg-info mb-3 shadow-sm">
+      <div class="card text-bg-info mb-3 shadow-lg">
       <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
         <div class="d-flex flex-wrap align-items-baseline gap-3">
           <h3 class="h5 mb-0">{{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }}</h3>
@@ -84,7 +84,7 @@
               <span class="menu_edit">[練習メニューを編集する]</span>
             </a>
           @else
-            <span class="menu_edit">
+            <span class="menu_edit text-body-tertiary">
               練習メニューはまだ登録されていません
               <a href="{{ action('MenusController@create', ["aid" => $activity->id]) }}">
                 [登録する]
@@ -162,7 +162,7 @@
       </div>
     </div>
   @else
-    <div class="card mb-3 shadow-sm">
+    <div class="card mb-3 shadow-lg">
       <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
         <div class="d-flex flex-wrap align-items-baseline gap-3">
           <h3 class="h5 mb-0">{{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }}</h3>
@@ -195,7 +195,7 @@
               <span class="menu_edit">[練習メニューを編集する]</span>
             </a>
           @else
-            <span class="menu_edit">
+            <span class="menu_edit text-body-tertiary">
               練習メニューはまだ登録されていません
               <a href="{{ action('MenusController@create', ["aid" => $activity->id]) }}">
                 [登録する]
@@ -286,7 +286,7 @@
   @endif
 @empty
 
-<div class="card text-bg-warning mb-3 shadow-sm">
+<div class="card text-bg-light text-body-tertiary mb-3 shadow-lg">
   <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
     <div class="d-flex flex-wrap align-items-baseline gap-3">
       <h3 class="h5 mb-0">未登録</h3>
@@ -301,7 +301,7 @@
 
 @endforelse
 
-<div class="card my-3 border-0 shadow-sm">
+<div class="card my-3 border-0 shadow-lg">
   <div class="card-body">
 
     <!-- 下段：自分のスケジュールを新規登録（中央寄せ・カード幅の約66%） -->

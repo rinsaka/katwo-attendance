@@ -16,7 +16,7 @@
   @endif
 @endforeach
 
-<div class="card my-3 border-0 shadow-sm">
+<div class="card my-3 border-0 shadow-lg">
   <div class="card-header bg-primary text-white h5 mb-0">
     {{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} @if (strlen($activity->note)) &nbsp; {{ $activity->note }}@endif の練習メニュー
   </div>

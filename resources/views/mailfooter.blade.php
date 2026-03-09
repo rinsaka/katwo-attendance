@@ -17,7 +17,7 @@
   @endif
 @endforeach
 
-<div class="card my-3 border-0 shadow-sm">
+<div class="card my-3 border-0 shadow-lg">
   <div class="card-header bg-primary text-white h5 mb-0">
     メールのフッタ
   </div>

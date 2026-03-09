@@ -16,7 +16,7 @@
   @endif
 @endforeach
 
-<div class="card my-3 border-0 shadow-sm">
+<div class="card my-3 border-0 shadow-lg">
   <div class="card-header bg-primary text-white h5 mb-0">
      {{ $menu->activity->act_at }} {{ $myController->get_youbi($menu->activity->act_at) }} @if (strlen($menu->activity->note)) &nbsp; {{ $menu->activity->note }}@endif の案内メール文面
   </div>
