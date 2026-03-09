@@ -593,6 +593,37 @@ class AdminsHomeTest extends TestCase
     //                   ->assertSee('管理者');
   }
 
+  public function testAdminMainInfoController()
+  {
+    $admin = Admin::where('id',1)->first();
+
+    $response = $this->actingAs($admin, 'admin')
+                  ->get('/admin/mailinfo')
+                  ->assertSee('フッタ')
+                  ->assertSee('編集')
+                  ->assertSee('更新')
+                  ->assertSee('管理者');
+
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('POST', '/admin/mailinfo', [
+                        'id' => "1",
+                        'key' => "signiture",
+                        'mailinfo' => "ぱぴぷぺぽ",
+                      ]);
+    //
+
+    // 不正なパラメータ
+     $response = $this->actingAs($admin, 'admin')
+                      ->json('POST', '/admin/mailinfo', [
+                        'id' => "99a",
+                        'key' => "signiture",
+                        'mailinfo' => "ぱぴぷぺぽ",
+                      ]);
+    //
+
+
+  }
+
   /**
   *     月をずらす
   *
