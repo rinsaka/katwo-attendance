@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin-2026')
 
 @inject('myController', 'App\Http\Controllers\Controller')
 
