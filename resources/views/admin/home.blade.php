@@ -32,6 +32,12 @@
             class="list-group-item"
           @endif
         >
+          @if ($activity->new)
+            <span class="badge text-bg-primary ms-2">新規</span>
+          @endif
+          @if ($activity->update)
+            <span class="badge text-bg-warning text-dark ms-1">更新</span>
+          @endif
           <a href="{{ action('Admin\HomeController@edit', [$activity->id]) }}">
             @if ($activity->meeting == 1)
               <span class="fw-bold">【一部団員に限定】</span>
