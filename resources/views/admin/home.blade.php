@@ -4,23 +4,25 @@
 
 @section('content')
 <main>
+
+{{-- =========================
+    Flash messages
+========================= --}}
+@foreach (['success' => 'success', 'error' => 'danger'] as $key => $bs)
+  @if (session($key))
+    <div class="alert alert-{{ $bs }} alert-dismissible fade show my-3" role="alert">
+      {{ session($key) }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="閉じる"></button>
+    </div>
+  @endif
+@endforeach
+
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">活動予定一覧（管理者モード）</div>
 
-                <div class="panel-body">
-                    {{-- フラッシュメッセージの表示 --}}
-                    @if (session('warning'))
-                        <div class="alert alert-warning">
-                            {{ session('warning') }}
-                        </div>
-                    @endif
-                    @if (session('status'))
-                        <div class="alert alert-info">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
                     <div>
                       @forelse ($activities as $activity)

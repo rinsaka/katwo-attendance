@@ -41,7 +41,7 @@ class HomeController extends Controller
   {
     $activity = Activity::where('id', '=', $aid)->first();
     if(!$activity) {
-      return redirect('/admin/home/')->with('status', "そのような活動予定がありません");
+      return redirect('/admin/home/')->with('error', "そのような活動予定がありません");
     }
 
     $times = Time::orderBy('jikan')->get();
@@ -66,7 +66,7 @@ class HomeController extends Controller
 
     $activity = Activity::where('id', '=', $request->aid)->first();
     if (!$activity) {
-      return redirect('/admin/home/')->with('status', "そのような活動予定がありません");
+      return redirect('/admin/home/')->with('error', "そのような活動予定がありません");
     }
     // dd($request->aid, $request->act_at, $request->time, $request->place, $request, $activity);
 
@@ -87,7 +87,7 @@ class HomeController extends Controller
     if ($activity->meeting == '1') {
       if (mb_strlen($request->note) == 0) {
         return back()
-                ->with('status', '【一部の団員対象】を選択した場合は【活動内容】に何か情報を入力してください')
+                ->with('error', '【一部の団員対象】を選択した場合は【活動内容】に何か情報を入力してください')
                 ->withInput();
       }
     }
@@ -95,7 +95,7 @@ class HomeController extends Controller
     $activity->save();
 
     return redirect('/admin/home/')
-        ->with('status', $activity->act_at . "の活動予定を修正しました");
+        ->with('success', $activity->act_at . "の活動予定を修正しました");
   }
 
   public function create()
@@ -116,7 +116,7 @@ class HomeController extends Controller
     ]);
     if ($request->meeting == "1") {
       if ($request->note =="") {
-        return redirect('/admin/activity/create')->with('status', "「活動形態」を指定した場合は，「内容」に会議名などを指定してください");
+        return redirect('/admin/activity/create')->with('error', "「活動形態」を指定した場合は，「内容」に会議名などを指定してください");
       }
     }
 
@@ -173,22 +173,22 @@ class HomeController extends Controller
     }
 
     return redirect('/admin/home/')
-        ->with('status', $activity->act_at . "活動予定を新規登録しました");
+        ->with('success', $activity->act_at . "活動予定を新規登録しました");
   }
 
   public function destory(Request $request, $id)
   {
     if($request->confirmation != 'yakuin') {
-      return redirect('/admin/activity/'.$id)->with('status', "確認用文字列を入力してください");
+      return redirect('/admin/activity/'.$id)->with('error', "確認用文字列を入力してください");
     }
     $activity = Activity::where('id', '=', $id)->first();
     if (!$activity) {
-      return redirect('/admin/home')->with('status', "そのような活動予定がありません");
+      return redirect('/admin/home')->with('error', "そのような活動予定がありません");
     }
     $activity->delete();  // cascade にしているので関連した attendances も消える
 
     return redirect('/admin/home')
-            ->with('status', $activity->act_at . " の活動予定を削除しました");
+            ->with('success', $activity->act_at . " の活動予定を削除しました");
   }
 
   public function passwd()
@@ -204,12 +204,12 @@ class HomeController extends Controller
     // 現在のパスワードを確認
     if (!password_verify($request->current_password, $admin->password)) {
       return redirect('/admin/password')
-          ->with('status', 'パスワードが違います');
+          ->with('error', 'パスワードが違います');
     }
     // ここはありえないはず
     if ($request->id != $admin->id) {
       return redirect('/admin/password')
-          ->with('status', 'IDが不正です');
+          ->with('error', 'IDが不正です');
     }
     // Validation（6文字以上あるか，2つが一致しているかなどのチェック）
     $this->validate($request, [
@@ -220,7 +220,7 @@ class HomeController extends Controller
     $admin->password = bcrypt($request->new_password);
     $admin->save();
     return redirect('/admin/home')
-            ->with('status', 'パスワードを変更しました');
+            ->with('success', 'パスワードを変更しました');
   }
 
   /*
@@ -241,7 +241,7 @@ class HomeController extends Controller
     // 現在のパスワードを確認
     if (!password_verify($request->password, $admin->password)) {
       return redirect('/admin/userpassword')
-          ->with('status', 'パスワードが違います');
+          ->with('error', 'パスワードが違います');
     }
     $this->validate($request, [
       'login_id' => 'required',
@@ -250,13 +250,13 @@ class HomeController extends Controller
     $user = User::where('login_id', '=', $request->login_id)->first();
     if (!$user) {
       return redirect('/admin/userpassword')
-          ->with('status', '団員のログインIDが違います');
+          ->with('error', '団員のログインIDが違います');
     }
     // パスワードを保存
     $user->password = bcrypt($request->new_password);
     $user->save();
     return redirect('/admin/home')
-            ->with('status', '団員 '. $user->login_id . ' のパスワードを変更しました');
+            ->with('success', '団員 '. $user->login_id . ' のパスワードを変更しました');
   }
 
   /*
@@ -309,7 +309,7 @@ class HomeController extends Controller
 
     $place->save();
     return redirect()->action('Admin\HomeController@place')
-          ->with('status', "活動施設情報を更新しました");
+          ->with('success', "活動施設情報を更新しました");
   }
 
   public function place_create()
@@ -339,7 +339,7 @@ class HomeController extends Controller
     }
     $place->save();
     return redirect()->action('Admin\HomeController@place')
-          ->with('status', "活動施設情報を登録しました");
+          ->with('success', "活動施設情報を登録しました");
   }
 
   public function place_delete($pid)
@@ -374,14 +374,14 @@ class HomeController extends Controller
       if ($default_place) {
         $default_place->default_place = 1;
         $default_place->save();
-        return redirect('/admin/place/')->with('status', "活動施設情報を削除し，デフォルト活動施設を変更しました");
+        return redirect('/admin/place/')->with('success', "活動施設情報を削除し，デフォルト活動施設を変更しました");
       } else {
         // @codeCoverageIgnoreStart
-        return redirect('/admin/place/')->with('status', "すべての活動施設情報が削除されました");
+        return redirect('/admin/place/')->with('success', "すべての活動施設情報が削除されました");
         // @codeCoverageIgnoreEnd
       }
     }
-    return redirect('/admin/place/')->with('status', "活動施設情報を削除しました");
+    return redirect('/admin/place/')->with('success', "活動施設情報を削除しました");
   }
 
   /*
@@ -434,7 +434,7 @@ class HomeController extends Controller
 
     $time->save();
     return redirect()->action('Admin\HomeController@time')
-          ->with('status', "活動時間情報を更新しました");
+          ->with('success', "活動時間情報を更新しました");
   }
 
   public function time_create()
@@ -464,7 +464,7 @@ class HomeController extends Controller
     }
     $time->save();
     return redirect()->action('Admin\HomeController@time')
-          ->with('status', "活動時間情報を登録しました");
+          ->with('success', "活動時間情報を登録しました");
   }
 
   public function time_delete($tid)
@@ -499,14 +499,14 @@ class HomeController extends Controller
       if ($default_jikan) {
         $default_jikan->default_jikan = 1;
         $default_jikan->save();
-        return redirect('/admin/time/')->with('status', "活動時間情報を削除し，デフォルト活動施設を変更しました");
+        return redirect('/admin/time/')->with('success', "活動時間情報を削除し，デフォルト活動施設を変更しました");
       } else {
         // @codeCoverageIgnoreStart
-        return redirect('/admin/time/')->with('status', "すべての活動時間情報が削除されました");
+        return redirect('/admin/time/')->with('success', "すべての活動時間情報が削除されました");
         // @codeCoverageIgnoreEnd
       }
     }
-    return redirect('/admin/time/')->with('status', "活動時間情報を削除しました");
+    return redirect('/admin/time/')->with('success', "活動時間情報を削除しました");
   }
 
 }
