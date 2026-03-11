@@ -1,6 +1,12 @@
 <footer class="text-bg-info p-3">
 
   <div class="">
+    <a href="{{ action('Admin\HomeController@index') }}">
+      活動一覧
+    </a>
+  </div>
+
+  <div class="">
     <a href="{{ action('Admin\HomeController@create') }}">
       活動予定を新規登録
     </a>
