@@ -32,10 +32,10 @@ class MailinfosController extends Controller
                           ->where('key', '=', $request->key)
                           ->first();
     if (!$mailinfo) {
-      return redirect('/admin/home')->with('status', '不正なパラメータです');
+      return redirect('/admin/home')->with('error', '不正なパラメータです');
     }
     $mailinfo->mailinfo = $request->mailinfo;
     $mailinfo->save();
-    return redirect('/admin/mailinfo')->with('status', "メールフッタを更新しました");
+    return redirect('/admin/mailinfo')->with('success', "メールフッタを更新しました");
   }
 }
