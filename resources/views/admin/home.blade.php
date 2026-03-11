@@ -17,15 +17,48 @@
   @endif
 @endforeach
 
+<div class="card my-3 border-0 shadow-lg">
+  <div class="card-header bg-primary text-white h5 mb-0">
+    活動予定一覧（管理者モード）
+  </div>
+  <div class="card-body">
+
+    <ul class="list-group">
+      @forelse ($activities as $activity)
+        <li
+          @if ($activity->meeting == 1)
+            class="list-group-item list-group-item-info"
+          @else
+            class="list-group-item"
+          @endif
+        >
+          <a href="{{ action('Admin\HomeController@edit', [$activity->id]) }}">
+            @if ($activity->meeting == 1)
+              【一部団員に限定】
+            @endif
+            {{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }}
+                            @if (strlen($activity->note)) <span>&nbsp; {{ $activity->note }}</span>@endif
+          </a>
+        </li>
+      @empty
+        <li class="list-group-item list-group-item-warning">活動予定がまだ登録されていません</li>
+      @endforelse
+    </ul>
+
+  </div>
+</div>
+</main>
+<footer>
+
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">活動予定一覧（管理者モード）</div>
+                <div class="panel-heading"></div>
 
 
-                    <div>
-                      @forelse ($activities as $activity)
+                    {{-- <div>
+
                         <p
                           @if ($activity->meeting == 1)
                            class="admin_meeting"
@@ -34,15 +67,14 @@
                           @if ($activity->meeting == 1)
                             【一部団員に限定】
                           @endif
-                          <a href="{{ action('Admin\HomeController@edit', [$activity->id]) }}">
-                            {{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }}
-                            @if (strlen($activity->note)) <span>&nbsp; {{ $activity->note }}</span>@endif
+
+
                           </a>
                         </p>
                       @empty
                       @endforelse
 
-                    </div>
+                    </div> --}}
 
 
                 </div>
@@ -79,5 +111,5 @@
         </div>
     </div>
   </div>
-</main>
+</footer>
 @endsection
