@@ -40,6 +40,16 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
+              <a href="{{ action('Admin\HomeController@userpasswd') }}" class="dropdown-item">
+                団員パスワードの変更
+              </a>
+            </li>
+            <li>
+              <a href="{{ action('Admin\HomeController@passwd') }}" class="dropdown-item">
+                管理者パスワードの変更
+              </a>
+            </li>
+            <li>
               <a class="dropdown-item" href="{{ route('logout') }}"
                   onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
