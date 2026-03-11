@@ -2,7 +2,11 @@ body {
   background-color: deepskyblue;
 }
 
+main {
+  background-color:whitesmoke;
+  padding:8px;
+}
+
 .admin_meeting {
   font-weight: bold;
 }
-
