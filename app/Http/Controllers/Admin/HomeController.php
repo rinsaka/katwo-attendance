@@ -263,15 +263,23 @@ class HomeController extends Controller
   public function userpasswd_update(Request $request)
   {
     $admin = \Auth::user();
-    // 現在のパスワードを確認
+    // 管理者パスワードを確認
     if (!password_verify($request->password, $admin->password)) {
       return redirect('/admin/userpassword')
-          ->with('error', 'パスワードが違います');
+          ->with('error', '管理者パスワードが違います');
     }
+    // Validation（6文字以上あるかなどのチェック）
     $this->validate($request, [
       'login_id' => 'required',
-      'new_password' => 'required|string|min:6|confirmed'
+      'new_password' => 'required|string|min:6'
     ]);
+
+    // Validation（2つが一致しているかのチェック）
+    if ($request->new_password != $request->new_password_confirm) {
+      return redirect('/admin/userpassword')
+          ->with('error', '新しいパスワード（と確認用）が一致しません');
+    }
+
     $user = User::where('login_id', '=', $request->login_id)->first();
     if (!$user) {
       return redirect('/admin/userpassword')
