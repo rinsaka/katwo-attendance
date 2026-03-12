@@ -229,10 +229,17 @@ class HomeController extends Controller
       return redirect('/admin/password')
           ->with('error', 'IDが不正です');
     }
-    // Validation（6文字以上あるか，2つが一致しているかなどのチェック）
+
+    // Validation（6文字以上あるかなどのチェック）
     $this->validate($request, [
-      'new_password' => 'required|string|min:6|confirmed'
+      'new_password' => 'required|string|min:6'
     ]);
+
+    // Validation（2つが一致しているかのチェック）
+    if ($request->new_password != $request->new_password_confirm) {
+      return redirect('/admin/password')
+          ->with('error', '新しいパスワード（と確認用）が一致しません');
+    }
 
     // パスワードを保存
     $admin->password = bcrypt($request->new_password);
