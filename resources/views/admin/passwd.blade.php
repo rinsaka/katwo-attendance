@@ -77,6 +77,11 @@
         </button>
       </div>
 
+      <!-- テキストリンク（中央寄せ） -->
+      <p class="text-center mt-2 mb-0">
+        <a href="{{ action('Admin\HomeController@index') }}">戻る</a>
+      </p>
+
     </form>
 
   </div>
@@ -84,34 +89,5 @@
 
 </main>
 
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                  管理者パスワードの変更
-                </div>
-
-                <div class="panel-body">
-                    {{-- フラッシュメッセージの表示 --}}
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-
-
-                </div>
-                <div  class="panel-footer">
-                  <p><a href="{{ action('Admin\HomeController@index') }}">
-                    戻る
-                  </a></p>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@include('layouts.admin-footer')
 @endsection
