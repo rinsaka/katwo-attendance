@@ -309,7 +309,7 @@ class HomeController extends Controller
   {
     $place = Place::where('id', '=', $pid)->first();
     if(!$place) {
-      return redirect('/admin/home/')->with('warning', "そのような活動施設がありません");
+      return redirect('/admin/home/')->with('error', "そのような活動施設がありません");
     }
     // dd($place);
     return view('admin.place.edit')
@@ -327,7 +327,7 @@ class HomeController extends Controller
     ]);
     $place = Place::where('id', '=', $request->pid)->first();
     if (!$place) {
-      return redirect('/admin/home/')->with('warning', "そのような活動施設がありません");
+      return redirect('/admin/home/')->with('error', "そのような活動施設がありません");
     }
     $place->place = $request->place;
     if ($place->default_place == 0 && isset($request->default_place)) {
@@ -379,13 +379,13 @@ class HomeController extends Controller
   {
     $place = Place::where('id', '=', $pid)->first();
     if(!$place) {
-      return redirect('/admin/home/')->with('warning', "そのような活動施設がありません");
+      return redirect('/admin/home/')->with('error', "そのような活動施設がありません");
     }
     // その施設での登録済活動回数を取得する．
     // $cnt = 0;
     $cnt = Activity::where('place_id', '=', $pid)->count();
     if ($cnt > 0) {
-      return redirect('/admin/place/'.$pid)->with('warning', "この施設での活動が" . $cnt .  "回登録されているので施設情報を削除できません．削除する前にこの施設での活動予定を削除してください．");
+      return redirect('/admin/place/'.$pid)->with('error', "この施設での活動が" . $cnt .  "回登録されているので施設情報を削除できません．削除する前にこの施設での活動予定を削除してください．");
     }
     // dd($place);
     return view('admin.place.delete')
@@ -397,7 +397,7 @@ class HomeController extends Controller
   {
     $place = Place::where('id', '=', $pid)->first();
     if(!$place) {
-      return redirect('/admin/home/')->with('warning', "そのような活動施設がありません");
+      return redirect('/admin/home/')->with('error', "そのような活動施設がありません");
     }
     $place->delete();
     // 削除した後，default_place がなければ，どれかを default_placeにする
@@ -434,7 +434,7 @@ class HomeController extends Controller
   {
     $time = Time::where('id', '=', $tid)->first();
     if(!$time) {
-      return redirect('/admin/home/')->with('warning', "そのような活動時間がありません");
+      return redirect('/admin/home/')->with('error', "そのような活動時間がありません");
     }
     // dd($time);
     return view('admin.time.edit')
@@ -452,7 +452,7 @@ class HomeController extends Controller
     ]);
     $time = Time::where('id', '=', $request->tid)->first();
     if (!$time) {
-      return redirect('/admin/home/')->with('warning', "そのような活動時間がありません");
+      return redirect('/admin/home/')->with('error', "そのような活動時間がありません");
     }
     $time->jikan = $request->jikan;
     if ($time->default_jikan == 0 && isset($request->default_jikan)) {
@@ -504,13 +504,13 @@ class HomeController extends Controller
   {
     $time = Time::where('id', '=', $tid)->first();
     if(!$time) {
-      return redirect('/admin/home/')->with('warning', "そのような活動時間がありません");
+      return redirect('/admin/home/')->with('error', "そのような活動時間がありません");
     }
     // その時間での登録済活動回数を取得する．
     // $cnt = 0;
     $cnt = Activity::where('time_id', '=', $tid)->count();
     if ($cnt > 0) {
-      return redirect('/admin/time/'.$tid)->with('warning', "この時間での活動が" . $cnt .  "回登録されているので時間情報を削除できません．削除する前にこの時間での活動予定を削除してください．");
+      return redirect('/admin/time/'.$tid)->with('error', "この時間での活動が" . $cnt .  "回登録されているので時間情報を削除できません．削除する前にこの時間での活動予定を削除してください．");
     }
     // dd($time);
     return view('admin.time.delete')
@@ -522,7 +522,7 @@ class HomeController extends Controller
   {
     $time = Time::where('id', '=', $tid)->first();
     if(!$time) {
-      return redirect('/admin/home/')->with('warning', "そのような活動時間がありません");
+      return redirect('/admin/home/')->with('error', "そのような活動時間がありません");
     }
     $time->delete();
     // 削除した後，default_jikan がなければ，どれかを default_jikan にする

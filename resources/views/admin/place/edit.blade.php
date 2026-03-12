@@ -94,56 +94,5 @@
 
 </main>
 
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading"></div>
-
-                <div class="panel-body">
-                    {{-- フラッシュメッセージの表示 --}}
-                    @if (session('warning'))
-                        <div class="alert alert-warning">
-                            {{ session('warning') }}
-                        </div>
-                    @endif
-                    @if (session('status'))
-                        <div class="alert alert-info">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-
-                    <div>
-                      <p>
-                        ここで施設名を変更すると「{{ $place->place }}」で登録されている全ての活動予定の施設名が更新されます．
-                      </p>
-
-                    </div>
-
-
-                </div>
-
-                <div  class="panel-footer">
-                  <p>
-                    <a href="{{ action('Admin\HomeController@index') }}">
-                      活動予定一覧（管理者モード）に戻る
-                    </a>
-                  </p>
-                  <p class='pull-right'>
-                    <a href="{{ action('Admin\HomeController@place_delete', $place->id) }}">
-                      活動施設情報を削除する
-                    </a>
-                  </p>
-                  <p>&nbsp;</p>
-                  <p>
-                    This system is developed with <a href="https://laravel.com/" target="_blank">Laravel</a>, <a href="https://lolipop.jp/" target="_blank">LOLIPOP!</a> and <a href="https://github.com/rinsaka/katwo-attendance" target="_blank">GitHub</a>.
-                  </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@include('layouts.admin-footer')
 @endsection
