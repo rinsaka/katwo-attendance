@@ -1,69 +1,61 @@
-@extends('layouts.admin')
+@extends('layouts.admin-2026')
 
 @inject('myController', 'App\Http\Controllers\Controller')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">主な活動時間一覧（管理者モード）</div>
 
-                <div class="panel-body">
-                    {{-- フラッシュメッセージの表示 --}}
-                    @if (session('warning'))
-                        <div class="alert alert-warning">
-                            {{ session('warning') }}
-                        </div>
-                    @endif
-                    @if (session('status'))
-                        <div class="alert alert-info">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <div>
-                        <p>
-                            活動予定の登録時にリストに表示する活動時間の一覧です．
-                        </p>
-                    </div>
-
-                    <div>
-                        <ol>
-                            @forelse ($times as $time)
-                                <li>
-                                    <a href="{{ action('Admin\HomeController@time_edit', [$time->id]) }}">
-                                        {{ $time->jikan }}
-                                    </a>
-                                    @if ($time->default_jikan == 1)
-                                        【<span class="default">デフォルト時間</span>】
-                                    @endif
-                                </li>
-                            @empty
-                            @endforelse
-                        </ol>
-                    </div>
-
-
-                </div>
-
-                <div  class="panel-footer">
-                  <p>
-                    <a href="{{ action('Admin\HomeController@time_create') }}">
-                      活動時間を新規に登録する
-                    </a>
-                  </p>
-                  <p>
-                    <a href="{{ action('Admin\HomeController@index') }}">
-                      活動予定一覧（管理者モード）に戻る
-                    </a>
-                  </p>
-
-                  <!-- <p>&nbsp;</p> -->
-                  <p>
-                    This system is developed with <a href="https://laravel.com/" target="_blank">Laravel</a>, <a href="https://lolipop.jp/" target="_blank">LOLIPOP!</a> and <a href="https://github.com/rinsaka/katwo-attendance" target="_blank">GitHub</a>.
-                </div>
-            </div>
-        </div>
+<main>
+{{-- =========================
+    Flash messages
+========================= --}}
+@foreach (['success' => 'success', 'error' => 'danger'] as $key => $bs)
+  @if (session($key))
+    <div class="alert alert-{{ $bs }} alert-dismissible fade show my-3" role="alert">
+      {{ session($key) }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="閉じる"></button>
     </div>
+  @endif
+@endforeach
+
+<div class="card my-3 border-0 shadow-lg">
+  <div class="card-header h5 mb-0">
+    主な活動時間一覧（管理者モード）
+  </div>
+  <div class="card-body">
+    <div class="mb-4">
+        活動予定の登録時にリストに表示する活動時間の一覧です。
+    </div>
+
+    <ol class="list-group list-group-numbered mb-4">
+      @forelse ($times as $time)
+        <li
+          @if ($time->default_jikan == 1)
+            class="list-group-item list-group-item-primary"
+          @else
+            class="list-group-item"
+          @endif
+        >
+          <a href="{{ action('Admin\HomeController@time_edit', [$time->id]) }}">
+            {{ $time->jikan }}
+          </a>
+          @if ($time->default_jikan == 1)
+            【<span class="fw-bold">デフォルト時間</span>】
+          @endif
+        </li>
+      @empty
+      @endforelse
+    </ol>
+
+    <!-- テキストリンク（中央寄せ） -->
+    <p class="text-center mt-2 mb-0">
+       <a href="{{ action('Admin\HomeController@index') }}">
+        活動予定一覧（管理者モード）に戻る
+      </a>
+    </p>
+
+  </div>
 </div>
+</main>
+
+@include('layouts.admin-footer')
 @endsection
