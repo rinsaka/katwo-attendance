@@ -46,6 +46,13 @@
       @endforelse
     </ol>
 
+    <!-- テキストリンク -->
+    <p class="text-start mt-2 mb-0">
+       <a href="{{ action('Admin\HomeController@time_create') }}">
+        活動時間を新規に登録する
+      </a>
+    </p>
+
     <!-- テキストリンク（中央寄せ） -->
     <p class="text-center mt-2 mb-0">
        <a href="{{ action('Admin\HomeController@index') }}">
