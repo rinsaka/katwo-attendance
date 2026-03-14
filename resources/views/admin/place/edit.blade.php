@@ -32,42 +32,54 @@
       {{ method_field('patch') }}
       <input type="hidden" name="pid" value="{{ $place->id }}">
 
-      <p>
-        <label for="place">活動施設名: </label>
-        <input type="text" name="place" required value=
-        @if ($errors->any())
-          "{{ old("place") }}"
-        @else
-          "{{ $place->place }}"
-        @endif
-        class="form-control" placeholder="活動施設名を入力してください．（100文字以内）">
-        @if ($errors->has('place'))
-          <span class="error">{{ $errors->first('place') }}</span>
-        @endif
-      </p>
-
-
-
-      <p>
-        <label for="default_place">
-          <input type="checkbox" name="default_place" id="default_place" class=""
-          @if ($place->default_place)
-          checked disabled
-          @endif
-          >
-          @if ($place->default_place)
-          デフォルト活動施設に設定されています
+      <!-- 活動施設名 -->
+      <div class="mb-4">
+        <label for="place" class="form-label fw-semibold">活動施設名</label>
+        <input id="place" name="place" type="text"
+          class="form-control"
+          maxlength="100" required placeholder="活動施設名"
+          value=
+          @if ($errors->any())
+            "{{ old("place") }}"
           @else
-          デフォルト活動施設に設定する
+            "{{ $place->place }}"
           @endif
-        </label>
-      </p>
-      <p>
+        />
+        <div class="form-text">活動施設名を入力してください（100文字以内）。</div>
+        @if ($errors->has('place'))
+          <div class="form-text text-bg-warning px-3">{{ $errors->first('place') }}</div>
+        @endif
+      </div>
+
+
+      <!-- デフォルト活動施設 -->
+      <div class="mb-3">
+        <div class="form-text">デフォルト活動施設として設定したい場合はOnにしてください。</div>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="form-check form-switch ps-0">
+              <label class="form-check-label me-5">
+                @if ($place->default_place)
+                  デフォルト活動施設に設定されています
+                @else
+                  デフォルト活動施設に設定する
+                @endif
+              </label>
+              <input class="form-check-input float-end" type="checkbox" role="switch" name="default_place" id="default_place"
+              @if ($place->default_place)
+                checked disabled
+              @endif
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="mb-4 text-secondary" >
         登録日時：{{ $place->created_at }}<br>
         最終更新：{{ $place->updated_at }}
-      </p>
+      </div>
 
-      <hr>
 
       <!-- 送信 -->
       <div class="d-grid d-sm-flex justify-content-sm-end gap-2 mt-4">

@@ -30,7 +30,7 @@
         <label for="place" class="form-label fw-semibold">活動施設名</label>
         <input id="place" name="place" type="text"
           class="form-control"
-          maxlength="30" required placeholder="活動施設名"
+          maxlength="100" required placeholder="活動施設名"
           value="{{ old('place') }}"
         />
         <div class="form-text">活動施設名を入力してください（100文字以内）。</div>
