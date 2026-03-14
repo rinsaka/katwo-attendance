@@ -11,9 +11,8 @@
 
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="{{ asset('css/adminstyle-2026.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="bg-info">
 <div class="container-md">
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
