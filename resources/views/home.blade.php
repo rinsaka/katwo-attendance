@@ -58,8 +58,8 @@
       </div>
 
       <div class="card-body">
-        <p class="mb-3 menu">
-          <span class="meeting_type">【一部団員に限定した活動です】<br></span>
+        <p class="mb-3" style="font-size: 75%;">
+          <span class="fw-bold">【一部団員に限定した活動です】<br></span>
           @if ($activity->menu)
             @if ($activity->menu->new)
               <span class="badge text-bg-primary ms-2">新規</span>
@@ -71,10 +71,10 @@
               {{ $menu }} <br>
             @endforeach
             <a href="{{ action('MenusController@show', $activity->menu->id) }}">
-              <span class="menu_edit">[練習メニューを編集する]</span>
+              <span class="" style="font-size: 80%;">[練習メニューを編集する]</span>
             </a>
           @else
-            <span class="menu_edit text-body-tertiary">
+            <span class="text-body-tertiary" style="font-size: 80%;">
               練習メニューはまだ登録されていません
               <a href="{{ action('MenusController@create', ["aid" => $activity->id]) }}">
                 [登録する]
@@ -133,7 +133,7 @@
                           </span>
                         @endif
                         <!-- コメント -->
-                        <span class="text-body-secondary comment" >
+                        <span class="text-body-secondary" style="font-size: 75%;">
                           <span class="d-inline d-md-none">
                             {{ $attendance->comment_trim }}
                           </span>
@@ -170,7 +170,7 @@
       </div>
 
       <div class="card-body">
-        <p class="mb-3 menu">
+        <p class="mb-3" style="font-size: 75%;">
           @if ($activity->menu)
             @if ($activity->menu->new)
               <span class="badge text-bg-primary ms-2">新規</span>
@@ -182,10 +182,10 @@
               {{ $menu }} <br>
             @endforeach
             <a href="{{ action('MenusController@show', $activity->menu->id) }}">
-              <span class="menu_edit">[練習メニューを編集する]</span>
+              <span class="" style="font-size: 80%;">[練習メニューを編集する]</span>
             </a>
           @else
-            <span class="menu_edit text-body-tertiary">
+            <span class="text-body-tertiary" style="font-size: 80%;">
               練習メニューはまだ登録されていません
               <a href="{{ action('MenusController@create', ["aid" => $activity->id]) }}">
                 [登録する]
@@ -255,7 +255,7 @@
                           </span>
                         @endif
                         <!-- コメント -->
-                        <span class="text-body-secondary comment" >
+                        <span class="text-body-secondary" style="font-size: 75%;">
                           <span class="d-inline d-md-none">
                             {{ $attendance->comment_trim }}
                           </span>
