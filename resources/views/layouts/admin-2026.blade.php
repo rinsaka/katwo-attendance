@@ -26,7 +26,7 @@
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('admin.login') }}">Login</a>
+          <a class="nav-link" href="{{ route('admin.login') }}">Admin Login</a>
         </li>
       </ul>
       @else
