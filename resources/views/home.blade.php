@@ -7,7 +7,7 @@
 <main>
 @include('layouts.flash')
 
-<div class="card my-3 border-0 shadow-lg">
+<div class="card my-3 shadow-lg">
   <div class="card-header bg-primary text-white h5 mb-0">
     {{ $this_year }}年{{ $this_month }}月の活動予定
   </div>
@@ -43,9 +43,9 @@
       <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
         <div class="d-flex flex-wrap align-items-baseline gap-3">
           <h3 class="h5 mb-0">{{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }}</h3>
-          <div class="text-body-secondary">
+          <div class="text-body-primary">
             {{ $activity->note }}
-            <span class="badge text-bg-secondary ms-0 me-2">{{ $activity->time->jikan }}</span>
+            <span class="badge text-body-primary ms-0 me-2">{{ $activity->time->jikan }}</span>
             {{ $activity->place->place }}
           </div>
         </div>
@@ -65,7 +65,7 @@
               <span class="badge text-bg-primary ms-2">新規</span>
             @endif
             @if ($activity->menu->update)
-              <span class="badge text-bg-warning text-dark ms-1">更新</span>
+              <span class="badge text-bg-warning ms-1">更新</span>
             @endif
             @foreach ($activity->menus as $menu)
               {{ $menu }} <br>
@@ -74,7 +74,7 @@
               <span class="" style="font-size: 80%;">[練習メニューを編集する]</span>
             </a>
           @else
-            <span class="text-body-tertiary" style="font-size: 80%;">
+            <span class="text-body-primary" style="font-size: 80%;">
               練習メニューはまだ登録されていません
               <a href="{{ action('MenusController@create', ["aid" => $activity->id]) }}">
                 [登録する]
@@ -291,7 +291,7 @@
 
 @endforelse
 
-<div class="card my-3 border-0 shadow-lg">
+<div class="card my-3 shadow-lg">
   <div class="card-body">
 
     <!-- 下段：自分のスケジュールを新規登録（中央寄せ・カード幅の約66%） -->

@@ -118,7 +118,15 @@
                   <label for="comment{{$attendance->attendance_id}}" class="form-label fw-semibold">メッセージ</label>
                   <textarea id="comment{{$attendance->attendance_id}}" name="comment{{$attendance->attendance_id}}" class="form-control"
                             rows="1" >@if($errors->any()){{ old("comment$attendance->attendance_id") }}@else{{ $attendance->comment }}@endif</textarea>
-                  <div class="form-text">任意入力。140文字以内で入力してください。</div>
+                  <div
+                    @if ($attendance->activity->meeting == "1")
+                      class="form-text text-bg-secondary px-2"
+                    @else
+                      class="form-text text-body-secondary px-2"
+                    @endif
+                  >
+                    任意入力。140文字以内で入力してください。
+                  </div>
                   @if ($errors->has("comment$attendance->attendance_id"))
                     <div class="form-text text-bg-warning px-3">{{ $errors->first("comment$attendance->attendance_id") }}</div>
                   @endif

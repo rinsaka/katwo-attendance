@@ -92,7 +92,15 @@
                   <label for="comment{{$activity->id}}" class="form-label fw-semibold">メッセージ</label>
                   <textarea id="comment{{$activity->id}}" name="comment{{$activity->id}}" class="form-control"
                             rows="1" placeholder="例）遅刻します など">@if($errors->any()){{ old("comment$activity->id") }}@endif</textarea>
-                  <div class="form-text">任意入力。140文字以内で入力してください。</div>
+                  <div
+                    @if ($activity->meeting == "1")
+                      class="form-text text-bg-secondary px-2"
+                    @else
+                      class="form-text text-body-secondary px-2"
+                    @endif
+                      >
+                    任意入力。140文字以内で入力してください。
+                  </div>
                   @if ($errors->has("comment$activity->id"))
                     <div class="form-text text-bg-warning px-3">{{ $errors->first("comment$activity->id") }}</div>
                   @endif
