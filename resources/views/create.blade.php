@@ -94,9 +94,9 @@
                             rows="1" placeholder="例）遅刻します など">@if($errors->any()){{ old("comment$activity->id") }}@endif</textarea>
                   <div
                     @if ($activity->meeting == "1")
-                      class="form-text text-bg-secondary px-2"
+                      class="form-text text-bg-secondary px-2 rounded"
                     @else
-                      class="form-text text-body-secondary px-2"
+                      class="form-text text-body-secondary px-2 rounded"
                     @endif
                       >
                     任意入力。140文字以内で入力してください。

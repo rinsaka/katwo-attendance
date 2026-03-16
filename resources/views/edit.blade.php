@@ -120,9 +120,9 @@
                             rows="1" >@if($errors->any()){{ old("comment$attendance->attendance_id") }}@else{{ $attendance->comment }}@endif</textarea>
                   <div
                     @if ($attendance->activity->meeting == "1")
-                      class="form-text text-bg-secondary px-2"
+                      class="form-text text-bg-secondary px-2 rounded"
                     @else
-                      class="form-text text-body-secondary px-2"
+                      class="form-text text-body-secondary px-2 rounded"
                     @endif
                   >
                     任意入力。140文字以内で入力してください。
