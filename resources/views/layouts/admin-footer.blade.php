@@ -1,13 +1,13 @@
 <footer class="text-bg-secondary p-4 rounded">
 
   <div class="">
-    <a href="{{ action('Admin\HomeController@index') }}" class="link-body-emphasis">
+    <a href="{{ action('Admin\HomeController@index') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
       活動一覧
     </a>
   </div>
 
   <div class="">
-    <a href="{{ action('Admin\HomeController@create') }}" class="text-bg-secondary">
+    <a href="{{ action('Admin\HomeController@create') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
       活動予定を新規登録
     </a>
   </div>
