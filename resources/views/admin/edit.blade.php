@@ -114,15 +114,15 @@
     </form>
 
 
-    <div class="card my-3 border-0 shadow-lg bg-warning bg-gradient mt-4">
-      <div class="card-header bg-warnin h5 mb-0">
+    <div class="card my-3 border-1 shadow-lg bg-warning bg-gradient mt-4">
+      <div class="card-header text-bg-warning h5 mb-0">
         活動予定の削除
       </div>
-      <div class="card-body">
+      <div class="card-body text-bg-warning">
         <form action="{{ url('/admin/activity', $activity->id) }}" method="post">
           {{ csrf_field() }}
           {{ method_field('DELETE') }}
-          <p>
+          <p class="text-bg-warning">
             このページ({{ $activity->act_at }})の活動予定を削除するには下の確認用の文字列のボックスに「<strong>yakuin</strong>」と入力してボタンをクリック（またはタップ）してください．なお，活動予定を削除すると，その活動に関連付けられた団員それぞれの出欠情報も同時に削除されます．
           </p>
           <p>

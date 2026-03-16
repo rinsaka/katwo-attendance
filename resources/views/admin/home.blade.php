@@ -12,11 +12,11 @@
   </div>
   <div class="card-body">
 
-    <ul class="list-group">
+    <ul class="list-group mb-4">
       @forelse ($activities as $activity)
         <li
           @if ($activity->meeting == 1)
-            class="list-group-item list-group-item-info"
+            class="list-group-item list-group-item-primary"
           @else
             class="list-group-item"
           @endif
@@ -27,7 +27,7 @@
           @if ($activity->update)
             <span class="badge text-bg-warning text-dark ms-1">更新</span>
           @endif
-          <a href="{{ action('Admin\HomeController@edit', [$activity->id]) }}">
+          <a href="{{ action('Admin\HomeController@edit', [$activity->id]) }}" class="text-body-primary">
             @if ($activity->meeting == 1)
               <span class="fw-bold">【一部団員に限定】</span>
             @endif
