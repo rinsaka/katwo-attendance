@@ -18,20 +18,18 @@
 
     <ol class="list-group list-group-numbered mb-4">
       @forelse ($times as $time)
-        <li
+        <a href="{{ action('Admin\HomeController@time_edit', [$time->id]) }}"
           @if ($time->default_jikan == 1)
-            class="list-group-item list-group-item-primary"
+            class="list-group-item list-group-item-action list-group-item-primary"
           @else
-            class="list-group-item"
+            class="list-group-item list-group-item-action"
           @endif
-        >
-          <a href="{{ action('Admin\HomeController@time_edit', [$time->id]) }}">
-            {{ $time->jikan }}
-          </a>
+          >
+          {{ $time->jikan }}
           @if ($time->default_jikan == 1)
             【<span class="fw-bold">デフォルト時間</span>】
           @endif
-        </li>
+        </a>
       @empty
       @endforelse
     </ol>

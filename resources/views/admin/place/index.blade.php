@@ -18,20 +18,27 @@
 
     <ol class="list-group list-group-numbered mb-4">
       @forelse ($places as $place)
-      <li
+      <a href="{{ action('Admin\HomeController@place_edit', [$place->id]) }}"
+        @if ($place->default_place == 1)
+          class="list-group-item list-group-item-action list-group-item-primary"
+        @else
+          class="list-group-item list-group-item-action"
+        @endif
+      >
+      {{-- <li
         @if (($place->default_place == 1))
           class="list-group-item list-group-item-primary"
         @else
           class="list-group-item"
         @endif
-      >
-        <a href="{{ action('Admin\HomeController@place_edit', [$place->id]) }}">
+      > --}}
+
           {{ $place->place }}
-        </a>
+
         @if ($place->default_place == 1)
         【<span class="fw-bold">デフォルト施設</span>】
         @endif
-      </li>
+      </a>
       @empty
       @endforelse
     </ol>
