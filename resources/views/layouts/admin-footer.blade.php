@@ -1,4 +1,4 @@
-<footer class="text-bg-secondary p-4 rounded">
+<footer class="text-bg-secondary text-body-secondary p-4 rounded">
 
   <div class="">
     <a href="{{ action('Admin\HomeController@index') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
@@ -13,29 +13,29 @@
   </div>
 
   <div class="text-end">
-    <a href="{{ action('Admin\MailinfosController@edit') }}" class="text-bg-secondary">
+    <a href="{{ action('Admin\MailinfosController@edit') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
       メールフッタを編集
     </a>
   </div>
 
   <div class="text-end">
-    <a href="{{ action('Admin\HomeController@place') }}" class="text-bg-secondary">
+    <a href="{{ action('Admin\HomeController@place') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
       活動施設の一覧表示
     </a>
   </div>
 
   <div class="text-end">
-    <a href="{{ action('Admin\HomeController@time') }}" class="text-bg-secondary">
+    <a href="{{ action('Admin\HomeController@time') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
       活動時間の一覧表示
     </a>
   </div>
 
   <div class="">
-    This system is developed with <a href="https://laravel.com/" target="_blank" class="text-bg-secondary">Laravel</a>, <a href="https://lolipop.jp/" target="_blank" class="text-bg-secondary">LOLIPOP!</a> and <a href="https://github.com/rinsaka/katwo-attendance" target="_blank" class="text-bg-secondary">GitHub</a>.
+    This system is developed with <a href="https://laravel.com/" target="_blank" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">Laravel</a>, <a href="https://lolipop.jp/" target="_blank" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">LOLIPOP!</a> and <a href="https://github.com/rinsaka/katwo-attendance" target="_blank" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">GitHub</a>.
   </div>
 
   <div class="">
-    <a href="https://rinsaka.com/rinsaka/" class="text-bg-secondary">
+    <a href="https://rinsaka.com/rinsaka/" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
       rinsaka.com
     </a>
   </div>
