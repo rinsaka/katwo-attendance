@@ -1,7 +1,7 @@
 <footer class="text-bg-secondary p-4 rounded">
 
   <div class="">
-    <a href="{{ action('Admin\HomeController@index') }}" class="text-bg-secondary">
+    <a href="{{ action('Admin\HomeController@index') }}" class="link-body-emphasis">
       活動一覧
     </a>
   </div>
