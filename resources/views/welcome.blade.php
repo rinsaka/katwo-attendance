@@ -131,9 +131,13 @@
     @include('layouts.flash')
 
     <div class="card my-3 shadow-lg">
-      <div class="card-header bg-primary text-white h5 mb-0 text-center">
-          神戸学園都市吹奏楽団<br>
-                    出欠登録
+      <div class="card-header text-bg-primary h3 p-5 mb-0 text-center">
+        <div class="mb-3">
+          神戸学園都市吹奏楽団
+        </div>
+        <div>
+          出欠登録
+        </div>
       </div>
       <div class="card-body py-5">
         <p class="mb-0 text-body-secondary">
