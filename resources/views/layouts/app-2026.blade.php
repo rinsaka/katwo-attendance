@@ -105,6 +105,7 @@
 @yield('content')
 
 <footer class="text-bg-secondary p-4">
+@if (Auth::guard('user')->user())
 @if (\Config::get('const.SAMPLE_URL'))
 <p>
   <a href="{{ \Config::get('const.SAMPLE_URL') }}" class="text-bg-secondary">
@@ -117,6 +118,7 @@
     メールフッタ
   </a>
 </div>
+@endif
 <div>
   <a href="https://kat-wind.com/" class="text-bg-secondary">
     神戸学園都市吹奏楽団

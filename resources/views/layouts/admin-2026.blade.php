@@ -122,7 +122,7 @@
 @yield('content')
 
 <footer class="text-bg-secondary text-body-secondary p-4">
-
+@if (Auth::guard('user')->user())
   <div class="">
     <a href="{{ action('Admin\HomeController@index') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
       活動一覧
@@ -152,7 +152,12 @@
       活動時間の一覧表示
     </a>
   </div>
-
+@endif
+  <div>
+    <a href="https://kat-wind.com/" class="text-bg-secondary">
+      神戸学園都市吹奏楽団
+    </a>
+  </div>
   <div class="">
     This system is developed with <a href="https://laravel.com/" target="_blank" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">Laravel</a>, <a href="https://lolipop.jp/" target="_blank" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">LOLIPOP!</a> and <a href="https://github.com/rinsaka/katwo-attendance" target="_blank" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">GitHub</a>.
   </div>
