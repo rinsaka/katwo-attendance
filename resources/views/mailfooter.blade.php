@@ -4,7 +4,7 @@
 
 @section('content')
 
-<main>
+<main class="container-md">
 @include('layouts.flash')
 
 
@@ -26,5 +26,4 @@
 
 </main>
 
-@include('layouts.footer')
 @endsection

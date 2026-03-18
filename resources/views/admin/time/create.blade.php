@@ -4,7 +4,7 @@
 
 @section('content')
 
-<main>
+<main class="container-md">
 @include('layouts.flash')
 
 <div class="card my-3 border-0 shadow-lg">
@@ -61,5 +61,4 @@
   </div>
 </div>
 </main>
-@include('layouts.admin-footer')
 @endsection

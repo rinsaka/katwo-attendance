@@ -24,10 +24,10 @@
     </script>
 </head>
 <body class="bg-info">
-<div class="container-md">
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{{  url('/') }}">Kat-WO</a>
+    <a class="navbar-brand" href="{{  url('/') }}"><img src="http://kat-wind.com/wp/wp-content/uploads/2018/03/header_logo.png" alt="神戸学園都市吹奏楽団"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -121,8 +121,51 @@
 
 @yield('content')
 
+<footer class="text-bg-secondary text-body-secondary p-4">
 
-</div>
+  <div class="">
+    <a href="{{ action('Admin\HomeController@index') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
+      活動一覧
+    </a>
+  </div>
+
+  <div class="">
+    <a href="{{ action('Admin\HomeController@create') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
+      活動予定を新規登録
+    </a>
+  </div>
+
+  <div class="text-end">
+    <a href="{{ action('Admin\MailinfosController@edit') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
+      メールフッタを編集
+    </a>
+  </div>
+
+  <div class="text-end">
+    <a href="{{ action('Admin\HomeController@place') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
+      活動施設の一覧表示
+    </a>
+  </div>
+
+  <div class="text-end">
+    <a href="{{ action('Admin\HomeController@time') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
+      活動時間の一覧表示
+    </a>
+  </div>
+
+  <div class="">
+    This system is developed with <a href="https://laravel.com/" target="_blank" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">Laravel</a>, <a href="https://lolipop.jp/" target="_blank" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">LOLIPOP!</a> and <a href="https://github.com/rinsaka/katwo-attendance" target="_blank" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">GitHub</a>.
+  </div>
+
+  <div class="">
+    <a href="https://rinsaka.com/rinsaka/" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
+      rinsaka.com
+    </a>
+  </div>
+
+</footer>
+
+
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 

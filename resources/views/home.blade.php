@@ -4,7 +4,7 @@
 
 @section('content')
 
-<main>
+<main class="container-md">
 @include('layouts.flash')
 
 <div class="card my-3 shadow-lg">
@@ -322,5 +322,4 @@
 <a href="{{ action('HomeController@all_act') }}">練習予定の一覧を表示する</a>
 </div>
 </main>
-@include('layouts.footer')
 @endsection

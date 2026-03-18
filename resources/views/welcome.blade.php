@@ -24,10 +24,10 @@
     </script>
 </head>
 <body>
-<div class="container-md">
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{{  url('/') }}">Kat-WO</a>
+    <a class="navbar-brand" href="{{  url('/') }}"><img src="http://kat-wind.com/wp/wp-content/uploads/2018/03/header_logo.png" alt="神戸学園都市吹奏楽団"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -127,71 +127,70 @@
   </div>
 </nav>
 
-  <main>
-    @include('layouts.flash')
+<main  class="container-md">
+  @include('layouts.flash')
 
-    <div class="card my-3 shadow-lg">
-      <div class="card-header text-bg-primary h3 p-5 mb-0 text-center">
-        <div class="mb-3">
-          神戸学園都市吹奏楽団
-        </div>
-        <div>
-          出欠登録
-        </div>
+  <div class="card my-3 shadow-lg">
+    <div class="card-header text-bg-primary h3 p-5 mb-0 text-center">
+      <div class="mb-3">
+        神戸学園都市吹奏楽団
       </div>
-      <div class="card-body py-5">
-        <p class="mb-0 text-body-secondary">
-
-
-          @if (Auth::guard('user')->user())
-                  <div class="links my-5 text-center">
-                    <a href="{{ url('/home') }}">団員専用のHomeへ</a>
-                  </div>
-                  <div class="links my-5 text-center">
-                      <a href="{{ route('logout') }}"
-                          onclick="event.preventDefault();
-                                   document.getElementById('logout-form').submit();">
-                          管理者モードで利用するには一旦ログアウトしてください
-                      </a>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                          {{ csrf_field() }}
-                      </form>
-                  </div>
-                @elseif (Auth::guard('admin')->user())
-                  <div class="links my-5 text-center">
-                    <a href="{{ url('/admin/home') }}">管理者のホームへ</a>
-                  </div>
-                  <div class="links my-5 text-center">
-                    <a href="{{ route('admin.logout') }}"
-                        onclick="event.preventDefault();
-                                 document.getElementById('admin-logout-form').submit();">
-                        団員モードで利用するには一旦ログアウトしてください
-                    </a>
-                    <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
-                  </div>
-                @else
-                  <div class="links my-5 text-center">
-                    <a href="{{ url('/login') }}">団員ログイン</a>
-                  </div>
-                  <div class="links my-5 text-center">
-                    <a href="{{ url('/admin/login') }}">管理者ログイン</a>
-                  </div>
-                  <div class="links my-5 text-center">
-                    <a href="https://kat-wind.com/">神戸学園都市吹奏楽団</a>
-                  </div>
-                @endif
-
-        </p>
+      <div>
+        出欠登録
       </div>
     </div>
+    <div class="card-body py-5">
+      <p class="mb-0 text-body-secondary">
 
 
-  </main>
+        @if (Auth::guard('user')->user())
+                <div class="links my-5 text-center">
+                  <a href="{{ url('/home') }}">団員専用のHomeへ</a>
+                </div>
+                <div class="links my-5 text-center">
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                  document.getElementById('logout-form').submit();">
+                        管理者モードで利用するには一旦ログアウトしてください
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </div>
+              @elseif (Auth::guard('admin')->user())
+                <div class="links my-5 text-center">
+                  <a href="{{ url('/admin/home') }}">管理者のホームへ</a>
+                </div>
+                <div class="links my-5 text-center">
+                  <a href="{{ route('admin.logout') }}"
+                      onclick="event.preventDefault();
+                                document.getElementById('admin-logout-form').submit();">
+                      団員モードで利用するには一旦ログアウトしてください
+                  </a>
+                  <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                      {{ csrf_field() }}
+                  </form>
+                </div>
+              @else
+                <div class="links my-5 text-center">
+                  <a href="{{ url('/login') }}">団員ログイン</a>
+                </div>
+                <div class="links my-5 text-center">
+                  <a href="{{ url('/admin/login') }}">管理者ログイン</a>
+                </div>
+                <div class="links my-5 text-center">
+                  <a href="https://kat-wind.com/">神戸学園都市吹奏楽団</a>
+                </div>
+              @endif
+
+      </p>
+    </div>
+  </div>
 
 
-</div>
+</main>
+
+
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 

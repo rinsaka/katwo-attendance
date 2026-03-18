@@ -2,7 +2,7 @@
 
 @section('content')
 
-<main>
+<main class="container-md">
 @include('layouts.flash')
 
 
@@ -54,5 +54,7 @@
     </form>
   </div>
 </div>
+
+</main>
 
 @endsection
