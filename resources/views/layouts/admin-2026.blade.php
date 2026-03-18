@@ -122,7 +122,7 @@
 @yield('content')
 
 <footer class="text-bg-secondary text-body-secondary p-4">
-@if (Auth::guard('user')->user())
+@if (Auth::guard('admin')->user())
   <div class="">
     <a href="{{ action('Admin\HomeController@index') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
       活動一覧
