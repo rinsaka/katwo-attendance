@@ -93,7 +93,7 @@ class UsersHomeTest extends TestCase
     $response = $this->actingAs($user)
                       ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] .'/create')
                       ->assertRedirect('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1]);
-
+    //
     // 1月，12月の切り替えチェック
     $response = $this->actingAs($user)
                      ->get('/home/'. $this->ymlist[0][0] . '/1')
@@ -110,6 +110,12 @@ class UsersHomeTest extends TestCase
       $response = $this->actingAs($user)
                        ->get('/home/'. $this->ymlist[0][0] . '/13')
                        ->assertRedirect('/home/');
+
+      //
+      $response = $this->actingAs($user)
+                      ->get('/home/mail')
+                      ->assertSee('メールのフッタ')
+                      ->assertSee('戻る');
   }
 
   public function testCreateAsUser()
@@ -219,7 +225,7 @@ class UsersHomeTest extends TestCase
     $user = User::where('id',1)->first();
 
     $response = $this->actingAs($user)
-                      ->get('/home/'. $this->ymlist[1][0] . '/' . $this->ymlist[1][1] . '/48/edit')
+                      ->get('/home/'. $this->ymlist[1][0] . '/' . $this->ymlist[1][1] . '/51/edit')
                       ->assertSee('パート')
                       ->assertSee('予定を変更します')
                       ->assertSee('コメント')
@@ -228,7 +234,7 @@ class UsersHomeTest extends TestCase
 
     // dd('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/12/edit');
     $response = $this->actingAs($user)
-                      ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/48/edit')
+                      ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/51/edit')
                       ->assertRedirect('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1]);
     //
     $response = $this->actingAs($user)

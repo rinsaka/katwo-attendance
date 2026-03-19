@@ -618,13 +618,22 @@ class AdminsHomeTest extends TestCase
   public function testAdminMainInfoController()
   {
     $admin = Admin::where('id',1)->first();
+    $user = User::where('id',1)->first();
 
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->get('/home/mail')
+                      ->assertRedirect('/home');
+
+    // 次の処理でデータが自動的に投入される
     $response = $this->actingAs($admin, 'admin')
                   ->get('/admin/mailinfo')
                   ->assertSee('フッタ')
                   ->assertSee('編集')
                   ->assertSee('更新')
                   ->assertSee('管理者');
+    //
+
 
     $response = $this->actingAs($admin, 'admin')
                       ->json('POST', '/admin/mailinfo', [
