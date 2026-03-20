@@ -398,6 +398,14 @@ class UsersHomeTest extends TestCase
                       ->assertSee('案内メール文面')
                       ->assertSee('ぱぴぷぺぽ');
     //
+    // メニューの「更新」バッジを確認
+    $response = $this->actingAs($user)
+                      ->get('/home/')
+                      ->assertSee('予定')
+                      ->assertSee('更新')
+                      ->assertSee('KatWO メンバー');
+    //
+
 
 
 
