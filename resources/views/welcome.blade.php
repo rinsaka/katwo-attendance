@@ -132,11 +132,17 @@
 
   <div class="card my-3 shadow-lg">
     <div class="card-header text-bg-primary h3 p-5 mb-0 text-center">
-      <div class="mb-3">
+      <div class="mb-1">
         神戸学園都市吹奏楽団
       </div>
-      <div>
+      <div class="mb-3 text-light-emphasis text-dark-emphasis fs-6">
+        Kobe Academic Town Wind Orchestra
+      </div>
+      <div class="mb-1">
         出欠登録
+      </div>
+      <div class="text-light-emphasis text-dark-emphasis fs-6">
+        Attendance Registration
       </div>
     </div>
     <div class="card-body py-5">
