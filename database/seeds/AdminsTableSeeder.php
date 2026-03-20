@@ -24,5 +24,13 @@ class AdminsTableSeeder extends Seeder
         'created_at' => Carbon::now()
       ]);
 
+      Admin::create([
+        'name' => 'User Z',
+        'email' => 'z@sample.com',
+        'login_id' => 'user_z',
+        'password' => bcrypt(env('ADMIN_PASSWORD')),
+        'created_at' => Carbon::now()
+      ]);
+
     }
 }
