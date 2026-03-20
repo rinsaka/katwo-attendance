@@ -460,6 +460,7 @@ class HomeController extends Controller
         foreach ($atten_ids as $key => $atten_id) {
           $atten = Attendance::where('activity_id', '=', $act->id)
                       ->where('attendance', '=', $atten_id)
+                      ->orderBy('part_id')
                       ->orderBy('updated_at')
                       ->get();
           $attens[] = $atten;
