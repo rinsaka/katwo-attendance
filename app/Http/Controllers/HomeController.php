@@ -422,6 +422,7 @@ class HomeController extends Controller
           // 回答のリストを取得
           $part->attendances = Attendance::where('activity_id', '=', $act->id)
                                   ->where('part_id', '=', $part->id)
+                                  ->orderBy('attendance', 'DESC')
                                   ->orderBy('updated_at')
                                   ->get();
           // 新規登録と更新情報を設定
