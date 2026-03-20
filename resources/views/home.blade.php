@@ -45,7 +45,7 @@
           <h3 class="h5 mb-0">{{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }}</h3>
           <div class="text-body-primary">
             {{ $activity->note }}
-            <span class="badge text-body-primary ms-0 me-2">{{ $activity->time->jikan }}</span>
+            <span class="badge text-bg-secondary ms-0 me-2">{{ $activity->time->jikan }}</span>
             {{ $activity->place->place }}
           </div>
         </div>
@@ -276,7 +276,7 @@
   @endif
 @empty
 
-<div class="card text-bg-light text-body-tertiary mb-3 shadow-lg">
+<div class="card text-bg-light text-body-warning mb-3 shadow-lg">
   <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
     <div class="d-flex flex-wrap align-items-baseline gap-3">
       <h3 class="h5 mb-0">未登録</h3>
