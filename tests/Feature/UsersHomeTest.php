@@ -7,7 +7,9 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use App\Admin;
 use App\User;
+use Carbon\Carbon;
 
 class UsersHomeTest extends TestCase
 {
@@ -340,6 +342,7 @@ class UsersHomeTest extends TestCase
   public function testMenuAsUser()
   {
     $user = User::where('id',1)->first();
+    $admin = Admin::where('id',1)->first();
 
     // メニューの表示
     $response = $this->actingAs($user)
@@ -396,7 +399,13 @@ class UsersHomeTest extends TestCase
     $response = $this->actingAs($user)
                       ->get('/menu/6/mail')
                       ->assertSee('案内メール文面')
+                      ->assertSee('の練習予定をお知らせします')
                       ->assertSee('ぱぴぷぺぽ');
+    //
+    // メニューのメール文面（見つからない）
+    $response = $this->actingAs($user)
+                      ->get('/menu/999a/mail')
+                      ->assertRedirect('/home');
     //
     // メニューの「更新」バッジを確認
     $response = $this->actingAs($user)
@@ -404,6 +413,74 @@ class UsersHomeTest extends TestCase
                       ->assertSee('予定')
                       ->assertSee('更新')
                       ->assertSee('KatWO メンバー');
+    //
+    //
+    $today = Carbon::now()->format('Y-m-d');
+    $tomorrow = Carbon::tomorrow()->format('Y-m-d');
+    $dec12 = Carbon::now()->format('Y') . '-12-12'; // 12月12日
+
+    //
+    //管理者が練習日を今日に変更する
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/activity', [
+                        'aid' => "22",
+                        'act_at' => $today,
+                        'meeting' => "1",
+                        'time' => "1",
+                        'place' => "1",
+                        'note' => "選曲委員会：日付を変更",
+                      ]);
+    //
+    // メニューのメール文面
+    $response = $this->actingAs($user)
+                      ->get('/menu/6/mail')
+                      ->assertSee('案内メール文面')
+                      ->assertSee('本日の練習予定をお知らせします')
+                      ->assertSee('ぱぴぷぺぽ');
+    //
+    //
+    //管理者が練習日を明日に変更する
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/activity', [
+                        'aid' => "22",
+                        'act_at' => $tomorrow,
+                        'meeting' => "1",
+                        'time' => "1",
+                        'place' => "1",
+                        'note' => "選曲委員会：日付を変更",
+                      ]);
+    //
+    // メニューのメール文面
+    $response = $this->actingAs($user)
+                      ->get('/menu/6/mail')
+                      ->assertSee('案内メール文面')
+                      ->assertSee('あすの練習予定をお知らせします')
+                      ->assertSee('ぱぴぷぺぽ');
+    //
+    //管理者が練習日を12月12日に変更する
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/activity', [
+                        'aid' => "22",
+                        'act_at' => $dec12,
+                        'meeting' => "1",
+                        'time' => "1",
+                        'place' => "1",
+                        'note' => "選曲委員会：日付を変更",
+                      ]);
+    //
+    // メニューのメール文面
+    $response = $this->actingAs($user)
+                      ->get('/menu/6/mail')
+                      ->assertSee('案内メール文面')
+                      ->assertSee('の練習予定をお知らせします')
+                      ->assertSee('ぱぴぷぺぽ');
+    //
+    //
+    //
+    //
+    //
+    //
+    //
     //
 
 
