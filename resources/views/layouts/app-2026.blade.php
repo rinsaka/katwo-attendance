@@ -23,7 +23,7 @@
       })();
     </script>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{  url('/') }}"><img src="http://kat-wind.com/wp/wp-content/uploads/2018/03/header_logo.png" alt="神戸学園都市吹奏楽団"></a>
@@ -104,7 +104,7 @@
 
 @yield('content')
 
-<footer class="text-bg-secondary p-4">
+<footer class="text-bg-secondary p-4 mt-auto">
 @if (Auth::guard('user')->user())
 @if (\Config::get('const.SAMPLE_URL'))
 <p>

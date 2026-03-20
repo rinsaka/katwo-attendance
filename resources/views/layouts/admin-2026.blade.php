@@ -23,7 +23,7 @@
       })();
     </script>
 </head>
-<body class="bg-info">
+<body class="bg-info d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -121,7 +121,7 @@
 
 @yield('content')
 
-<footer class="text-bg-secondary text-body-secondary p-4">
+<footer class="text-bg-secondary text-body-secondary p-4 mt-auto">
 @if (Auth::guard('admin')->user())
   <div class="">
     <a href="{{ action('Admin\HomeController@index') }}" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
@@ -154,7 +154,7 @@
   </div>
 @endif
   <div>
-    <a href="https://kat-wind.com/" class="text-bg-secondary">
+    <a href="https://kat-wind.com/" class="link-body-emphasis link-underline link-underline-opacity-25 link-underline-opacity-100-hove">
       神戸学園都市吹奏楽団
     </a>
   </div>
