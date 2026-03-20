@@ -58,7 +58,7 @@
       </div>
 
       <div class="card-body">
-        <p class="mb-3" style="font-size: 75%;">
+        <p class="mb-3" style="font-size: 95%;">
           <span class="fw-bold">【一部団員に限定した活動です】<br></span>
           @if ($activity->menu)
             @if ($activity->menu->new)
@@ -170,7 +170,7 @@
       </div>
 
       <div class="card-body">
-        <p class="mb-3" style="font-size: 75%;">
+        <p class="mb-3" style="font-size: 95%;">
           @if ($activity->menu)
             @if ($activity->menu->new)
               <span class="badge text-bg-primary ms-2">新規</span>
