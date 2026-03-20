@@ -1,73 +1,46 @@
-@extends('layouts.admin')
+@extends('layouts.admin-2026')
 
 @inject('myController', 'App\Http\Controllers\Controller')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">活動予定一覧（管理者モード）</div>
+<main class="container-md">
+@include('layouts.flash')
 
-                <div class="panel-body">
-                    {{-- フラッシュメッセージの表示 --}}
-                    @if (session('warning'))
-                        <div class="alert alert-warning">
-                            {{ session('warning') }}
-                        </div>
-                    @endif
-                    @if (session('status'))
-                        <div class="alert alert-info">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+<div class="card my-3 border-0 shadow-lg">
+  <div class="card-header bg-primary text-white h5 mb-0">
+    活動予定一覧（管理者モード）
+  </div>
+  <div class="card-body">
 
-                    <div>
-                      @forelse ($activities as $activity)
-                        <p>
-                          <a href="{{ action('Admin\HomeController@edit', [$activity->id]) }}">
-                            {{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }}
+    <ul class="list-group mb-4">
+      @forelse ($activities as $activity)
+        <a href="{{ action('Admin\HomeController@edit', [$activity->id]) }}"
+          @if ($activity->meeting == 1)
+            class="list-group-item list-group-item-action list-group-item-primary"
+          @else
+            class="list-group-item list-group-item-action"
+          @endif
+        >
+          @if ($activity->new)
+            <span class="badge text-bg-primary ms-2">新規</span>
+          @endif
+          @if ($activity->update)
+            <span class="badge text-bg-warning text-dark ms-1">更新</span>
+          @endif
+
+            @if ($activity->meeting == 1)
+              <span class="fw-bold">【一部団員に限定】</span>
+            @endif
+            {{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }}
                             @if (strlen($activity->note)) <span>&nbsp; {{ $activity->note }}</span>@endif
-                          </a>
-                        </p>
-                      @empty
-                      @endforelse
+        </a>
+      @empty
+        <li class="list-group-item list-group-item-warning">活動予定がまだ登録されていません</li>
+      @endforelse
+    </ul>
 
-                    </div>
-
-
-                </div>
-
-                <div  class="panel-footer">
-                  <p>
-                  <a href="{{ action('Admin\HomeController@create') }}">
-                    活動予定を新規登録
-                  </a>
-                  </p>
-                  <p class='pull-right'>
-                    <a href="{{ action('Admin\MailinfosController@edit') }}">
-                      メールフッタを編集
-                    </a>
-                  </p>
-                  <p>&nbsp;</p>
-                  <p class='pull-right'>
-                    <a href="{{ action('Admin\HomeController@place') }}">
-                      活動施設の一覧表示
-                    </a>
-                  </p>
-                  <p>&nbsp;</p>
-                  <p class='pull-right'>
-                    <a href="{{ action('Admin\HomeController@time') }}">
-                      活動時間の一覧表示
-                    </a>
-                  </p>
-                  <p>&nbsp;</p>
-                  <p>
-                    This system is developed with <a href="https://laravel.com/">Laravel</a>, <a href="https://aws.amazon.com/jp/">AWS</a> and <a href="https://github.com/rinsaka/katwo-attendance">GitHub</a>.
-                  </p>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
+</main>
+
 @endsection

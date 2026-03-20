@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use App\Activity;
 use App\Part;
 use App\Attendance;
@@ -45,6 +46,7 @@ class HomeController extends Controller
     $activities = Activity::where('act_at', '>=', $thismonth_head)
                             ->where('act_at', '<=', $thismonth_tail)
                             ->orderBy('act_at')
+                            ->orderBy('meeting', 'DESC')
                             ->get();
     // 各アクティビティについていろいろと取得する
     $activities = $this->get_Attendances_detail($activities);
@@ -54,7 +56,7 @@ class HomeController extends Controller
       $activity->class_attendance = "attendance" . $iter;
       $iter++;
     }
-    // dd($activities);
+    // dd($activities, $activities[0], $activities[0]->attens, $activities[0]->attens[0]);
 
     // 改行を含む Menu をリストに変換
     foreach ($activities as $activity) {
@@ -100,7 +102,7 @@ class HomeController extends Controller
   {
     // URL の Validation
     if ($year > 2080 || $year < 2017 || $month < 1 || $month > 12) {
-      return redirect('/home/')->with('status', "不正なURLです！");
+      return redirect('/home/')->with('error', "不正なURLです！");
     } // まだ home/2018/11.2/ のような場合も動いてしまう．この後 (int) でキャストしているので問題なし．
 
     $thismonth_head = date("Y-m-01", mktime(0,0,0,$month,1,$year));
@@ -132,6 +134,7 @@ class HomeController extends Controller
     $activities = Activity::where('act_at', '>=', $thismonth_head)
                             ->where('act_at', '<=', $thismonth_tail)
                             ->orderBy('act_at')
+                            ->orderBy('meeting', 'DESC')
                             ->get();
     // 各アクティビティについていろいろと取得する
     $activities = $this->get_Attendances_detail($activities);
@@ -189,11 +192,12 @@ class HomeController extends Controller
     $activities = Activity::where('act_at', '>=', $thismonth_head)
                             ->where('act_at', '<=', $thismonth_tail)
                             ->orderBy('act_at')
+                            ->orderBy('meeting', 'DESC')
                             ->get();
     $n_act = count($activities);
 
     if ($n_act == 0) {
-        return redirect('/home/'.$year.'/'.$month)->with('status', "活動予定がまだ登録されていません");
+        return redirect('/home/'.$year.'/'.$month)->with('error', "活動予定がまだ登録されていません");
     }
 
     $parts = Part::orderBy('id')->get();
@@ -222,7 +226,7 @@ class HomeController extends Controller
 
     // @codeCoverageIgnoreStart
     if (strlen($name)==0) {
-      return redirect('/home/'.$year.'/'.$month .'/create')->with('status', "名前が入力されていません");
+      return redirect('/home/'.$year.'/'.$month .'/create')->with('error', "名前が入力されていません");
     }
     // @codeCoverageIgnoreEnd
 
@@ -238,7 +242,7 @@ class HomeController extends Controller
       $attens = Attendance::where('activity_id', '=', $act_id)->get();
       foreach ($attens as $atten) {
         if ($atten->name == $name) {
-          return redirect('/home/'.$year.'/'.$month .'/create')->with('status', "登録できませんでした！同じ名前の予定が登録済みです");
+          return redirect('/home/'.$year.'/'.$month .'/create')->with('error', "登録できませんでした！同じ名前の予定が登録済みです");
         }
       }
     }
@@ -265,7 +269,7 @@ class HomeController extends Controller
 
       $attendance->save();
     }
-    return redirect('/home/'.$year.'/'.$month)->with('status', $name . " さんの予定を登録しました");
+    return redirect('/home/'.$year.'/'.$month)->with('success', $name . " さんの予定を登録しました");
   }
 
   public function edit($year, $month, $aid)
@@ -273,7 +277,7 @@ class HomeController extends Controller
     $arg_attendance = Attendance::where('id', '=', $aid)->first();
     // if (count($arg_attendance)==0) {
     if (is_null($arg_attendance)) {
-      return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
+      return redirect('/home/'.$year.'/'.$month)->with('error', "不正なURLです");
     }
     $name = $arg_attendance->name;
     $part = $arg_attendance->part_id;
@@ -288,9 +292,10 @@ class HomeController extends Controller
                                 ->where('activities.act_at', '>=', $thismonth_head)
                                 ->where('activities.act_at', '<=', $thismonth_tail)
                                 ->orderBy('activities.act_at')
+                                ->orderBy('meeting', 'DESC')
                                 ->count();
     if ($cnt_att == 0) {
-      return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
+      return redirect('/home/'.$year.'/'.$month)->with('error', "不正なURLです");
     }
     $attendances = Attendance::select('attendances.*', 'activities.*', 'attendances.id as attendance_id')
                                 ->join('activities', 'attendances.activity_id', '=', 'activities.id')
@@ -298,9 +303,10 @@ class HomeController extends Controller
                                 ->where('activities.act_at', '>=', $thismonth_head)
                                 ->where('activities.act_at', '<=', $thismonth_tail)
                                 ->orderBy('activities.act_at')
+                                ->orderBy('meeting', 'DESC')
                                 ->get();
     // if (count($attendances)==0) {
-    //     return redirect('/home/'.$year.'/'.$month)->with('status', "不正なURLです");
+    //     return redirect('/home/'.$year.'/'.$month)->with('error', "不正なURLです");
     // }
 
     foreach ($attendances as $attendance) {
@@ -378,7 +384,7 @@ class HomeController extends Controller
       $atten->save();
 
     }
-    return redirect('/home/'.$year.'/'.$month)->with('status', $atten->name . " さんの予定を変更しました");
+    return redirect('/home/'.$year.'/'.$month)->with('success', $atten->name . " さんの予定を変更しました");
   }
 
   private function get_Attendances_detail($acts)
@@ -396,6 +402,10 @@ class HomeController extends Controller
         $atten[4]  += $atten[$i];
       }
       $act->n_atten = $atten;
+
+      // 会議対象外の数
+      $act->n_not_members = Attendance::where('activity_id', '=', $act->id)
+                                ->where('attendance', '=', -1)->count();
 
       // パートごと
       foreach ($acts as $act) {
@@ -433,15 +443,61 @@ class HomeController extends Controller
 
           // コメントをトリミング
           foreach ($part->attendances as $attendance) {
-            if (mb_strlen($attendance->comment) > 20) {
-              $attendance->comment = mb_substr($attendance->comment, 0, 20) . "...";
+            $attendance->comment_trim = $attendance->comment;
+            if (mb_strlen($attendance->comment) > 18) {
+              $attendance->comment_trim = mb_substr($attendance->comment, 0, 16) . "...";
             }
-
           }
-      }
+        }
         $act->parts = $parts;
       }
+
+      // 出席形態ごと
+      foreach ($acts as $act) {
+        $atten_ids = array(3, 1, 0, -1);
+        $attens = collect();
+        // 出席形態ごとに回答のリストを取得
+        foreach ($atten_ids as $key => $atten_id) {
+          $atten = Attendance::where('activity_id', '=', $act->id)
+                      ->where('attendance', '=', $atten_id)
+                      ->orderBy('updated_at')
+                      ->get();
+          $attens[] = $atten;
+        }
+        // 新規登録と更新情報を設定
+        foreach ($attens as $attendances) {
+          foreach($attendances as $attendance) {
+            // 最終更新からの経過時間を分単位で取得する
+            $minutes_from_update = (strtotime("now") - strtotime($attendance->updated_at)) / 60;
+            // 「新規」と「更新」を初期化
+            $attendance->new = false;
+            $attendance->update = false;
+            // 定数で指定された時間より短ければ「新規」または「更新」を設定する
+            if ($minutes_from_update < \Config::get('const.NEW_THRESHOLD')) {
+              if ($attendance->created_at == $attendance->updated_at) {
+                $attendance->new = true;
+              } else {
+                $attendance->update = true;
+              }
+            }
+          }
+
+        }
+        // コメントをトリミング
+        // dd($attens);
+        foreach ($attens as $attendances) {
+          foreach ($attendances as $attendance){
+            $attendance->comment_trim = $attendance->comment;
+            if (mb_strlen($attendance->comment) > 18) {
+              $attendance->comment_trim = mb_substr($attendance->comment, 0, 16) . "...";
+            }
+          }
+        }
+
+        $act->attens = $attens;
+      }
     }
+    // dd($acts);
     return $acts;
   }
 
@@ -462,9 +518,9 @@ class HomeController extends Controller
         $attendance = Attendance::where('id', $atten)->first();
         $attendance->delete();
       }
-      return redirect('/home/'.$request->year.'/'.$request->month)->with('status', $request->name . " さんの予定を削除しました");
+      return redirect('/home/'.$request->year.'/'.$request->month)->with('success', $request->name . " さんの予定を削除しました");
     } else {
-      return redirect('/home/'.$request->year.'/'.$request->month.'/'.$request->aid.'/edit')->with('status', "予定を削除できません（確認用の文字列を正しく入力してください）");
+      return redirect('/home/'.$request->year.'/'.$request->month.'/'.$request->aid.'/edit')->with('error', "予定を削除できません（確認用の文字列を正しく入力してください）");
     }
   }
 
@@ -472,6 +528,7 @@ class HomeController extends Controller
   {
     // すべての Activity を取得
     $activities = Activity::orderBy('act_at')
+                            ->orderBy('meeting', 'DESC')
                             ->get();
     // 月ごとにまとめる
     $month_acts = array();
@@ -486,6 +543,9 @@ class HomeController extends Controller
       }
       $act = $m . "月" . $d . "日" . parent::get_youbi($activity->act_at);
       $act = $act . " " . $activity->time->jikan;
+      if ($activity->meeting=="1") {
+        $act = $act . " " . "【一部団員に限定した活動です】" ;
+      }
       $month_acts[] = $act; // 追加（改行）
       $act = "　" . $activity->place->place . " " . $activity->note;
       $month_acts[] = $act; // 追加（改行）
@@ -503,7 +563,7 @@ class HomeController extends Controller
   {
     $mailinfo = Mailinfo::where('key', '=', 'signiture')->first();
     if (!$mailinfo) {
-      return redirect('/home/')->with('status', "メールフッタが未登録です");
+      return redirect('/home/')->with('error', "メールフッタが未登録です");
     }
     return view('mailfooter')->with('mailinfo', $mailinfo);
   }

@@ -15,6 +15,12 @@ class ActivitiesTableSeeder extends Seeder
       // 一旦中身を削除する
       DB::table('activities')->delete();
 
+      // 日付の取得
+      $year = date('Y');
+      $month = date('m');
+
+      list ($prev_year, $prev_month) = $this->get_prev_month($year, $month);
+
       $acts = $this->mk_activities();
       $iter = 0;
       foreach ($acts as $act) {
@@ -24,8 +30,8 @@ class ActivitiesTableSeeder extends Seeder
             'place_id' => 2,
             'time_id' => 3,
             'note' => "運営会議",
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'created_at' => Carbon::create($prev_year, $prev_month, 20, 18, 0, 0),
+            'updated_at' => Carbon::create($prev_year, $prev_month, 20, 18, 0, 0)
           ]);
         } elseif ($iter == 9) {
           DB::table('activities')->insert([
@@ -41,15 +47,15 @@ class ActivitiesTableSeeder extends Seeder
             'act_at' => $act,
             'note' => "演奏会",
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::create($prev_year, $prev_month, 20, 18, 0, 0)
           ]);
         } else {
           DB::table('activities')->insert([
             'act_at' => $act,
             'place_id' => 2,
             'time_id' => 3,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'created_at' => Carbon::create($prev_year, $prev_month, 20, 18, 0, 0),
+            'updated_at' => Carbon::create($prev_year, $prev_month, 20, 18, 0, 0)
           ]);
         }
         $iter++;
@@ -131,5 +137,26 @@ class ActivitiesTableSeeder extends Seeder
         }
       }
       return $activities;
+    }
+
+    /**
+    *     前の月を取得する
+    *
+    *
+    **/
+    private function get_prev_month($year, $month)
+    {
+      $n_year = (int)$year;
+      $n_month = (int)$month;
+
+      if ($n_month == 1) {
+        $n_year--;
+        $n_month = 12;
+      } else {
+        $n_month--;
+      }
+      $year = sprintf("%04d", $n_year);
+      $month = sprintf("%02d", $n_month);
+      return array($year, $month);
     }
 }

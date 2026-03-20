@@ -1,79 +1,64 @@
-@extends('layouts.admin')
+@extends('layouts.admin-2026')
 
 @inject('myController', 'App\Http\Controllers\Controller')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">活動施設の新規登録（管理者モード）</div>
+<main class="container-md">
+@include('layouts.flash')
 
-                <div class="panel-body">
-                    {{-- フラッシュメッセージの表示 --}}
-                    @if (session('warning'))
-                        <div class="alert alert-warning">
-                            {{ session('warning') }}
-                        </div>
-                    @endif
-                    @if (session('status'))
-                        <div class="alert alert-info">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+<div class="card my-3 border-0 shadow-lg">
+  <div class="card-header h5 mb-0">
+    主な活動施設一覧（管理者モード）
+  </div>
+  <div class="card-body">
 
+    <form method="post" action="{{ route('admin_place_store') }}" enctype='multipart/form-data'>
+      {{ csrf_field() }}
 
-                    <div>
+      <!-- 活動施設名 -->
+      <div class="mb-4">
+        <label for="place" class="form-label fw-semibold">活動施設名</label>
+        <input id="place" name="place" type="text"
+          class="form-control"
+          maxlength="100" required placeholder="活動施設名"
+          value="{{ old('place') }}"
+        />
+        <div class="form-text">活動施設名を入力してください（100文字以内）。</div>
+        @if ($errors->has('place'))
+          <div class="form-text text-bg-warning px-3">{{ $errors->first('place') }}</div>
+        @endif
+      </div>
 
-                    <form method="post" action="{{ route('admin_place_store') }}" enctype='multipart/form-data'>
-                        {{ csrf_field() }}
-
-                        <p>
-                          <label for="place">活動施設名: </label>
-                          <input type="text" name="place" required value=
-                          @if ($errors->any())
-                            "{{ old("place") }}"
-                          @else
-                            ""
-                          @endif
-                          class="form-control" placeholder="活動施設名を入力してください．（100文字以内）">
-                          @if ($errors->has('place'))
-                            <span class="error">{{ $errors->first('place') }}</span>
-                          @endif
-                        </p>
-
-                        <p>
-                          <label for="default_place">
-                            <input type="checkbox" name="default_place" id="default_place" class="">
-                            デフォルト活動施設に設定する
-                          </label>
-                        </p>
-
-
-                        <hr>
-                        <p>
-                          <input type="submit" value="　　　活動施設を登録　　　" class="form-control submit_button">
-                        </p>
-                      </form>
-                    </div>
-
-
-                </div>
-
-                <div  class="panel-footer">
-                  <p>
-                    <a href="{{ action('Admin\HomeController@index') }}">
-                      活動予定一覧（管理者モード）に戻る
-                    </a>
-                  </p>
-
-                  <!-- <p>&nbsp;</p> -->
-                  <p>
-                    This system is developed with <a href="https://laravel.com/">Laravel</a>, <a href="https://aws.amazon.com/jp/">AWS</a> and <a href="https://github.com/rinsaka/katwo-attendance">GitHub</a>.
-                  </p>
-                </div>
+      <!-- デフォルト活動施設 -->
+      <div class="mb-3">
+        <div class="form-text">デフォルト活動施設として設定したい場合はOnにしてください。</div>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="form-check form-switch ps-0">
+              <label class="form-check-label me-5">デフォルト活動施設に設定する</label>
+              <input class="form-check-input float-end" type="checkbox" role="switch" name="default_place" id="default_place">
             </div>
-        </div>
-    </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 送信 -->
+      <div class="d-grid d-lg-flex justify-content-sm-end gap-2 mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">
+          活動施設を登録する
+        </button>
+      </div>
+
+    </form>
+
+    <!-- テキストリンク（中央寄せ） -->
+    <p class="text-center mt-2 mb-0">
+       <a href="{{ action('Admin\HomeController@place') }}">
+        活動施設一覧（管理者モード）に戻る
+      </a>
+    </p>
+
+  </div>
 </div>
+</main>
 @endsection

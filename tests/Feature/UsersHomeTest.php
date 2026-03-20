@@ -7,7 +7,9 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use App\Admin;
 use App\User;
+use Carbon\Carbon;
 
 class UsersHomeTest extends TestCase
 {
@@ -86,14 +88,14 @@ class UsersHomeTest extends TestCase
                       ->assertSee('パート')
                       ->assertSee('必須')
                       ->assertSee('ニックネーム')
-                      ->assertSee('コメント')
+                      ->assertSee('メッセージ')
                       ->assertSee('登録')
                       ->assertSee('戻る');
 
     $response = $this->actingAs($user)
                       ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] .'/create')
                       ->assertRedirect('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1]);
-
+    //
     // 1月，12月の切り替えチェック
     $response = $this->actingAs($user)
                      ->get('/home/'. $this->ymlist[0][0] . '/1')
@@ -110,6 +112,12 @@ class UsersHomeTest extends TestCase
       $response = $this->actingAs($user)
                        ->get('/home/'. $this->ymlist[0][0] . '/13')
                        ->assertRedirect('/home/');
+
+      //
+      $response = $this->actingAs($user)
+                      ->get('/home/mail')
+                      ->assertSee('メールのフッタ')
+                      ->assertSee('戻る');
   }
 
   public function testCreateAsUser()
@@ -219,7 +227,7 @@ class UsersHomeTest extends TestCase
     $user = User::where('id',1)->first();
 
     $response = $this->actingAs($user)
-                      ->get('/home/'. $this->ymlist[1][0] . '/' . $this->ymlist[1][1] . '/12/edit')
+                      ->get('/home/'. $this->ymlist[1][0] . '/' . $this->ymlist[1][1] . '/51/edit')
                       ->assertSee('パート')
                       ->assertSee('予定を変更します')
                       ->assertSee('コメント')
@@ -228,7 +236,7 @@ class UsersHomeTest extends TestCase
 
     // dd('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/12/edit');
     $response = $this->actingAs($user)
-                      ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/12/edit')
+                      ->get('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1] . '/51/edit')
                       ->assertRedirect('/home/'. $this->ymlist[-3][0] . '/' . $this->ymlist[-3][1]);
     //
     $response = $this->actingAs($user)
@@ -304,8 +312,8 @@ class UsersHomeTest extends TestCase
                         'year' => $this->ymlist[1][0],
                         'month' => $this->ymlist[1][1],
                         'name' => "サブロー",
-                        'aid' => "13",
-                        'attens' => array(13, 14, 15, 16),
+                        'aid' => "52",
+                        'attens' => array(52, 53, 54, 55),
                       ]);
 
     $response = $this->actingAs($user)
@@ -313,8 +321,8 @@ class UsersHomeTest extends TestCase
                         'year' => $this->ymlist[1][0],
                         'month' => $this->ymlist[1][1],
                         'name' => "サブロー",
-                        'aid' => "13",
-                        'attens' => array(13, 14, 15, 16),
+                        'aid' => "52",
+                        'attens' => array(52, 53, 54, 55),
                         'delete_token' => "katwo",
                         'confirmation' => "hoge"  // 文字列が異なるので削除エラー
                       ]);
@@ -324,12 +332,162 @@ class UsersHomeTest extends TestCase
                         'year' => $this->ymlist[1][0],
                         'month' => $this->ymlist[1][1],
                         'name' => "サブロー",
-                        'aid' => "13",
-                        'attens' => array(13, 14, 15, 16),
+                        'aid' => "52",
+                        'attens' => array(52, 53, 54, 55),
                         'delete_token' => "katwo",
                         'confirmation' => "katwo"
                       ]);
   }
+
+  public function testMenuAsUser()
+  {
+    $user = User::where('id',1)->first();
+    $admin = Admin::where('id',1)->first();
+
+    // メニューの表示
+    $response = $this->actingAs($user)
+                      ->get('/menu/1')
+                      ->assertSee('練習メニュー')
+                      ->assertSee('投稿者名');
+    //
+    // 見つからない
+    $response = $this->actingAs($user)
+                      ->get('/menu/999a')
+                      ->assertRedirect('/home');
+    //
+    //
+    // メニューの更新（見つからない）
+    $response = $this->actingAs($user)
+                      ->json('PATCH', '/menu', [
+                        'mid' => "9999a",
+                        'url' => "http://localhost/home",
+                        'name' => "たろー",
+                        'menu' => "あいうえお"
+                      ]);
+    //
+    // メニューの更新
+    $response = $this->actingAs($user)
+                      ->json('PATCH', '/menu', [
+                        'mid' => "1",
+                        'url' => "http://localhost/home",
+                        'name' => "たろー",
+                        'menu' => "ピアノコンチェルト\n交響曲第9番"
+                      ]);
+    //
+    // メニューの新規登録画面の表示
+    $response = $this->actingAs($user)
+                      ->get('/menu/create/?aid=22')
+                      ->assertSee('練習メニュー')
+                      ->assertSee('投稿者名');
+    //
+    // メニューの新規登録画面の表示（見つからない）
+    $response = $this->actingAs($user)
+                      ->get('/menu/create/?aid=999a')
+                      ->assertRedirect('/home');
+    //
+    // メニューの新規登録
+    $response = $this->actingAs($user)
+                      ->json('POST', '/menu', [
+                        'aid' => "22",
+                        'url' => "http://localhost/home",
+                        'name' => "たろー",
+                        'menu' => "ブラームス"
+                      ]);
+    //
+    //
+    // メニューのメール文面
+    $response = $this->actingAs($user)
+                      ->get('/menu/6/mail')
+                      ->assertSee('案内メール文面')
+                      ->assertSee('の練習予定をお知らせします')
+                      ->assertSee('ぱぴぷぺぽ');
+    //
+    // メニューのメール文面（見つからない）
+    $response = $this->actingAs($user)
+                      ->get('/menu/999a/mail')
+                      ->assertRedirect('/home');
+    //
+    // メニューの「更新」バッジを確認
+    $response = $this->actingAs($user)
+                      ->get('/home/')
+                      ->assertSee('予定')
+                      ->assertSee('更新')
+                      ->assertSee('KatWO メンバー');
+    //
+    //
+    $today = Carbon::now()->format('Y-m-d');
+    $tomorrow = Carbon::tomorrow()->format('Y-m-d');
+    $dec12 = Carbon::now()->format('Y') . '-12-12'; // 12月12日
+
+    //
+    //管理者が練習日を今日に変更する
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/activity', [
+                        'aid' => "22",
+                        'act_at' => $today,
+                        'meeting' => "1",
+                        'time' => "1",
+                        'place' => "1",
+                        'note' => "選曲委員会：日付を変更",
+                      ]);
+    //
+    // メニューのメール文面
+    $response = $this->actingAs($user)
+                      ->get('/menu/6/mail')
+                      ->assertSee('案内メール文面')
+                      ->assertSee('本日の練習予定をお知らせします')
+                      ->assertSee('ぱぴぷぺぽ');
+    //
+    //
+    //管理者が練習日を明日に変更する
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/activity', [
+                        'aid' => "22",
+                        'act_at' => $tomorrow,
+                        'meeting' => "1",
+                        'time' => "1",
+                        'place' => "1",
+                        'note' => "選曲委員会：日付を変更",
+                      ]);
+    //
+    // メニューのメール文面
+    $response = $this->actingAs($user)
+                      ->get('/menu/6/mail')
+                      ->assertSee('案内メール文面')
+                      ->assertSee('あすの練習予定をお知らせします')
+                      ->assertSee('ぱぴぷぺぽ');
+    //
+    //管理者が練習日を12月12日に変更する
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/activity', [
+                        'aid' => "22",
+                        'act_at' => $dec12,
+                        'meeting' => "1",
+                        'time' => "1",
+                        'place' => "1",
+                        'note' => "選曲委員会：日付を変更",
+                      ]);
+    //
+    // メニューのメール文面
+    $response = $this->actingAs($user)
+                      ->get('/menu/6/mail')
+                      ->assertSee('案内メール文面')
+                      ->assertSee('の練習予定をお知らせします')
+                      ->assertSee('ぱぴぷぺぽ');
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+
+
+
+
+  }
+
 
 
 

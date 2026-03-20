@@ -109,6 +109,7 @@ class AdminsHomeTest extends TestCase
                       ->assertSee('日にち')
                       ->assertSee('活動予定を変更')
                       ->assertSee('管理者');
+    //
   }
 
   public function testCreateAsAdmin()
@@ -140,6 +141,16 @@ class AdminsHomeTest extends TestCase
                         'time' => "0",
                         'place' => "0",
                         'note' => "練習日程を追加しました"
+                      ]);
+    //
+    // 活動形態の指定でエラー
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('POST', '/admin/activity', [
+                        'act_at' => $acts[18],
+                        'time' => "",
+                        'place' => "1",
+                        'meeting' => "1",
+                        'note' => ""
                       ]);
   }
 
@@ -174,6 +185,16 @@ class AdminsHomeTest extends TestCase
                         'place' => "1",
                         'note' => "さらに追加された日程です"
                       ]);
+    //
+    // 7ヶ月先の予定(3回目：選曲委員会)をさらに追加
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('POST', '/admin/activity', [
+                        'act_at' => $acts[19],
+                        'time' => null,
+                        'place' => "2",
+                        'note' => "選曲委員会 10:00~12:00"
+                      ]);
+    //
   }
 
   public function testDeleteAsAdmin()
@@ -381,6 +402,373 @@ class AdminsHomeTest extends TestCase
             ->json('DELETE', '/admin/time/5', [])
             ->assertRedirect('/admin/time');
 
+  }
+
+  public function testAddMeetingActivitiesAsAdmin()
+  {
+    $admin = Admin::where('id',1)->first();
+    $acts = $this->mk_activities();
+    // dd($acts[0]);
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('POST', '/admin/activity', [
+                        'act_at' => $acts[0],
+                        'time' => null,
+                        'place' => "1",
+                        'meeting' => "1",
+                        'note' => "選曲委員会 10:00~12:00"
+                      ]);
+    //
+    // 一部団員対象：活動内容を空で更新エラー
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/activity', [
+                        'aid' => "22",
+                        'act_at' => $acts[0],
+                        'time' => null,
+                        'place' => "1",
+                        'meeting' => "1",
+                        'note' => ""
+                      ]);
+    // 参加登録
+    $user = User::where('id',1)->first();
+    // dd($user, $this->ymlist, $this->ymlist[0][0], $this->ymlist[0][1]);
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        'month' => $this->ymlist[0][1],
+                        'n_act' => "4",
+                        'part' => "1",
+                        'name' => "あい うえお",
+                        'act22' => "3",
+                        'comment22' => "あいうえおあいうえおあいうえおあいうえお",
+                        'act1' => "1",
+                        'comment1' => "おあいうえおおあいうえおおあ",
+                        'act2' => "3",
+                        'comment2' => "",
+                        'act3' => "0",
+                        'comment3' => "これもコメント JSON"
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        'month' => $this->ymlist[0][1],
+                        'n_act' => "4",
+                        'part' => "3",
+                        'name' => "かき くけこ",
+                        'act22' => "1",
+                        'comment22' => "",
+                        'act1' => "0",
+                        'comment1' => "",
+                        'act2' => "0",
+                        'comment2' => "",
+                        'act3' => "0",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        'month' => $this->ymlist[0][1],
+                        'n_act' => "4",
+                        'part' => "2",
+                        'name' => "さし すせそ",
+                        'act22' => "-1",
+                        'comment22' => "",
+                        'act1' => "0",
+                        'comment1' => "",
+                        'act2' => "1",
+                        'comment2' => "",
+                        'act3' => "1",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        'month' => $this->ymlist[0][1],
+                        'n_act' => "4",
+                        'part' => "2",
+                        'name' => "たち つてと",
+                        'act22' => "-1",
+                        'comment22' => "",
+                        'act1' => "0",
+                        'comment1' => "",
+                        'act2' => "0",
+                        'comment2' => "",
+                        'act3' => "0",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        'month' => $this->ymlist[0][1],
+                        'n_act' => "4",
+                        'part' => "3",
+                        'name' => "なにぬ ねの",
+                        'act22' => "1",
+                        'comment22' => "",
+                        'act1' => "1",
+                        'comment1' => "",
+                        'act2' => "1",
+                        'comment2' => "",
+                        'act3' => "1",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        'month' => $this->ymlist[0][1],
+                        'n_act' => "4",
+                        'part' => "4",
+                        'name' => "はひ ふへほ",
+                        'act22' => "3",
+                        'comment22' => "はひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへお",
+                        'act1' => "3",
+                        'comment1' => "はひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへお",
+                        'act2' => "3",
+                        'comment2' => "はひふへお",
+                        'act3' => "3",
+                        'comment3' => "はひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへおはひふへお"
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        'month' => $this->ymlist[0][1],
+                        'n_act' => "4",
+                        'part' => "5",
+                        'name' => "まみ むめも",
+                        'act22' => "-1",
+                        'comment22' => "",
+                        'act1' => "3",
+                        'comment1' => "",
+                        'act2' => "3",
+                        'comment2' => "",
+                        'act3' => "3",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        'month' => $this->ymlist[0][1],
+                        'n_act' => "4",
+                        'part' => "7",
+                        'name' => "やいゆ えよ",
+                        'act22' => "3",
+                        'comment22' => "",
+                        'act1' => "3",
+                        'comment1' => "",
+                        'act2' => "3",
+                        'comment2' => "",
+                        'act3' => "3",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->json('POST', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        'month' => $this->ymlist[0][1],
+                        'n_act' => "4",
+                        'part' => "8",
+                        'name' => "わおん",
+                        'act22' => "3",
+                        'comment22' => "",
+                        'act1' => "1",
+                        'comment1' => "",
+                        'act2' => "3",
+                        'comment2' => "",
+                        'act3' => "0",
+                        'comment3' => ""
+                      ]);
+    //
+    $response = $this->actingAs($user)
+                      ->json('PATCH', '/home', [
+                        'year' => $this->ymlist[0][0],
+                        'month' => $this->ymlist[0][1],
+                        'n_act' => "4",
+                        'aid' => "15",
+                        'part' => "1",
+                        'name' => "あい うえお",
+                        'atten15' => "-1",
+                        'comment15' => "メンバー外でしたあいうえおあいうえおあいうえおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえお",
+                        'atten12' => "0",
+                        'comment12' => "未定に変更おあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえおおあいうえお あい",
+                        'atten13' => "3",
+                        'comment13' => "",
+                        'atten14' => "0",
+                        'comment14' => "これもコメント JSON add"
+                      ]);
+    //
+
+
+
+
+    // dd($admin);
+    // $response = $this->actingAs($admin, 'admin')
+    //                   ->get('/admin/time/create')
+    //                   ->assertSee('活動時間')
+    //                   ->assertSee('新規登録')
+    //                   ->assertSee('デフォルト')
+    //                   ->assertSee('管理者');
+  }
+
+  public function testAdminMainInfoController()
+  {
+    $admin = Admin::where('id',1)->first();
+    $user = User::where('id',1)->first();
+
+    //
+    $response = $this->actingAs($user, 'user')
+                      ->get('/home/mail')
+                      ->assertRedirect('/home');
+
+    // 次の処理でデータが自動的に投入される
+    $response = $this->actingAs($admin, 'admin')
+                  ->get('/admin/mailinfo')
+                  ->assertSee('フッタ')
+                  ->assertSee('編集')
+                  ->assertSee('更新')
+                  ->assertSee('管理者');
+    //
+
+
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('POST', '/admin/mailinfo', [
+                        'id' => "1",
+                        'key' => "signiture",
+                        'mailinfo' => "ぱぴぷぺぽ",
+                      ]);
+    //
+
+    // 不正なパラメータ
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('POST', '/admin/mailinfo', [
+                        'id' => "99a",
+                        'key' => "signiture",
+                        'mailinfo' => "ぱぴぷぺぽ",
+                      ]);
+    //
+
+
+  }
+
+  public function testAdminPassword()
+  {
+    /*
+     * 次のユーザについてパスワードを変更する
+     *   user -> user_b
+     *   admin -> user_z
+     */
+    $admin = Admin::where('id',2)->first();
+    $user = User::where('id',2)->first();
+
+    // 団員パスワード変更ページ
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/userpassword')
+                      ->assertSee('団員パスワードの変更')
+                      ->assertSee('ログインID')
+                      ->assertSee('変更されません')
+                      ->assertSee('新しいパスワード');
+
+    //
+    // 団員パスワード変更：管理者パスワードが違う
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/userpassword', [
+                        'id' => "2",
+                        'password' => "abc",
+                        'login_id' => "user_b",
+                        'new_password' => "12345678",
+                        'new_password_confirm' => "12345678",
+                      ]);
+    //
+    // 団員パスワード変更：パスワードが一致しない
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/userpassword', [
+                        'id' => "2",
+                        'password' => env('ADMIN_PASSWORD'),
+                        'login_id' => "user_b",
+                        'new_password' => "1234567",
+                        'new_password_confirm' => "1234567890",
+                      ]);
+    //
+    // 団員パスワード変更：団員のログインIDが異なる
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/userpassword', [
+                        'id' => "2",
+                        'password' => env('ADMIN_PASSWORD'),
+                        'login_id' => "acb",
+                        'new_password' => "12345678",
+                        'new_password_confirm' => "12345678",
+                      ]);
+    //
+    // 団員パスワード変更：成功
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/userpassword', [
+                        'id' => "2",
+                        'password' => env('ADMIN_PASSWORD'),
+                        'login_id' => "user_b",
+                        'new_password' => "12345678",
+                        'new_password_confirm' => "12345678",
+                      ]);
+    //
+    /////////////////////////////
+    //
+    // 管理者パスワード変更ページ
+    $response = $this->actingAs($admin, 'admin')
+                      ->get('/admin/password')
+                      ->assertSee('管理者パスワードの変更')
+                      ->assertSee('現在のパスワード')
+                      ->assertSee('新しいパスワード');
+
+    //
+    // 管理者パスワード変更：パスワードが違う
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/password', [
+                        'id' => "2",
+                        'current_password' => "abc",
+                        'new_password' => "12345678",
+                        'new_password_confirm' => "12345678",
+                      ]);
+    //
+    // 管理者パスワード変更：IDが不正（本来あり得ない）
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/password', [
+                        'id' => "999a",
+                        'current_password' => env('ADMIN_PASSWORD'),
+                        'new_password' => "12345678",
+                        'new_password_confirm' => "12345678",
+                      ]);
+    //
+    // 管理者パスワード変更：パスワードが短い
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/password', [
+                        'id' => "2",
+                        'current_password' => env('ADMIN_PASSWORD'),
+                        'new_password' => "123",
+                        'new_password_confirm' => "123",
+                      ]);
+    //
+    // 管理者パスワード変更：パスワードが一致しない
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/password', [
+                        'id' => "2",
+                        'current_password' => env('ADMIN_PASSWORD'),
+                        'new_password' => "1234567",
+                        'new_password_confirm' => "123456789",
+                      ]);
+    //
+    // 管理者パスワード変更：成功
+    $response = $this->actingAs($admin, 'admin')
+                      ->json('PATCH', '/admin/password', [
+                        'id' => "2",
+                        'current_password' => env('ADMIN_PASSWORD'),
+                        'new_password' => "12345678",
+                        'new_password_confirm' => "12345678",
+                      ]);
+    //
   }
 
   /**

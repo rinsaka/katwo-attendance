@@ -1,70 +1,64 @@
-@extends('layouts.admin')
+@extends('layouts.admin-2026')
 
 @inject('myController', 'App\Http\Controllers\Controller')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">主な活動施設一覧（管理者モード）</div>
 
-                <div class="panel-body">
-                    {{-- フラッシュメッセージの表示 --}}
-                    @if (session('warning'))
-                        <div class="alert alert-warning">
-                            {{ session('warning') }}
-                        </div>
-                    @endif
-                    @if (session('status'))
-                        <div class="alert alert-info">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <div>
-                        <p>
-                            活動予定の登録時にリストに表示する活動施設の一覧です．このページで活動施設の名称を変更したり，新規登録・削除ができます．また，デフォルト施設に設定すると，練習登録の新規作成時に自動的に選択されるようになります．
-                        </p>
-                    </div>
+<main class="container-md">
+@include('layouts.flash')
 
-                    <div>
-                        <ol>
-                            @forelse ($places as $place)
-                                <li>
-                                  <a href="{{ action('Admin\HomeController@place_edit', [$place->id]) }}">
-                                    {{ $place->place }}
-                                  </a>
-                                    @if ($place->default_place == 1)
-                                        【<span class="default">デフォルト施設</span>】
-                                    @endif
-                                </li>
-                            @empty
-                            @endforelse
-                        </ol>
-                    </div>
-
-
-                </div>
-
-                <div  class="panel-footer">
-                  <p>
-                    <a href="{{ action('Admin\HomeController@place_create') }}">
-                      活動施設を新規に登録する
-                    </a>
-                  </p>
-                  <p>
-                    <a href="{{ action('Admin\HomeController@index') }}">
-                      活動予定一覧（管理者モード）に戻る
-                    </a>
-                  </p>
-
-                  <!-- <p>&nbsp;</p> -->
-                  <p>
-                    This system is developed with <a href="https://laravel.com/">Laravel</a>, <a href="https://aws.amazon.com/jp/">AWS</a> and <a href="https://github.com/rinsaka/katwo-attendance">GitHub</a>.
-                  </p>
-                </div>
-            </div>
-        </div>
+<div class="card my-3 border-0 shadow-lg">
+  <div class="card-header h5 mb-0">
+    主な活動施設一覧（管理者モード）
+  </div>
+  <div class="card-body">
+    <div class="mb-4">
+      活動予定の登録時にリストに表示する活動施設の一覧です．このページで活動施設の名称を変更したり，新規登録・削除ができます．また，デフォルト施設に設定すると，練習登録の新規作成時にその施設が自動的に選択されるようになります．
     </div>
+
+    <ol class="list-group list-group-numbered mb-4">
+      @forelse ($places as $place)
+      <a href="{{ action('Admin\HomeController@place_edit', [$place->id]) }}"
+        @if ($place->default_place == 1)
+          class="list-group-item list-group-item-action list-group-item-primary"
+        @else
+          class="list-group-item list-group-item-action"
+        @endif
+      >
+      {{-- <li
+        @if (($place->default_place == 1))
+          class="list-group-item list-group-item-primary"
+        @else
+          class="list-group-item"
+        @endif
+      > --}}
+
+          {{ $place->place }}
+
+        @if ($place->default_place == 1)
+        【<span class="fw-bold">デフォルト施設</span>】
+        @endif
+      </a>
+      @empty
+      @endforelse
+    </ol>
+
+    <!-- テキストリンク（中央寄せ） -->
+    <p class="text-center mt-2 mb-0">
+       <a href="{{ action('Admin\HomeController@place_create') }}">
+        活動施設を新規に登録する
+      </a>
+    </p>
+
+    <!-- テキストリンク（中央寄せ） -->
+    <p class="text-center mt-2 mb-0">
+       <a href="{{ action('Admin\HomeController@index') }}">
+        活動予定一覧（管理者モード）に戻る
+      </a>
+    </p>
+
+  </div>
 </div>
+</main>
+
 @endsection

@@ -101,6 +101,35 @@ class AttendancesTableSeeder extends Seeder
         'updated_at' => Carbon::create($prev_year, $prev_month, 11, 18, 0, 0)
       ]);
 
+      DB::table('attendances')->insert([
+        'name' => 'サブロー',
+        'part_id' => 5,
+        'activity_id' => 8,
+        'attendance' => 1,
+        'comment' => "サブローです",
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now()
+      ]);
+
+      DB::table('attendances')->insert([
+        'name' => 'サブロー',
+        'part_id' => 5,
+        'activity_id' => 9,
+        'attendance' => 1,
+        'comment' => "これもサブローです",
+        'created_at' => Carbon::create($prev_year, $prev_month, 11, 18, 0, 0),
+        'updated_at' => Carbon::now()
+      ]);
+
+      DB::table('attendances')->insert([
+        'name' => 'サブロー',
+        'part_id' => 5,
+        'activity_id' => 10,
+        'attendance' => 1,
+        'created_at' => Carbon::create($prev_year, $prev_month, 11, 18, 0, 0),
+        'updated_at' => Carbon::now()
+      ]);
+
     }
 
     /**
