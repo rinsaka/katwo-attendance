@@ -337,6 +337,73 @@ class UsersHomeTest extends TestCase
                       ]);
   }
 
+  public function testMenuAsUser()
+  {
+    $user = User::where('id',1)->first();
+
+    // メニューの表示
+    $response = $this->actingAs($user)
+                      ->get('/menu/1')
+                      ->assertSee('練習メニュー')
+                      ->assertSee('投稿者名');
+    //
+    // 見つからない
+    $response = $this->actingAs($user)
+                      ->get('/menu/999a')
+                      ->assertRedirect('/home');
+    //
+    //
+    // メニューの更新（見つからない）
+    $response = $this->actingAs($user)
+                      ->json('PATCH', '/menu', [
+                        'mid' => "9999a",
+                        'url' => "http://localhost/home",
+                        'name' => "たろー",
+                        'menu' => "あいうえお"
+                      ]);
+    //
+    // メニューの更新
+    $response = $this->actingAs($user)
+                      ->json('PATCH', '/menu', [
+                        'mid' => "1",
+                        'url' => "http://localhost/home",
+                        'name' => "たろー",
+                        'menu' => "ピアノコンチェルト\n交響曲第9番"
+                      ]);
+    //
+    // メニューの新規登録画面の表示
+    $response = $this->actingAs($user)
+                      ->get('/menu/create/?aid=22')
+                      ->assertSee('練習メニュー')
+                      ->assertSee('投稿者名');
+    //
+    // メニューの新規登録画面の表示（見つからない）
+    $response = $this->actingAs($user)
+                      ->get('/menu/create/?aid=999a')
+                      ->assertRedirect('/home');
+    //
+    // メニューの新規登録
+    $response = $this->actingAs($user)
+                      ->json('POST', '/menu', [
+                        'aid' => "22",
+                        'url' => "http://localhost/home",
+                        'name' => "たろー",
+                        'menu' => "ブラームス"
+                      ]);
+    //
+    //
+    // メニューのメール文面
+    $response = $this->actingAs($user)
+                      ->get('/menu/6/mail')
+                      ->assertSee('案内メール文面')
+                      ->assertSee('ぱぴぷぺぽ');
+    //
+
+
+
+  }
+
+
 
 
   /**
