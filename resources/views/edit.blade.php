@@ -143,13 +143,13 @@
 
 
       <!-- 送信 -->
-      <div class="d-grid d-sm-flex justify-content-sm-end gap-2 mt-4">
+      <div class="d-grid d-sm-flex justify-content-sm-end gap-2 mt-4 mb-5">
         <button type="submit" class="btn btn-primary btn-lg">
           変更する
         </button>
       </div>
       <!-- テキストリンク（中央寄せ） -->
-      <p class="text-center mt-2 mb-0">
+      <p class="text-center mt-5 mb-5">
         <a href="{{ action('HomeController@show', [$year, $month]) }}">戻る</a>
       </p>
 
@@ -166,7 +166,7 @@
         @foreach ($attendances as $attendance)
           <input type="hidden" name="attens[]" value="{{ $attendance->id }}">
         @endforeach
-      <div class="d-grid d-sm-flex justify-content-sm-start gap-2 mt-4">
+      <div class="d-grid d-sm-flex justify-content-sm-start gap-2 mt-5">
         <button type="submit" class="btn btn-danger btn-sm">
           予定を削除する
         </button>
