@@ -69,15 +69,17 @@
         </button>
       </div>
 
-      <!-- テキストリンク（右寄せ） -->
-      <p class="text-end mt-2 mb-0">
+
+      <!-- テキストリンク（中央寄せ） -->
+      <p class="text-center mt-5 mb-5">
+        <a href="{{ url()->previous() }}">戻る</a>
+      </p>
+
+      <!-- テキストリンク -->
+      <p class="text-start mt-5 mb-0">
         <a href="{{ action('MenusController@mail', $menu->id) }}">
           案内メールの文面を生成する
         </a>
-      </p>
-      <!-- テキストリンク（中央寄せ） -->
-      <p class="text-center mt-2 mb-0">
-        <a href="{{ url()->previous() }}">戻る</a>
       </p>
 
     </form>
