@@ -541,9 +541,9 @@ class HomeController extends Controller
       $d = date('d', strtotime($activity->act_at));
       // 次が変われば行を追加
       if ($m_prev != $m) {
-        $month_acts[] = "【" . $m . "月】";
+        $month_acts[] = "【" . $y . "年" . $m . "月】";
       }
-      $act = $m . "月" . $d . "日" . parent::get_youbi($activity->act_at);
+      $act = $y . "年" . $m . "月" . $d . "日" . parent::get_youbi($activity->act_at);
       $act = $act . " " . $activity->time->jikan;
       if ($activity->meeting=="1") {
         $act = $act . " " . "【一部団員に限定した活動です】" ;
