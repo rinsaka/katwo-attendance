@@ -444,9 +444,10 @@ class HomeController extends Controller
 
           // コメントをトリミング
           foreach ($part->attendances as $attendance) {
-            $attendance->comment_trim = $attendance->comment;
-            if (mb_strlen($attendance->comment) > 18) {
-              $attendance->comment_trim = mb_substr($attendance->comment, 0, 16) . "...";
+            $comment = $attendance->comment ?? '';
+            $attendance->comment_trim = $comment;
+            if (mb_strlen($comment) > 18) {
+              $attendance->comment_trim = mb_substr($comment, 0, 16) . "...";
             }
           }
         }
@@ -489,9 +490,10 @@ class HomeController extends Controller
         // dd($attens);
         foreach ($attens as $attendances) {
           foreach ($attendances as $attendance){
-            $attendance->comment_trim = $attendance->comment;
-            if (mb_strlen($attendance->comment) > 18) {
-              $attendance->comment_trim = mb_substr($attendance->comment, 0, 16) . "...";
+            $comment = $attendance->comment ?? '';
+            $attendance->comment_trim = $comment;
+            if (mb_strlen($comment) > 18) {
+              $attendance->comment_trim = mb_substr($comment, 0, 16) . "...";
             }
           }
         }
