@@ -32,7 +32,7 @@
               <span class="fw-bold">【一部団員に限定】</span>
             @endif
             {{ $activity->act_at }} {{ $myController->get_youbi($activity->act_at) }} &nbsp; {{ $activity->time->jikan }} &nbsp; {{ $activity->place->place }}
-                            @if (strlen($activity->note)) <span>&nbsp; {{ $activity->note }}</span>@endif
+                            @if (strlen($activity->note ?? '')) <span>&nbsp; {{ $activity->note }}</span>@endif
         </a>
       @empty
         <li class="list-group-item list-group-item-warning">活動予定がまだ登録されていません</li>
